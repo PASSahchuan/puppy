@@ -34,7 +34,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,41 +43,62 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Table(
+          columnWidths: const <int, TableColumnWidth>{
+            //指定索引及固定列宽
+            0: FixedColumnWidth(30.0),
+            1: FixedColumnWidth(120.0),
+            2: FixedColumnWidth(110.0),
+            3: FixedColumnWidth(30.0),
+          },
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
           children: [
             TableRow(
               children: [
-                Text('城市',style: TextStyle(fontSize: 23, color: Color(0xff52616a))),
+                Container(),
+                Text('城市',
+                    style: TextStyle(fontSize: 23, color: Color(0xff52616a))),
                 DropdownTown(),
+                Container(),
               ],
             ),
             TableRow(
               children: [
-                Text('區',style: TextStyle(fontSize: 23, color: Color(0xff52616a))),
+                Container(),
+                Text('區',
+                    style: TextStyle(fontSize: 23, color: Color(0xff52616a))),
                 DropdownDistrict(),
+                Container(),
               ],
             ),
             TableRow(
               children: [
-                Text('里',style: TextStyle(fontSize: 23, color: Color(0xff52616a))),
+                Container(),
+                Text('里',
+                    style: TextStyle(fontSize: 23, color: Color(0xff52616a))),
                 DropdownVillage(),
+                Container(),
               ],
             ),
             TableRow(
-              children:[
-                Text('調查天數', style: TextStyle(fontSize: 23, color: Color(0xff52616a))),
+              children: [
+                Container(),
+                Text('調查天數',
+                    style: TextStyle(fontSize: 23, color: Color(0xff52616a))),
                 DropdownOfDay(),
-              ], 
+                Container(),
+              ],
             ),
           ],
         ),
-        RaisedButton(
-          onPressed: imageUpload,
-        ),
+        // RaisedButton(
+        //   onPressed: imageUpload,
+        // ),
       ),
     );
   }
-   void imageUpload(){
-      print('upload success!');
-      Navigator.of(context).pushNamed('/TwoButtom');
-    }
+
+  void imageUpload() {
+    print('upload success!');
+    Navigator.of(context).pushNamed('/TwoButtom');
+  }
 }
