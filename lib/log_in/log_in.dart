@@ -22,7 +22,8 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
-              autofocus: true,
+              autofocus: false,
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 labelText: "計畫編號",
                 hintText: "計畫編號",
@@ -30,16 +31,21 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             TextField(
-              autofocus: true,
+              autofocus: false,
               decoration: InputDecoration(
                 labelText: "訪員編號",
                 hintText: "訪員編號",
                 prefixIcon: Icon(Icons.lock),
               ),
             ),
+            RaisedButton(child: Text('登錄'), onPressed: login),
           ],
         ),
       ),
     );
+  }
+
+  void login() {
+    print('ask login');
   }
 }

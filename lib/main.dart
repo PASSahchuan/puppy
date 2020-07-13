@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(title: '狗狗調查大作戰'),
       // routes: <String, WidgetBuilder>{'/TwoButtom': (_) => new TwobuttomPage()},
-      routes: <String, WidgetBuilder>{'/log_in': (_) => new LoginPage()},
+      routes: <String, WidgetBuilder>{'/Login': (_) => new LoginPage()},
     );
   }
 }
@@ -143,6 +143,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void login() {
     print('login success!');
-    Navigator.of(context).pushNamed('/login');
+    Navigator.of(context).pushNamed('/Login');
   }
 }
