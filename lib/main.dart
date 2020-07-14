@@ -65,12 +65,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Stack(
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      CardModel(),
-                      CardModel(),
-                    ],
+                  Container(
+                    padding: EdgeInsets.only(top: 30, bottom: 100),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        CardModel(),
+                        CardModel(),
+                      ],
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
