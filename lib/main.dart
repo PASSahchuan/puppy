@@ -54,10 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Column(
+                      Row(
                         children: <Widget>[
                           DropdownOfPerson(),
-                          // BarTab(),
                         ],
                       )
                     ],
@@ -73,13 +72,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       CardModel(),
                     ],
                   ),
-                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      
-                      children: <Widget>[
-                        CardModel(),
-                      ],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CardModel(),
+                    ],
+                  ),
                 ],
               ),
               Row(
@@ -92,7 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: upload,
                     textColor: Colors.white,
                   ),
-                  SizedBox(width: 30,),
+                  SizedBox(
+                    width: 30,
+                  ),
                   RaisedButton(
                     color: Color(0xffDB6400),
                     child: Text('拍攝照片！'),
