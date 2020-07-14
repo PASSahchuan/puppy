@@ -66,20 +66,22 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Stack(
                 children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(top: 30, bottom: 100),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        CardModel(),
+                        CardModel(),
+                      ],
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       CardModel(),
-                      CardModel(),
                     ],
                   ),
-                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      
-                      children: <Widget>[
-                        CardModel(),
-                      ],
-                    ),
                 ],
               ),
               Row(
@@ -92,7 +94,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: upload,
                     textColor: Colors.white,
                   ),
-                  SizedBox(width: 30,),
+                  SizedBox(
+                    width: 30,
+                  ),
                   RaisedButton(
                     color: Color(0xffDB6400),
                     child: Text('拍攝照片！'),
