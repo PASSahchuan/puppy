@@ -1,7 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../test/unUpload.dart';
 import '../test/upload.dart';
 import '../test/uploadFailed.dart';
+
+void main() {
+  runApp(BarTab());
+}
 
 class BarTab extends StatelessWidget {
   final List<Tab> myTabs = <Tab>[
@@ -14,7 +19,7 @@ class BarTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return CupertinoApp(
       home: DefaultTabController(
         length: myTabs.length, //選項卡頁數
         child: Scaffold(
