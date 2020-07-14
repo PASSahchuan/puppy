@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:puppy/log_in/log_in.dart';
 import 'dropdown/personNum.dart';
 import 'card/card.dart';
+import 'card/barTab.dart';
 
 void main() {
   runApp(MyApp());
@@ -53,7 +54,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      DropdownOfPerson(),
+                      Column(
+                        children: <Widget>[
+                          DropdownOfPerson(),
+                          // BarTab(),
+                        ],
+                      )
                     ],
                   ),
                 ],
@@ -61,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Stack(
                 children: <Widget>[
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       CardModel(),
                       CardModel(),
