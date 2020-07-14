@@ -51,33 +51,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                    child: Table(
-                      columnWidths: const <int, TableColumnWidth>{
-                        //指定索引及固定列宽
-                        0: FixedColumnWidth(60.0),
-                        1: FixedColumnWidth(210.0),
-                        2: FixedColumnWidth(60.0),
-                      },
-                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                      children: [
-                        TableRow(
-                          children: [
-                            DropdownOfPerson(),
-                            Container(),
-                            Container(),
-                          ],
-                        ),
-                        TableRow(
-                          children: [
-                            CardModel(),
-                            CardModel(),
-                            CardModel(),
-                          ],
-                        ),
+                  Row(
+                    children: <Widget>[
+                      DropdownOfPerson(),
+                    ],
+                  ),
+                ],
+              ),
+              Stack(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      CardModel(),
+                      CardModel(),
+                    ],
+                  ),
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      
+                      children: <Widget>[
+                        CardModel(),
                       ],
                     ),
-                  ),
                 ],
               ),
               Row(
@@ -85,14 +80,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   RaisedButton(
+                    color: Color(0xffDB6400),
                     child: Text('照片上傳！'),
                     onPressed: upload,
-                    textColor: Colors.deepOrangeAccent,
+                    textColor: Colors.white,
                   ),
+                  SizedBox(width: 30,),
                   RaisedButton(
+                    color: Color(0xffDB6400),
                     child: Text('拍攝照片！'),
                     onPressed: takePicture,
-                    textColor: Colors.deepOrangeAccent,
+                    textColor: Colors.white,
                   )
                 ],
               ),
