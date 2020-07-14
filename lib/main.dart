@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:puppy/log_in/log_in.dart';
+import 'dropdown/personNum.dart';
+import 'card/card.dart';
 
 void main() {
   runApp(MyApp());
@@ -42,32 +44,70 @@ class _MyHomePageState extends State<MyHomePage> {
         margin: EdgeInsets.all(25),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
-                child: Table(
-                  columnWidths: const <int, TableColumnWidth>{
-                    //指定索引及固定列宽
-                    0: FixedColumnWidth(60.0),
-                    1: FixedColumnWidth(210.0),
-                    2: FixedColumnWidth(60.0),
-                  },
-                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                  children: [
-                    TableRow(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    child: Table(
+                      columnWidths: const <int, TableColumnWidth>{
+                        //指定索引及固定列宽
+                        0: FixedColumnWidth(60.0),
+                        1: FixedColumnWidth(210.0),
+                        2: FixedColumnWidth(60.0),
+                      },
+                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                       children: [
-                        DropdownButton(items: null, onChanged: null),
-                        Container(),
-                        Container(),
+                        TableRow(
+                          children: [
+                            DropdownOfPerson(),
+                            Container(),
+                            Container(),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            CardModel(),
+                            CardModel(),
+                            CardModel(),
+                          ],
+                        ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  RaisedButton(
+                    child: Text('照片上傳！'),
+                    onPressed: upload,
+                    textColor: Colors.deepOrangeAccent,
+                  ),
+                  RaisedButton(
+                    child: Text('拍攝照片！'),
+                    onPressed: takePicture,
+                    textColor: Colors.deepOrangeAccent,
+                  )
+                ],
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void upload() {
+    print('upload success!');
+  }
+
+  void takePicture() {
+    print('take picture success!');
   }
 }

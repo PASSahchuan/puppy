@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:puppy/log_in/log_in.dart';
-import 'main_widget/DropdownTown.dart';
-import 'main_widget/DropdownDistrict.dart';
-import 'main_widget/DropdownVillage.dart';
-import 'main_widget/DropdownOfDay.dart';
+import 'dropdown/DropdownTown.dart';
+import 'dropdown/DropdownDistrict.dart';
+import 'dropdown/DropdownVillage.dart';
+import 'dropdown/DropdownOfDay.dart';
 import 'choose_widget/Two_Button.dart';
 
 void main() {
@@ -128,7 +128,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               child: RaisedButton(
-                
                 child: Text('登入'),
                 onPressed: login,
                 color: Color(0xffe55300),
