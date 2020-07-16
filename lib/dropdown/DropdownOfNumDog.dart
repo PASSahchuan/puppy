@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class DropdownOfDay extends StatefulWidget {
-  DropdownOfDay({Key key}) : super(key: key);
+class DropdownOfNumDog extends StatefulWidget {
+  DropdownOfNumDog({Key key}) : super(key: key);
 
   @override
-  _DropdownOfDayState createState() => _DropdownOfDayState();
+  _DropdownOfNumDogState createState() => _DropdownOfNumDogState();
 }
 
-class _DropdownOfDayState extends State<DropdownOfDay> {
-  String dropdownValue = '0';
+class _DropdownOfNumDogState extends State<DropdownOfNumDog> {
+  String dropdownValue = '1';
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
@@ -25,7 +25,6 @@ class _DropdownOfDayState extends State<DropdownOfDay> {
         });
       },
       items: <String>[
-        '0',
         '1',
         '2',
         '3',
@@ -46,12 +45,10 @@ class _DropdownOfDayState extends State<DropdownOfDay> {
       ].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Center(
-            child: Text(
-              value,
-              style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.center,
-            ),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 25),
+            textAlign: TextAlign.center,
           ),
         );
       }).toList(),

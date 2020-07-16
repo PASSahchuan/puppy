@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   RaisedButton(
                     color: Color(0xffDB6400),
-                    child: Text('照片上傳！'),
+                    child: Text('照片上傳'),
                     onPressed: upload,
                     textColor: Colors.white,
                   ),
@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   RaisedButton(
                     color: Color(0xffDB6400),
-                    child: Text('拍攝照片！'),
+                    child: Text('拍攝照片'),
                     onPressed: takePicture,
                     textColor: Colors.white,
                   )
