@@ -60,20 +60,22 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Table(
                 columnWidths: const <int, TableColumnWidth>{
                   //指定索引及固定列宽
-                  0: FixedColumnWidth(200.0),
-                  1: FixedColumnWidth(30.0),
-                  2: FixedColumnWidth(110.0),
-                  3: FixedColumnWidth(35.0),
+                  0: FixedColumnWidth(35.0),
+                  1: FixedColumnWidth(100.0),
+                  2: FixedColumnWidth(60.0),
+                  3: FixedColumnWidth(110.0),
+                  4: FixedColumnWidth(35.0),
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: [
                   TableRow(
                     children: [
+                      Container(),
                       Text(
                         '城市',
                         style:
                             TextStyle(fontSize: 23, color: Color(0xff52616a)),
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                       ),
                       Container(),
                       DropdownTown(),
@@ -82,11 +84,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   TableRow(
                     children: [
+                      Container(),
                       Text(
-                        '區',
+                        '鄉鎮市區',
                         style:
                             TextStyle(fontSize: 23, color: Color(0xff52616a)),
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                       ),
                       Container(),
                       DropdownDistrict(),
@@ -95,11 +98,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   TableRow(
                     children: [
+                      Container(),
                       Text(
-                        '里',
+                        '村里',
                         style:
                             TextStyle(fontSize: 23, color: Color(0xff52616a)),
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                       ),
                       Container(),
                       DropdownVillage(),
@@ -108,43 +112,47 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   TableRow(
                     children: [
+                      Container(),
                       Text(
                         '調查天數',
                         style:
                             TextStyle(fontSize: 23, color: Color(0xff52616a)),
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                       ),
                       Container(),
                       DropdownOfDay(),
                       Container(),
                     ],
                   ),
-                  TableRow(
-                    children: [
-                      Text(
-                        '照片中有幾隻狗',
-                        style:
-                            TextStyle(fontSize: 23, color: Color(0xff52616a)),
-                        textAlign: TextAlign.center,
-                      ),
-                      Container(),
-                      DropdownOfNumDog(),
-                      Container(),
-                    ],
+                ],
+              ),
+            ),
+            Divider(
+              color: Colors.blueGrey,
+              indent: 20,
+              endIndent: 20,
+            ),
+            Container(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    '照片中有幾隻狗',
+                    style: TextStyle(fontSize: 23, color: Color(0xff52616a)),
+                    textAlign: TextAlign.center,
                   ),
-                  TableRow(
-                    children: [
-                      Text(
-                        '照片中有幾隻狗與先前照片重複',
-                        style:
-                            TextStyle(fontSize: 23, color: Color(0xff52616a)),
-                        textAlign: TextAlign.center,
-                      ),
-                      Container(),
-                      DropdownOfNumDog(),
-                      Container(),
-                    ],
+                  DropdownOfNumDog(),
+                ],
+              ),
+            ),
+            Container(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    '照片中的狗有幾隻與之前重複',
+                    style: TextStyle(fontSize: 23, color: Color(0xff52616a)),
+                    textAlign: TextAlign.center,
                   ),
+                  DropdownOfNumDog(),
                 ],
               ),
             ),
@@ -152,9 +160,16 @@ class _MyHomePageState extends State<MyHomePage> {
               child: RaisedButton(
                 child: Text('送出'),
                 onPressed: questionnaireSendOut,
-                color: Colors.deepOrangeAccent,
+                color: Color(0xfff18904),
               ),
             ),
+            // Container(
+            //   child: RaisedButton(
+            //     child: Text('登入'),
+            //     onPressed: login,
+            //     color: Color(0xfff18904),
+            //   ),
+            // ),
           ],
         )),
       ),
