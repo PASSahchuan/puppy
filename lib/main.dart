@@ -113,12 +113,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void upload() {
-    picture com = picture(context: context);
-    com.getPicture();
     print('upload success!');
   }
 
   void takePicture() {
+    picture com = picture(context: context);
+    com.getPicture();
     print('take picture success!');
   }
 }
