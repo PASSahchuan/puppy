@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:puppy/camera/picture.dart';
 import 'package:puppy/log_in/log_in.dart';
 import 'dropdown/personNum.dart';
 import 'card/card.dart';
@@ -112,6 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void upload() {
+    picture com = picture(context: context);
+    com.getPicture();
     print('upload success!');
   }
 
