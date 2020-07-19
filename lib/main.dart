@@ -3,6 +3,7 @@ import 'package:puppy/log_in/log_in.dart';
 import 'dropdown/personNum.dart';
 import 'card/card.dart';
 import 'card/barTab.dart';
+import 'card/newCard.dart';
 
 void main() {
   runApp(MyApp());
@@ -71,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         CardModel(),
+                        SizedBox(width: 20,),
                         CardModel(),
                       ],
                     ),

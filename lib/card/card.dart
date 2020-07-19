@@ -22,15 +22,22 @@ class _CardModelState extends State<CardModel> {
           // 抗鋸齒
           clipBehavior: Clip.antiAlias,
           elevation: 20, // 陰影大小
-          child: new Container(
-            width: 160,
-            height: 250,
-            alignment: Alignment.center,
-            child: new Text(
-              "image" + value.toString(),
-              style: TextStyle(color: Colors.white),
-            ),
-          )),
+          child: Container(
+              width: 160,
+              height: 250,
+              alignment: Alignment.center,
+              child: Row(
+                children: <Widget>[
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Image.asset('assets/mainDog.jpg'),
+                  ),
+                  new Text(
+                    "image" + dropdownValue,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ))),
     );
   }
 }
