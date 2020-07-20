@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:puppy/camera/picture.dart';
 import 'package:puppy/log_in/log_in.dart';
 import 'dropdown/personNum.dart';
-import 'card/card.dart';
-import 'card/barTab.dart';
-import 'card/newCard.dart';
-import 'package:puppy/size_config.dart';
 import 'page/page1.dart';
 import 'page/page2.dart';
 import 'page/page3.dart';
@@ -62,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           DropdownOfPerson(),
                           SizedBox(
@@ -77,9 +73,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             onPressed: takePicture,
                             textColor: Colors.white,
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
                           FlatButton(
                             color: Colors.white,
                             child: Text(
@@ -90,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             textColor: Color(0xffDB6400),
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 15,
                           ),
                           Text(
                             '囗',

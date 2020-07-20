@@ -31,7 +31,7 @@ class _DropdownOfPersonState extends State<DropdownOfPerson> {
           value: value,
           child: Text(
             value,
-            style: TextStyle(fontSize: 30),
+            style: TextStyle(fontSize: 22),
           ),
         );
       }).toList(),

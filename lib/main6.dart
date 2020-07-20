@@ -5,7 +5,6 @@ import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownVillage.dart';
 import 'dropdown/DropdownOfDay.dart';
 import 'dropdown/DropdownOfNumDog.dart';
-import 'choose_widget/Two_Button.dart';
 
 void main() {
   runApp(MyApp());
