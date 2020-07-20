@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:puppy/size_config.dart';
 
 class CardModel extends StatefulWidget {
   CardModel({Key key}) : super(key: key);
@@ -23,18 +24,24 @@ class _CardModelState extends State<CardModel> {
           clipBehavior: Clip.antiAlias,
           elevation: 20, // 陰影大小
           child: Container(
-              width: 160,
-              height: 250,
+              // width: SizeConfig.defaultSize*1.6,
+              // height: SizeConfig.defaultSize*2.5,
               alignment: Alignment.center,
               child: Row(
                 children: <Widget>[
-                  FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Image.asset('assets/mainDog.jpg'),
-                  ),
-                  new Text(
-                    "image" + dropdownValue,
-                    style: TextStyle(color: Colors.white),
+                  Column(
+                    children: <Widget>[
+                      SizedBox(height: 30,),
+                      Image.asset(
+                        'assets/mainDog.jpg',
+                        width: 125,
+                      ),
+                      SizedBox(height: 70,),
+                      Text(
+                        "image" + dropdownValue,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
                   ),
                 ],
               ))),

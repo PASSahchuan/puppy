@@ -157,12 +157,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              Container(
-                child: RaisedButton(
-                  child: Text('送出'),
-                  onPressed: questionnaireSendOut,
-                  color: Color(0xfff18904),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    child: RaisedButton(
+                      child: Text('捨棄'),
+                      onPressed: questionnaireSendOut,
+                      color: Color(0xfff18904),
+                    ),
+                  ),
+                  SizedBox(width: 40,),
+                  Container(
+                    child: RaisedButton(
+                      child: Text('送出'),
+                      onPressed: questionnaireSendOut,
+                      color: Color(0xfff18904),
+                    ),
+                  ),
+                ],
               ),
               // Container(
               //   child: RaisedButton(

@@ -5,6 +5,10 @@ import 'dropdown/personNum.dart';
 import 'card/card.dart';
 import 'card/barTab.dart';
 import 'card/newCard.dart';
+import 'package:puppy/size_config.dart';
+import 'page/page1.dart';
+import 'page/page2.dart';
+import 'page/page3.dart';
 
 void main() {
   runApp(MyApp());
@@ -57,32 +61,91 @@ class _MyHomePageState extends State<MyHomePage> {
                   Row(
                     children: <Widget>[
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           DropdownOfPerson(),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          FlatButton(
+                            color: Color(0xffDB6400),
+                            child: Text(
+                              '已上傳',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            onPressed: takePicture,
+                            textColor: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          FlatButton(
+                            color: Colors.white,
+                            child: Text(
+                              '未上傳',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            onPressed: takePicture,
+                            textColor: Color(0xffDB6400),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            '囗',
+                            style: TextStyle(fontSize: 30),
+                          ),
                         ],
                       )
                     ],
                   ),
                 ],
               ),
-              Stack(
+              Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.only(top: 30, bottom: 100),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    width: 250,
+                    height: 280,
+                    child: PageView(
+                      controller: PageController(
+                        viewportFraction: 0.9,
+                      ),
+                      onPageChanged: (int index) {},
                       children: <Widget>[
-                        CardModel(),
-                        SizedBox(width: 20,),
-                        CardModel(),
+                        Page1(),
+                        Page2(),
+                        Page3(),
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      CardModel(),
-                    ],
+                  SizedBox(height: 20,),
+                  // Stack(
+                  //   children: <Widget>[
+                  //     Container(
+                  //       padding: EdgeInsets.only(top: 30, bottom: 100),
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         children: <Widget>[
+                  //           CardModel(),
+                  //           SizedBox(
+                  //             width: 20,
+                  //           ),
+                  //           CardModel(),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: <Widget>[
+                  //         CardModel(),
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
+                  Text(
+                    '1/46',
+                    style: TextStyle(fontSize: 25),
                   ),
                 ],
               ),
@@ -92,7 +155,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   RaisedButton(
                     color: Color(0xffDB6400),
-                    child: Text('照片上傳'),
+                    child: Text(
+                      '照片上傳',
+                      style: TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.normal),
+                    ),
                     onPressed: upload,
                     textColor: Colors.white,
                   ),
@@ -101,7 +168,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   RaisedButton(
                     color: Color(0xffDB6400),
-                    child: Text('拍攝照片'),
+                    child: Text(
+                      '拍攝照片',
+                      style: TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.normal),
+                    ),
                     onPressed: takePicture,
                     textColor: Colors.white,
                   )
