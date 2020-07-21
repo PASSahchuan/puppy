@@ -75,9 +75,15 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 
-  void login() {
+  void login() async {
     print('ask login');
-
+    showAlert(context, 0);
+    await Future.delayed(Duration(seconds: 3), () {
+      //到時回撥
+      return 1;
+    });
+    Navigator.pop(context);
+    showAlert(context, 1);
     if (true) //網路確認
     {
       set_user();
@@ -85,6 +91,48 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void set_user() {
-    db.execute("INSERT INTO USERE VALUES (1,'001','vddd');");
+    // db.execute("INSERT INTO USERE VALUES (1,'001','vddd');");
+  }
+  Future<void> showAlert(BuildContext context, int t) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, //點旁邊不關閉
+      builder: (context) {
+        return alertLoad(t);
+      },
+    );
+  }
+
+  Widget alertLoad(var t) {
+    switch (t) {
+      case 0:
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              CircularProgressIndicator(),
+              Padding(
+                padding: const EdgeInsets.only(top: 26.0),
+                child: Text("登入中..."),
+              )
+            ],
+          ),
+        );
+        break;
+      case 1:
+        return AlertDialog(
+          title: Text('登入成功'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('確定'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+        break;
+      default:
+    }
   }
 }
