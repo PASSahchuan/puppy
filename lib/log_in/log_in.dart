@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
       //到時回撥
       return 1;
     });
-    Navigator.pop(context);
+    Navigator.pop(context); //離開Alert
     showAlert(context, 1);
     if (true) //網路確認
     {
