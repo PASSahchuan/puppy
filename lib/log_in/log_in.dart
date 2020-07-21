@@ -3,6 +3,8 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../main.dart';
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, @required this.db}) : super(key: key);
   final Database db;
@@ -76,17 +78,20 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void login() async {
-    print('ask login');
     showAlert(context, 0);
     await Future.delayed(Duration(seconds: 3), () {
       //到時回撥
       return 1;
     });
     Navigator.pop(context); //離開Alert
-    showAlert(context, 1);
     if (true) //網路確認
     {
       set_user();
+      await showAlert(context, 1);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) {
+        return MyApp();
+      }), (route) => false);
     }
   }
 
