@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:puppy/camera/picture.dart';
+import 'package:puppy/database/create_db.dart';
 import 'package:puppy/log_in/log_in.dart';
+import 'package:sqflite/sqflite.dart';
 import 'dropdown/personNum.dart';
 import 'page/page1.dart';
 import 'page/page2.dart';
 import 'page/page3.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final Database db = await db_get.create_db();
+  var temp_user = await db.query('USERE');
+  if (temp_user.length == 0) {
+    runApp(MyApp());
+  } else {
+    runApp(MyApp());
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -112,7 +121,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   // Stack(
                   //   children: <Widget>[
                   //     Container(
