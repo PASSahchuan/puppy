@@ -13,7 +13,15 @@ void main() async {
   final Database db = await db_get.create_db();
   var temp_user = await db.query('USERE');
   if (temp_user.length == 0) {
-    runApp(MyApp());
+    runApp(MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: LoginPage(
+        db: db,
+      ),
+    ));
   } else {
     runApp(MyApp());
   }

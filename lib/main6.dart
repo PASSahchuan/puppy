@@ -166,7 +166,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Color(0xfff18904),
                     ),
                   ),
-                  SizedBox(width: 40,),
+                  SizedBox(
+                    width: 40,
+                  ),
                   Container(
                     child: RaisedButton(
                       child: Text('送出'),
