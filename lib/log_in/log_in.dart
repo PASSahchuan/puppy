@@ -88,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
     {
       set_user(_plan.text, _user.text);
       await showAlert(context, 1);
+      db.close();
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) {
         return MyApp();

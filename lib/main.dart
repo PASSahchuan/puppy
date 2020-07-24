@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:puppy/camera/picture.dart';
 import 'package:puppy/database/create_db.dart';
 import 'package:puppy/log_in/log_in.dart';
@@ -10,8 +11,13 @@ import 'page/page3.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]); //強制豎屏
+
   final Database db = await db_get.create_db();
   var temp_user = await db.query('USERE');
+
   print(temp_user);
   if (temp_user.length == 0) {
     runApp(MaterialApp(
@@ -24,6 +30,7 @@ void main() async {
       ),
     ));
   } else {
+    db.close();
     runApp(MyApp());
   }
 }
@@ -39,7 +46,6 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(title: '狗狗調查大作戰'),
       // routes: <String, WidgetBuilder>{'/TwoButtom': (_) => new TwobuttomPage()},
-      routes: <String, WidgetBuilder>{'/Login': (_) => new LoginPage()},
     );
   }
 }

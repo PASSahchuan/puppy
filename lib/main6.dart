@@ -1,30 +1,19 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'package:puppy/log_in/log_in.dart';
+import 'package:gps/gps.dart';
+import 'package:puppy/database/create_db.dart';
 import 'dropdown/DropdownTown.dart';
 import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownVillage.dart';
 import 'dropdown/DropdownOfDay.dart';
 import 'dropdown/DropdownOfNumDog.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage2(title: '狗狗調查大作戰'),
-      // routes: <String, WidgetBuilder>{'/TwoButtom': (_) => new TwobuttomPage()},
-    );
-  }
-}
-
 class MyHomePage2 extends StatefulWidget {
-  MyHomePage2({Key key, this.title}) : super(key: key);
+  MyHomePage2({Key key, this.title, @required this.image}) : super(key: key);
 
   final String title;
+  final Uint8List image;
 
   @override
   _MyHomePage2State createState() => _MyHomePage2State();
@@ -34,7 +23,6 @@ class _MyHomePage2State extends State<MyHomePage2> {
   String _city, _district, _vilage, _dayCount, _dogCount, _repeatCount;
   @override
   Widget build(BuildContext context) {
-    print(_city);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -51,7 +39,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Container(
-                child: Image.asset('assets/mainDog.jpg'),
+                child: Image.memory(widget.image),
               ),
               Container(
                 child: Table(
@@ -187,7 +175,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                   Container(
                     child: RaisedButton(
                       child: Text('送出'),
-                      onPressed: questionnaireSendOut,
+                      onPressed: imageUpload,
                       color: Color(0xfff18904),
                     ),
                   ),
@@ -234,7 +222,16 @@ class _MyHomePage2State extends State<MyHomePage2> {
     // setState(() {});
   }
 
-  void imageUpload() {}
+  void imageUpload() async {
+    var db = await db_get.create_db();
+    var imageData = await db.query('imagup');
+    if (imageData.length == 0) {
+    } else {}
+    var latlng = await Gps.currentGps();
+
+    print(latlng.lat);
+    print(latlng.lng);
+  }
 
   void login() {
     print('login success!');
@@ -243,6 +240,6 @@ class _MyHomePage2State extends State<MyHomePage2> {
 
   void questionnaireSendOut() {
     print('Questionnaire send out success!');
-    setState(() {});
+    Navigator.pop(context);
   }
 }

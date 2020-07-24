@@ -12,10 +12,14 @@ class picture {
     var image = await getimage.getImage(source: ImageSource.camera);
     File _image = File(image.path);
     await ImageSave.saveImage(_image.readAsBytesSync(), "jpg",
-        albumName: "demo");
-    Navigator.of(context).push(
+        albumName: "dog");
+    Navigator.push(
+      context,
       MaterialPageRoute(builder: (context) {
-        return question.MyApp();
+        return question.MyHomePage2(
+          image: _image.readAsBytesSync(),
+          title: '狗狗調查大作戰',
+        );
       }),
     );
   }
