@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.pop(context); //離開Alert
     if (true) //網路確認
     {
-      set_user();
+      set_user(_plan.text, _user.text);
       await showAlert(context, 1);
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) {
@@ -95,9 +95,10 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void set_user() {
-    // db.execute("INSERT INTO USERE VALUES (1,'001','vddd');");
+  void set_user(String plan, String user) {
+    db.execute("INSERT INTO USERE VALUES ( $plan , $user ,datetime('now'));");
   }
+
   Future<void> showAlert(BuildContext context, int t) {
     return showDialog<void>(
       context: context,

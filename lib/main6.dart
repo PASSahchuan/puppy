@@ -6,10 +6,6 @@ import 'dropdown/DropdownVillage.dart';
 import 'dropdown/DropdownOfDay.dart';
 import 'dropdown/DropdownOfNumDog.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -19,25 +15,26 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: '狗狗調查大作戰'),
+      home: MyHomePage2(title: '狗狗調查大作戰'),
       // routes: <String, WidgetBuilder>{'/TwoButtom': (_) => new TwobuttomPage()},
-      routes: <String, WidgetBuilder>{'/Login': (_) => new LoginPage()},
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class MyHomePage2 extends StatefulWidget {
+  MyHomePage2({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePage2State createState() => _MyHomePage2State();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePage2State extends State<MyHomePage2> {
+  String _city, _district, _vilage, _dayCount, _dogCount, _repeatCount;
   @override
   Widget build(BuildContext context) {
+    print(_city);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -78,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           textAlign: TextAlign.start,
                         ),
                         Container(),
-                        DropdownTown(),
+                        DropdownTown(callback: callback),
                         Container(),
                       ],
                     ),
@@ -192,10 +189,34 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void imageUpload() {
-    print('upload success!');
-    Navigator.of(context).pushNamed('/TwoButtom');
+  void callback(String count, String input) {
+    //_city,_district,_vilage,_dayCount,_dogCount,_repeatCount;
+
+    switch (count) {
+      case 'city':
+        _city = input;
+        break;
+      case 'district':
+        _district = input;
+        break;
+      case "vilage":
+        _vilage = input;
+        break;
+      case "dayCount":
+        _dayCount = input;
+        break;
+      case 'dogCount':
+        _dogCount = input;
+        break;
+      case 'repeatCount':
+        _repeatCount = input;
+        break;
+      default:
+    }
+    // setState(() {});
   }
+
+  void imageUpload() {}
 
   void login() {
     print('login success!');
@@ -204,5 +225,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void questionnaireSendOut() {
     print('Questionnaire send out success!');
+    setState(() {});
   }
 }

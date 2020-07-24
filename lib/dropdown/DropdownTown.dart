@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:puppy/main.dart';
+import 'package:puppy/main6.dart';
 
 class DropdownTown extends StatefulWidget {
-  DropdownTown({Key key}) : super(key: key);
-
+  DropdownTown({Key key, @required this.callback}) : super(key: key);
+  Function(String, String) callback;
   @override
   _DropdownTownState createState() => _DropdownTownState();
 }
@@ -24,8 +26,10 @@ class _DropdownTownState extends State<DropdownTown> {
       onChanged: (String newValue) {
         setState(() {
           dropdownValue = newValue;
+
           print(newValue);
         });
+        widget.callback('city', newValue);
       },
       items: <String>[
         '基隆市',

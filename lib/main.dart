@@ -12,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final Database db = await db_get.create_db();
   var temp_user = await db.query('USERE');
+  print(temp_user);
   if (temp_user.length == 0) {
     runApp(MaterialApp(
       theme: ThemeData(
