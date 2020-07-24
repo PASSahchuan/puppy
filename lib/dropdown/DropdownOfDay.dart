@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class DropdownOfDay extends StatefulWidget {
-  DropdownOfDay({Key key}) : super(key: key);
-
+  DropdownOfDay({Key key, @required this.callback, @required this.field})
+      : super(key: key);
+  Function(String, String) callback;
+  String field;
   @override
   _DropdownOfDayState createState() => _DropdownOfDayState();
 }
@@ -22,6 +24,7 @@ class _DropdownOfDayState extends State<DropdownOfDay> {
       onChanged: (String newValue) {
         setState(() {
           dropdownValue = newValue;
+          widget.callback(widget.field, newValue);
         });
       },
       items: <String>[

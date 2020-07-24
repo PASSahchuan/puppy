@@ -3,8 +3,10 @@ import 'package:puppy/main.dart';
 import 'package:puppy/main6.dart';
 
 class DropdownTown extends StatefulWidget {
-  DropdownTown({Key key, @required this.callback}) : super(key: key);
+  DropdownTown({Key key, @required this.callback, @required this.field})
+      : super(key: key);
   Function(String, String) callback;
+  String field;
   @override
   _DropdownTownState createState() => _DropdownTownState();
 }
@@ -29,7 +31,7 @@ class _DropdownTownState extends State<DropdownTown> {
 
           print(newValue);
         });
-        widget.callback('city', newValue);
+        widget.callback(widget.field, newValue);
       },
       items: <String>[
         '基隆市',

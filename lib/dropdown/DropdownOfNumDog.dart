@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class DropdownOfNumDog extends StatefulWidget {
-  DropdownOfNumDog({Key key}) : super(key: key);
-
+  DropdownOfNumDog({Key key, @required this.callback, @required this.field})
+      : super(key: key);
+  Function(String, String) callback;
+  String field;
   @override
   _DropdownOfNumDogState createState() => _DropdownOfNumDogState();
 }
@@ -22,6 +24,7 @@ class _DropdownOfNumDogState extends State<DropdownOfNumDog> {
       onChanged: (String newValue) {
         setState(() {
           dropdownValue = newValue;
+          widget.callback(widget.field, newValue);
         });
       },
       items: <String>[

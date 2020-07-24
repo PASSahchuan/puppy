@@ -31,6 +31,7 @@ dependencies:
   image_save: ^3.1.1 #存相簿
   sqflite: # SQL
   path: # 檔案位置
+  gps: ^0.1.1 #gps
 
 dev_dependencies:
   flutter_test:
