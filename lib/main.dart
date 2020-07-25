@@ -209,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void upload() async {
     print('upload success!');
-    var data = {'plan': '1', 'user': '1'};
+    var data = {'plan': '', 'user': ''};
     var url = 'http://140.116.152.77:40129/authUser';
     var response = await http.post(
       url,
