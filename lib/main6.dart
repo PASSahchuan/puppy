@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ import 'dropdown/DropdownVillage.dart';
 import 'dropdown/DropdownOfDay.dart';
 import 'dropdown/DropdownOfNumDog.dart';
 import 'test/Region_services.dart';
-import 'test/Region_services.dart';
+import 'package:http/http.dart' as http;
 
 class MyHomePage2 extends StatefulWidget {
   MyHomePage2({Key key, this.title, @required this.image}) : super(key: key);
@@ -241,16 +242,57 @@ class _MyHomePage2State extends State<MyHomePage2> {
     var user = await db
         .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
     print(user[0]['id']);
+    print(imageData[0]['MAX(id)']);
     if (imageData[0]['MAX(id)'] == null) {
       id = user[0]['id'] + 1;
     } else {
       id = imageData[0]['MAX(id)'] + 1;
     }
+    print(id);
     var latlng = await Gps.currentGps();
     // db.rawQuery('SELECT MAX(datetime("date")) FROM USERE');
-    var data = {};
-    print(latlng.lat);
-    print(latlng.lng);
+    var data = {
+      "id": id,
+      "plan": user[0]['plan'],
+      "user": user[0]['user'],
+      "img": base64Encode(widget.image),
+      "lat": latlng.lat,
+      "lon": latlng.lng,
+      "city": _city,
+      "district": _district,
+      "village": _vilage,
+      'date': DateTime.now().toIso8601String(),
+      "dayCount": _dayCount,
+      'dogCount': _dogCount,
+      'repeatCount': _repeatCount,
+      'update_data': 0,
+    };
+    db.insert("imagup", data);
+    showAlert(context, 0);
+    var url = 'http://140.116.152.77:40129/img_upload';
+    http.Response response;
+    try {
+      response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(data),
+      );
+    } catch (_) {
+      response = null;
+    }
+    Navigator.pop(context); //離開Alert
+    if (response != null) //網路確認
+    {
+      var getJson = jsonDecode(response.body);
+      if (getJson['success']) {
+        await showAlert(context, 1);
+        db.close();
+      } else {
+        await showAlert(context, 3);
+      }
+    } else {
+      await showAlert(context, 2);
+    }
     ch_sw = false;
   }
 
@@ -263,5 +305,74 @@ class _MyHomePage2State extends State<MyHomePage2> {
     print('Questionnaire send out success!');
     decodeRegion(_city);
     Navigator.pop(context);
+  }
+
+  Future<void> showAlert(BuildContext context, int t) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, //點旁邊不關閉
+      builder: (context) {
+        return alertLoad(t);
+      },
+    );
+  }
+
+  Widget alertLoad(var t) {
+    switch (t) {
+      case 0:
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              CircularProgressIndicator(),
+              Padding(
+                padding: const EdgeInsets.only(top: 26.0),
+                child: Text("上傳中..."),
+              )
+            ],
+          ),
+        );
+        break;
+      case 1:
+        return AlertDialog(
+          title: Text('上傳成功'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('確定'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+        break;
+      case 2:
+        return AlertDialog(
+          title: Text('與伺服器連線失敗'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('確定'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+        break;
+      case 3:
+        return AlertDialog(
+          title: Text('資料庫失敗'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('確定'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+        break;
+      default:
+    }
   }
 }

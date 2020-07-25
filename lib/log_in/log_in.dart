@@ -95,9 +95,9 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.pop(context); //離開Alert
     if (response != null) //網路確認
     {
-      var a = jsonDecode(response.body);
-      if (a['success']) {
-        set_user(_plan.text, _user.text, a['id']);
+      var temp_json_data = jsonDecode(response.body);
+      if (temp_json_data['success']) {
+        set_user(_plan.text, _user.text, temp_json_data['id']);
         await showAlert(context, 1);
         db.close();
         Navigator.of(context).pushAndRemoveUntil(
