@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:puppy/camera/picture.dart';
@@ -8,6 +10,7 @@ import 'dropdown/personNum.dart';
 import 'page/page1.dart';
 import 'page/page2.dart';
 import 'page/page3.dart';
+import 'package:http/http.dart' as http;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -204,8 +207,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void upload() {
+  void upload() async {
     print('upload success!');
+    var data = {'plan': '1', 'user': '1'};
+    var url = 'http://140.116.152.77:40129/authUser';
+    var response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(data),
+    );
+    print(response.body);
   }
 
   void takePicture() {

@@ -2,7 +2,6 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../main.dart';
 
 class LoginPage extends StatefulWidget {
