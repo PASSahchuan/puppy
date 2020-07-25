@@ -21,6 +21,8 @@ class MyHomePage2 extends StatefulWidget {
 
 class _MyHomePage2State extends State<MyHomePage2> {
   String _city, _district, _vilage, _dayCount, _dogCount, _repeatCount;
+  int id;
+  bool ch_sw = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +32,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          // height: MediaQuery.of(context).size.height,
+          // width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.all(25),
           alignment: Alignment.center,
           child: Center(
@@ -223,14 +225,23 @@ class _MyHomePage2State extends State<MyHomePage2> {
   }
 
   void imageUpload() async {
+    if (ch_sw) return;
+    ch_sw = true;
     var db = await db_get.create_db();
-    var imageData = await db.query('imagup');
-    if (imageData.length == 0) {
-    } else {}
+    var imageData = await db.rawQuery('SELECT MAX(id) FROM imagup');
+
+    if (imageData[0]['MAX(id)'] == null) {
+      id = 1;
+    } else {
+      id = imageData[0]['MAX(id)'] + 1;
+    }
     var latlng = await Gps.currentGps();
+    // db.rawQuery('SELECT MAX(datetime("date")) FROM USERE');
+    print(await db.rawQuery('SELECT MAX(datetime("date")) FROM USERE'));
 
     print(latlng.lat);
     print(latlng.lng);
+    ch_sw = false;
   }
 
   void login() {

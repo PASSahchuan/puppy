@@ -27,7 +27,7 @@ class db_get {
        date TEXT,
        dayCount TEXT,
        dogCount TEXT,
-       repeatCount TEXT,
+       update_data INT,
        primary key (id, plan,user)
     );
     """,
