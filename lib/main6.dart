@@ -8,6 +8,8 @@ import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownVillage.dart';
 import 'dropdown/DropdownOfDay.dart';
 import 'dropdown/DropdownOfNumDog.dart';
+import 'test/Region_services.dart';
+import 'test/Region_services.dart';
 
 class MyHomePage2 extends StatefulWidget {
   MyHomePage2({Key key, this.title, @required this.image}) : super(key: key);
@@ -20,7 +22,7 @@ class MyHomePage2 extends StatefulWidget {
 }
 
 class _MyHomePage2State extends State<MyHomePage2> {
-  String _city, _district, _vilage, _dayCount, _dogCount, _repeatCount;
+  String _city = '台北市', _district = '松山區', _vilage = '東榮里', _dayCount = '0', _dogCount = '1', _repeatCount = '0';
   int id;
   bool ch_sw = false;
   @override
@@ -85,6 +87,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                         DropdownDistrict(
                           callback: callback,
                           field: 'district',
+                          districtList: decodeRegion(_city),
                         ),
                         Container(),
                       ],
@@ -203,6 +206,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
     switch (count) {
       case 'city':
         _city = input;
+        // print(_city);
         break;
       case 'district':
         _district = input;
@@ -221,7 +225,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
         break;
       default:
     }
-    // setState(() {});
+    setState(() {});
   }
 
   void imageUpload() async {
@@ -251,6 +255,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
 
   void questionnaireSendOut() {
     print('Questionnaire send out success!');
+    decodeRegion(_city);
     Navigator.pop(context);
   }
 }
