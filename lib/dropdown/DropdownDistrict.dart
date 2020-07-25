@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 
 class DropdownDistrict extends StatefulWidget {
-  DropdownDistrict({Key key, @required this.callback, @required this.field})
+  DropdownDistrict(
+      {Key key,
+      @required this.callback,
+      @required this.field,
+      @required this.districtList})
       : super(key: key);
   Function(String, String) callback;
   String field;
+  Future<List<dynamic>> districtList;
   @override
   _DropdownDistrictState createState() => _DropdownDistrictState();
 }
 
 class _DropdownDistrictState extends State<DropdownDistrict> {
   String dropdownValue = '信義區';
+  
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
@@ -29,20 +36,7 @@ class _DropdownDistrictState extends State<DropdownDistrict> {
           widget.callback(widget.field, newValue);
         });
       },
-      items: <String>[
-        '北投區',
-        '士林區',
-        '內湖區',
-        '松山區',
-        '中山區',
-        '大同區',
-        '萬華區',
-        '中正區',
-        '大安區',
-        '信義區',
-        '南港區',
-        '文山區'
-      ].map<DropdownMenuItem<String>>((String value) {
+      items: widget.districtList.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(
