@@ -84,11 +84,16 @@ class _LoginPageState extends State<LoginPage> {
     var url = 'http://140.116.152.77:40129/authUser';
     http.Response response;
     try {
-      response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(data),
-      );
+      response = await http
+          .post(
+            url,
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(data),
+          )
+          .timeout(
+            Duration(seconds: 2),
+            onTimeout: () => null,
+          );
     } catch (_) {
       response = null;
     }

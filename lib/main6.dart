@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:gps/gps.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:puppy/database/create_db.dart';
 import 'dropdown/DropdownTown.dart';
 import 'dropdown/DropdownDistrict.dart';
@@ -258,23 +258,21 @@ class _MyHomePage2State extends State<MyHomePage2> {
     var imageData = await db.rawQuery('SELECT MAX(id) FROM imagup');
     var user = await db
         .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
-    print(user[0]['id']);
-    print(imageData[0]['MAX(id)']);
+
     if (imageData[0]['MAX(id)'] == null) {
       id = user[0]['id'] + 1;
     } else {
       id = imageData[0]['MAX(id)'] + 1;
     }
-    print(id);
-    var latlng = await Gps.currentGps();
+    var latlng = await Geolocator().getCurrentPosition();
     // db.rawQuery('SELECT MAX(datetime("date")) FROM USERE');
     var data = {
       "id": id,
       "plan": user[0]['plan'],
       "user": user[0]['user'],
       "img": base64Encode(widget.image),
-      "lat": latlng.lat,
-      "lon": latlng.lng,
+      "lat": latlng.latitude,
+      "lon": latlng.longitude,
       "city": _city,
       "district": _district,
       "village": _vilage,
@@ -289,27 +287,37 @@ class _MyHomePage2State extends State<MyHomePage2> {
     var url = 'http://140.116.152.77:40129/img_upload';
     http.Response response;
     try {
-      response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(data),
-      );
+      print("object");
+      response = await http
+          .post(
+            url,
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(data),
+          )
+          .timeout(
+            Duration(seconds: 25),
+            onTimeout: () => null,
+          );
     } catch (_) {
       response = null;
     }
     Navigator.pop(context); //離開Alert
+    print(response);
     if (response != null) //網路確認
     {
       var getJson = jsonDecode(response.body);
       if (getJson['success']) {
+        db.update('imagup', {'update_data': 1},
+            where:
+                'id = $id AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}');
         await showAlert(context, 1);
-        db.close();
       } else {
         await showAlert(context, 3);
       }
     } else {
       await showAlert(context, 2);
     }
+    Navigator.pop(context);
     ch_sw = false;
   }
 

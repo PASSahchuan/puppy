@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:puppy/camera/picture.dart';
 import 'package:puppy/database/create_db.dart';
 import 'package:puppy/log_in/log_in.dart';
@@ -16,7 +18,14 @@ void main() async {
 
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]); //強制豎屏
-
+  var latlng = await Geolocator().getCurrentPosition();
+  print(latlng.latitude);
+  print(latlng.longitude);
+  Timer.periodic(Duration(minutes: 1), (timer) async {
+    latlng = await Geolocator().getCurrentPosition();
+    print(latlng.latitude);
+    print(latlng.longitude);
+  });
   final Database db = await db_get.create_db();
   var temp_user = await db.query('USERE');
 
