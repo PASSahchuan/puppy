@@ -57,7 +57,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                     0: FixedColumnWidth(35.0),
                     1: FixedColumnWidth(100.0),
                     2: FixedColumnWidth(60.0),
-                    3: FixedColumnWidth(110.0),
+                    3: FixedColumnWidth(125.0),
                     4: FixedColumnWidth(35.0),
                   },
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
@@ -89,10 +89,17 @@ class _MyHomePage2State extends State<MyHomePage2> {
                           textAlign: TextAlign.start,
                         ),
                         Container(),
-                        DropdownDistrict(
-                          callback: callback,
-                          field: 'district',
-                          districtList: decodeRegion(_city),
+                        FutureBuilder<List<String>>(
+                          future: decodeRegion(
+                              _city), // a previously-obtained Future<String> or null
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<String>> snapshot) {
+                            return DropdownDistrict(
+                              callback: callback,
+                              field: 'district',
+                              districtList: snapshot.data,
+                            ); // unreachable
+                          },
                         ),
                         Container(),
                       ],
@@ -107,9 +114,17 @@ class _MyHomePage2State extends State<MyHomePage2> {
                           textAlign: TextAlign.start,
                         ),
                         Container(),
-                        DropdownVillage(
-                          callback: this.callback,
-                          field: 'vilage',
+                        FutureBuilder<List<String>>(
+                          future: decodevillage(
+                              _district), // a previously-obtained Future<String> or null
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<String>> snapshot) {
+                            return DropdownDistrict(
+                              callback: callback,
+                              field: 'village',
+                              districtList: snapshot.data,
+                            ); // unreachable
+                          },
                         ),
                         Container(),
                       ],
@@ -211,10 +226,12 @@ class _MyHomePage2State extends State<MyHomePage2> {
     switch (count) {
       case 'city':
         _city = input;
+        setState(() {});
         // print(_city);
         break;
       case 'district':
         _district = input;
+        setState(() {});
         break;
       case "vilage":
         _vilage = input;
@@ -261,7 +278,6 @@ class _MyHomePage2State extends State<MyHomePage2> {
 
   void questionnaireSendOut() {
     print('Questionnaire send out success!');
-    decodeRegion(_city);
     Navigator.pop(context);
   }
 }

@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:puppy/test/Region_services.dart';
 
 class DropdownVillage extends StatefulWidget {
-  DropdownVillage({Key key, @required this.callback, @required this.field})
+  DropdownVillage(
+      {Key key,
+      @required this.callback,
+      @required this.field,
+      @required this.villageList})
       : super(key: key);
   Function(String, String) callback;
   String field;
+  List<String> villageList;
+
   @override
   _DropdownVillageState createState() => _DropdownVillageState();
 }
 
 class _DropdownVillageState extends State<DropdownVillage> {
-  String dropdownValue = '中南里';
+  String dropdownValue = '等待';
+  List<String> villageList;
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
-      value: dropdownValue,
+      value:
+          widget.villageList == null ? dropdownValue : widget.villageList[0],
       elevation: 16,
       style: TextStyle(color: Color(0xffD09E88)),
       underline: Container(
@@ -24,36 +34,29 @@ class _DropdownVillageState extends State<DropdownVillage> {
       onChanged: (String newValue) {
         setState(() {
           dropdownValue = newValue;
-          widget.callback(widget.field, newValue);
+          decodevillage(dropdownValue);
+          // widget.callback(widget.field, newValue);
         });
       },
-      items: <String>[
-        '中南里',
-        '新富里',
-        '南港里',
-        '三重里',
-        '西新里',
-        '東明里',
-        '東新里',
-        '新光里',
-        '重陽里',
-        '成福里',
-        '百福里',
-        '聯成里',
-        '玉成里',
-        '鴻福里',
-        '萬福里',
-        '合成里',
-        '仁福里'
-      ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 25),
-          ),
-        );
-      }).toList(),
+      items: widget.villageList != null
+          ? widget.villageList.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value,
+                  style: TextStyle(fontSize: 25),
+                ),
+              );
+            }).toList()
+          : ['等待'].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value,
+                  style: TextStyle(fontSize: 25),
+                ),
+              );
+            }).toList(),
     );
   }
 }
