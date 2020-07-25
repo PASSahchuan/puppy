@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import '../main.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, @required this.db}) : super(key: key);
@@ -78,25 +80,41 @@ class _LoginPageState extends State<LoginPage> {
 
   void login() async {
     showAlert(context, 0);
-    await Future.delayed(Duration(seconds: 3), () {
-      //到時回撥
-      return 1;
-    });
+    var data = {'plan': _plan.text, 'user': _user.text};
+    var url = 'http://140.116.152.77:40129/authUser';
+    http.Response response;
+    try {
+      response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(data),
+      );
+    } catch (_) {
+      response = null;
+    }
     Navigator.pop(context); //離開Alert
-    if (true) //網路確認
+    if (response != null) //網路確認
     {
-      set_user(_plan.text, _user.text);
-      await showAlert(context, 1);
-      db.close();
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) {
-        return MyApp();
-      }), (route) => false);
+      var a = jsonDecode(response.body);
+      if (a['success']) {
+        set_user(_plan.text, _user.text, a['id']);
+        await showAlert(context, 1);
+        db.close();
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) {
+          return MyApp();
+        }), (route) => false);
+      } else {
+        await showAlert(context, 3);
+      }
+    } else {
+      await showAlert(context, 2);
     }
   }
 
-  void set_user(String plan, String user) {
-    db.execute("INSERT INTO USERE VALUES ( $plan , $user ,datetime('now'));");
+  void set_user(String plan, String user, int id) {
+    db.execute(
+        "INSERT INTO USERE VALUES ( $plan , $user , $id ,datetime('now'));");
   }
 
   Future<void> showAlert(BuildContext context, int t) {
@@ -128,6 +146,32 @@ class _LoginPageState extends State<LoginPage> {
       case 1:
         return AlertDialog(
           title: Text('登入成功'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('確定'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+        break;
+      case 2:
+        return AlertDialog(
+          title: Text('與伺服器連線失敗'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('確定'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+        break;
+      case 3:
+        return AlertDialog(
+          title: Text('帳密失敗'),
           actions: <Widget>[
             FlatButton(
               child: Text('確定'),

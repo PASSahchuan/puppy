@@ -37,6 +37,7 @@ class db_get {
 	    (
        plan TEXT, 
        user TEXT,
+       id INT,
        date TEXT,
        primary key ( plan,user)
         );""");

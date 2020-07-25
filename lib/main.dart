@@ -10,7 +10,6 @@ import 'dropdown/personNum.dart';
 import 'page/page1.dart';
 import 'page/page2.dart';
 import 'page/page3.dart';
-import 'package:http/http.dart' as http;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +20,6 @@ void main() async {
   final Database db = await db_get.create_db();
   var temp_user = await db.query('USERE');
 
-  print(temp_user);
   if (temp_user.length == 0) {
     runApp(MaterialApp(
       theme: ThemeData(
@@ -209,14 +207,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void upload() async {
     print('upload success!');
-    var data = {'plan': '', 'user': ''};
-    var url = 'http://140.116.152.77:40129/authUser';
-    var response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(data),
-    );
-    print(response.body);
+
+    //print(response.body);
+    print("object");
   }
 
   void takePicture() {

@@ -22,7 +22,12 @@ class MyHomePage2 extends StatefulWidget {
 }
 
 class _MyHomePage2State extends State<MyHomePage2> {
-  String _city = '台北市', _district = '松山區', _vilage = '東榮里', _dayCount = '0', _dogCount = '1', _repeatCount = '0';
+  String _city = '台北市',
+      _district = '松山區',
+      _vilage = '東榮里',
+      _dayCount = '0',
+      _dogCount = '1',
+      _repeatCount = '0';
   int id;
   bool ch_sw = false;
   @override
@@ -233,16 +238,17 @@ class _MyHomePage2State extends State<MyHomePage2> {
     ch_sw = true;
     var db = await db_get.create_db();
     var imageData = await db.rawQuery('SELECT MAX(id) FROM imagup');
-
+    var user = await db
+        .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
+    print(user[0]['id']);
     if (imageData[0]['MAX(id)'] == null) {
-      id = 1;
+      id = user[0]['id'] + 1;
     } else {
       id = imageData[0]['MAX(id)'] + 1;
     }
     var latlng = await Gps.currentGps();
     // db.rawQuery('SELECT MAX(datetime("date")) FROM USERE');
-    print(await db.rawQuery('SELECT MAX(datetime("date")) FROM USERE'));
-
+    var data = {};
     print(latlng.lat);
     print(latlng.lng);
     ch_sw = false;
