@@ -32,6 +32,7 @@ dependencies:
   sqflite: # SQL
   path: # 檔案位置
   gps: ^0.1.1 #gps
+  http: #http
 
 dev_dependencies:
   flutter_test:
