@@ -81,7 +81,8 @@ class _LoginPageState extends State<LoginPage> {
   void login() async {
     showAlert(context, 0);
     var data = {'plan': _plan.text, 'user': _user.text};
-    var url = 'http://140.116.152.77:40129/authUser';
+    var url =
+        'http://140.134.79.128:40129/authUser'; //http://140.116.152.77:40129/authUser
     http.Response response;
     try {
       response = await http
@@ -98,6 +99,7 @@ class _LoginPageState extends State<LoginPage> {
       response = null;
     }
     Navigator.pop(context); //離開Alert
+    print('登入： $response');
     if (response != null) //網路確認
     {
       var temp_json_data = jsonDecode(response.body);

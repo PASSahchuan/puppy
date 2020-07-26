@@ -258,12 +258,13 @@ class _MyHomePage2State extends State<MyHomePage2> {
     var imageData = await db.rawQuery('SELECT MAX(id) FROM imagup');
     var user = await db
         .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
-
+    print(imageData[0]['MAX(id)']);
     if (imageData[0]['MAX(id)'] == null) {
       id = user[0]['id'] + 1;
     } else {
       id = imageData[0]['MAX(id)'] + 1;
     }
+    print("asd");
     var latlng = await Geolocator().getCurrentPosition();
     // db.rawQuery('SELECT MAX(datetime("date")) FROM USERE');
     var data = {
@@ -318,6 +319,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
     } else {
       await showAlert(context, 2);
     }
+    Navigator.pop(context);
+
     Navigator.pop(context);
     ch_sw = false;
   }

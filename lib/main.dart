@@ -25,7 +25,7 @@ void main() async {
       await db.rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
   var latlng = await Geolocator().getCurrentPosition();
   print(temp_user);
-  if (temp_user[0]['user'] == null) {
+  if (temp_user[0]['user'] != null) {
     var data = {
       'plan': temp_user[0]['plan'],
       'user': temp_user[0]['user'],
@@ -299,9 +299,9 @@ class _MyHomePageState extends State<MyHomePage> {
             'update_data = 0 AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}',
         orderBy: "datetime('date')");
     print("object");
-    print(data[0]);
 
-    for (var i = 0; i < data.length - 1; i++) {
+    for (var i = 0; i < data.length; i++) {
+      print(base64Decode(data[i]['img']));
       page.add(Pag1(base64Decode(data[0]['img'])));
     }
     return page;
