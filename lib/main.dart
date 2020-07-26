@@ -12,23 +12,80 @@ import 'dropdown/personNum.dart';
 import 'page/page1.dart';
 import 'page/page2.dart';
 import 'page/page3.dart';
+import 'package:http/http.dart' as http;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]); //強制豎屏
+
+  final Database db = await db_get.create_db();
+  var temp_user =
+      await db.rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
   var latlng = await Geolocator().getCurrentPosition();
-  print(latlng.latitude);
-  print(latlng.longitude);
+
+  if (temp_user.length != 0) {
+    var data = {
+      'plan': temp_user[0]['plan'],
+      'user': temp_user[0]['user'],
+      'time': DateTime.now().toIso8601String(),
+      'lat': latlng.latitude,
+      'lon': latlng.longitude
+    };
+    var url = 'http://140.116.152.77:40129/authLocation';
+    http.Response response;
+    try {
+      response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(data),
+      );
+      var data_log = await db.query("timingLocation");
+      for (int i = 0; i < data_log.length; i++) {
+        response = await http.post(
+          url,
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(data_log[i]),
+        );
+      }
+      db.delete('timingLocation');
+    } catch (_) {
+      db.insert("timingLocation", data);
+    }
+  }
   Timer.periodic(Duration(minutes: 1), (timer) async {
     latlng = await Geolocator().getCurrentPosition();
-    print(latlng.latitude);
-    print(latlng.longitude);
+    if (temp_user.length != 0) {
+      var data = {
+        'plan': temp_user[0]['plan'],
+        'user': temp_user[0]['user'],
+        'time': DateTime.now().toIso8601String(),
+        'lat': latlng.latitude,
+        'lon': latlng.longitude
+      };
+      var url = 'http://140.116.152.77:40129/authLocation';
+      http.Response response;
+      try {
+        response = await http.post(
+          url,
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(data),
+        );
+        var data_log = await db.query("timingLocation");
+        for (int i = 0; i < data_log.length; i++) {
+          response = await http.post(
+            url,
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(data_log[i]),
+          );
+        }
+        db.delete('timingLocation');
+      } catch (_) {
+        db.insert("timingLocation", data);
+      }
+    }
   });
-  final Database db = await db_get.create_db();
-  var temp_user = await db.query('USERE');
-
   if (temp_user.length == 0) {
     runApp(MaterialApp(
       theme: ThemeData(
