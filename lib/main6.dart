@@ -283,6 +283,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
       'update_data': 0,
     };
     db.insert("imagup", data);
+    print("object");
+    print(await db.query("imagup"));
     showAlert(context, 0);
     var url = 'http://140.116.152.77:40129/img_upload';
     http.Response response;
@@ -302,7 +304,6 @@ class _MyHomePage2State extends State<MyHomePage2> {
       response = null;
     }
     Navigator.pop(context); //離開Alert
-    print(response);
     if (response != null) //網路確認
     {
       var getJson = jsonDecode(response.body);
