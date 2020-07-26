@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class Pag1 extends StatelessWidget {
   Pag1(b);
-  Uint8List b;
+  String b;
   @override
   Widget build(BuildContext context) {
     print(b);
@@ -17,7 +17,7 @@ class Pag1 extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.memory(b),
+              Image.memory(base64Decode(b)),
             ],
           ),
         ],

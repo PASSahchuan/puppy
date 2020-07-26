@@ -302,7 +302,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     for (var i = 0; i < data.length; i++) {
       print(base64Decode(data[i]['img']));
-      page.add(Pag1(base64Decode(data[0]['img'])));
+      page.add(Page2(b: data[0]['img']));
     }
     return page;
   }

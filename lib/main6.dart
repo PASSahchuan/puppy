@@ -307,7 +307,6 @@ class _MyHomePage2State extends State<MyHomePage2> {
     } else {
       await showAlert(context, 2);
     }
-    Navigator.pop(context);
 
     Navigator.pop(context);
     ch_sw = false;
