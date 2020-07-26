@@ -4,11 +4,14 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:puppy/database/create_db.dart';
+import 'dropdown/DropdownDistrict.dart';
+import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownTown.dart';
 import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownVillage.dart';
 import 'dropdown/DropdownOfDay.dart';
 import 'dropdown/DropdownOfNumDog.dart';
+import 'dropdown/DropdownVillage.dart';
 import 'test/Region_services.dart';
 import 'package:http/http.dart' as http;
 
@@ -90,17 +93,9 @@ class _MyHomePage2State extends State<MyHomePage2> {
                           textAlign: TextAlign.start,
                         ),
                         Container(),
-                        FutureBuilder<List<String>>(
-                          future: decodeRegion(
-                              _city), // a previously-obtained Future<String> or null
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<String>> snapshot) {
-                            return DropdownDistrict(
-                              callback: callback,
-                              field: 'district',
-                              districtList: snapshot.data,
-                            ); // unreachable
-                          },
+                        DropdownDistrict(
+                          callback: callback,
+                          field: 'distinct',
                         ),
                         Container(),
                       ],
@@ -115,17 +110,9 @@ class _MyHomePage2State extends State<MyHomePage2> {
                           textAlign: TextAlign.start,
                         ),
                         Container(),
-                        FutureBuilder<List<String>>(
-                          future: decodevillage(
-                              _district), // a previously-obtained Future<String> or null
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<String>> snapshot) {
-                            return DropdownDistrict(
-                              callback: callback,
-                              field: 'village',
-                              districtList: snapshot.data,
-                            ); // unreachable
-                          },
+                        DropdownVillage(
+                          callback: callback,
+                          field: 'village',
                         ),
                         Container(),
                       ],
@@ -236,6 +223,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
         break;
       case "vilage":
         _vilage = input;
+        setState(() {});
         break;
       case "dayCount":
         _dayCount = input;
