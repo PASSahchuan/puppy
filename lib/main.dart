@@ -24,8 +24,8 @@ void main() async {
   var temp_user =
       await db.rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
   var latlng = await Geolocator().getCurrentPosition();
-
-  if (temp_user.length != 0) {
+  print(temp_user);
+  if (temp_user[0]['user'] == null) {
     var data = {
       'plan': temp_user[0]['plan'],
       'user': temp_user[0]['user'],
@@ -92,7 +92,7 @@ void main() async {
       }
     }
   });
-  if (temp_user.length == 0) {
+  if (temp_user[0]['user'] == null) {
     runApp(MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -133,7 +133,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Widget> page;
+  List<Widget> page = List<Widget>();
   @override
   @override
   Widget build(BuildContext context) {
@@ -200,12 +200,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   Container(
                     width: 250,
                     height: 280,
-                    child: PageView(
-                      controller: PageController(
-                        viewportFraction: 0.9,
-                      ),
-                      onPageChanged: (int index) {},
-                      children: <Widget>[],
+                    child: FutureBuilder(
+                      future: get_db_data(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<Widget>> text) {
+                        if (true) {
+                          return PageView(
+                              controller: PageController(
+                                viewportFraction: 0.9,
+                              ),
+                              onPageChanged: (int index) {},
+                              children: text.data);
+                        }
+                      },
                     ),
                   ),
                   SizedBox(
@@ -283,7 +290,7 @@ class _MyHomePageState extends State<MyHomePage> {
     print("object");
   }
 
-  void get_db_data() async {
+  Future<List<Widget>> get_db_data() async {
     var db = await db_get.create_db();
     var user = await db
         .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
@@ -291,10 +298,13 @@ class _MyHomePageState extends State<MyHomePage> {
         where:
             'update_data = 0 AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}',
         orderBy: "datetime('date')");
+    print("object");
+    print(data[0]);
 
-    for (var i = 0; i < data.length; i++) {
-      // page.add(Page2());
+    for (var i = 0; i < data.length - 1; i++) {
+      page.add(Pag1(base64Decode(data[0]['img'])));
     }
+    return page;
   }
 
   void takePicture() {
