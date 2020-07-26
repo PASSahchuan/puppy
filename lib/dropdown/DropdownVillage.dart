@@ -1,29 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:puppy/test/Region_services.dart';
+import 'package:puppy/test/stupid.dart';
 
 class DropdownVillage extends StatefulWidget {
-  DropdownVillage(
-      {Key key,
-      @required this.callback,
-      @required this.field,})
-      : super(key: key);
+  DropdownVillage({
+    Key key,
+    @required this.callback,
+    @required this.field,
+  }) : super(key: key);
   Function(String, String) callback;
   String field;
-  List<String> villageList;
 
   @override
   _DropdownVillageState createState() => _DropdownVillageState();
 }
 
 class _DropdownVillageState extends State<DropdownVillage> {
-  String dropdownValue = '等待';
-  List<String> villageList;
+  String dropdownValue = villageList[0];
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      
+    });
+    if ((distinctChange == true) || (cityChange == true)) {
+      print('object');
+      print(villageList[0]);
+      dropdownValue = villageList[0];
+      distinctChange = false;
+      cityChange = false;
+    }
+    print('object');
+    print(dropdownValue);
     return DropdownButton<String>(
-      value:
-          widget.villageList == null ? dropdownValue : widget.villageList[0],
+      value: dropdownValue,
       elevation: 16,
       style: TextStyle(color: Color(0xffD09E88)),
       underline: Container(
@@ -31,31 +41,47 @@ class _DropdownVillageState extends State<DropdownVillage> {
         color: Color(0xffD09E88),
       ),
       onChanged: (String newValue) {
+        dropdownValue = newValue;
         setState(() {
-          dropdownValue = newValue;
-          decodevillage(dropdownValue);
-          // widget.callback(widget.field, newValue);
+          // decodevillage(dropdownValue);
+          print(dropdownValue);
+          print('newValue');
+          print(newValue);
+          widget.callback(widget.field, newValue);
         });
       },
-      items: widget.villageList != null
-          ? widget.villageList.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  style: TextStyle(fontSize: 25),
-                ),
-              );
-            }).toList()
-          : ['等待'].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  style: TextStyle(fontSize: 25),
-                ),
-              );
-            }).toList(),
+
+      items: villageList.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Center(
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 25),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }).toList(),
+      // items: widget.villageList != null
+      //     ? widget.villageList.map<DropdownMenuItem<String>>((String value) {
+      //         return DropdownMenuItem<String>(
+      //           value: value,
+      //           child: Text(
+      //             value,
+      //             style: TextStyle(fontSize: 25),
+      //           ),
+      //         );
+      //       }).toList()
+      //     : ['等待'].map<DropdownMenuItem<String>>((String value) {
+      //         return DropdownMenuItem<String>(
+      //           value: value,
+      //           child: Text(
+      //             value,
+      //             style: TextStyle(fontSize: 25),
+      //           ),
+      //         );
+      //       }).toList(),
     );
   }
 }

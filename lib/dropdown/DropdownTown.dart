@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:puppy/main.dart';
-import 'package:puppy/main6.dart';
 import 'package:puppy/test/stupid.dart';
-
+import 'DropdownDistrict.dart';
 import '../test/stupid.dart';
 
 class DropdownTown extends StatefulWidget {
-  DropdownTown(
-    {Key key, 
-    @required this.callback, 
-    @required this.field})
+  DropdownTown({Key key, @required this.callback, @required this.field})
       : super(key: key);
   Function(String, String) callback;
   String field;
@@ -19,7 +14,6 @@ class DropdownTown extends StatefulWidget {
 
 class _DropdownTownState extends State<DropdownTown> {
   String dropdownValue = '台北市';
-  List<String> districtList;
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +28,15 @@ class _DropdownTownState extends State<DropdownTown> {
         color: Color(0xffD09E88),
       ),
       onChanged: (String newValue) {
-        setState(() {
-          dropdownValue = newValue;
+        dropdownValue = newValue;
 
-          print(newValue);
+        // print(judge(dropdownValue));
+        // villageList = getVillage(distinctLists[0]);
+        // print('villageList');
+        // print(villageList);
+        setState(() {
+          cityChange = true;
+          distinctLists = judge(dropdownValue);
         });
         widget.callback(widget.field, newValue);
       },

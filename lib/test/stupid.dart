@@ -1,5 +1,4 @@
-
-
+bool cityChange = false;
 var cityList = [
   '台北市',
   '高雄市',
@@ -24,16 +23,62 @@ var cityList = [
   '連江縣',
   '金門縣'
 ];
-
-var distinctList = [];
-var city;
-var distinct;
-var villageList = [];
+bool distinctChange = false;
+List<String> distinctLists = [
+  '松山區',
+  '信義區',
+  '大安區',
+  '中山區',
+  '中正區',
+  '大同區',
+  '萬華區',
+  '文山區',
+  '南港區',
+  '內湖區',
+  '士林區',
+  '北投區'
+];
+// var city;
+// var distinct;
+List<String> villageList = [
+  '東榮里',
+  '三民里',
+  '新益里',
+  '富錦里',
+  '新東里',
+  '富泰里',
+  '介壽里',
+  '精忠里',
+  '東光里',
+  '龍田里',
+  '東昌里',
+  '東勢里',
+  '中華里',
+  '民有里',
+  '民福里',
+  '慈祐里',
+  '安平里',
+  '鵬程里',
+  '自強里',
+  '吉祥里',
+  '新聚里',
+  '復盛里',
+  '中正里',
+  '中崙里',
+  '美仁里',
+  '吉仁里',
+  '敦化里',
+  '復源里',
+  '復建里',
+  '復勢里',
+  '福成里',
+  '松基里'
+];
 
 List<String> judge(String city) {
   switch (city) {
     case '台北市':
-      return distinctList = [
+      return distinctLists = [
         '松山區',
         '信義區',
         '大安區',
@@ -49,7 +94,7 @@ List<String> judge(String city) {
       ];
       break;
     case '高雄市':
-      return distinctList = [
+      return distinctLists = [
         '鹽埕區',
         '鼓山區',
         '左營區',
@@ -91,7 +136,7 @@ List<String> judge(String city) {
       ];
       break;
     case '新北市':
-      return distinctList = [
+      return distinctLists = [
         '板橋區',
         '三重區',
         '中和區',
@@ -124,7 +169,7 @@ List<String> judge(String city) {
       ];
       break;
     case '台中市':
-      return distinctList = [
+      return distinctLists = [
         '中區',
         '東區',
         '南區',
@@ -157,7 +202,7 @@ List<String> judge(String city) {
       ];
       break;
     case '台南市':
-      return distinctList = [
+      return distinctLists = [
         '新營區',
         '鹽水區',
         '白河區',
@@ -198,7 +243,7 @@ List<String> judge(String city) {
       ];
       break;
     case '桃園市':
-      return distinctList = [
+      return distinctLists = [
         '桃園區',
         '中壢區',
         '大溪區',
@@ -215,7 +260,7 @@ List<String> judge(String city) {
       ];
       break;
     case '宜蘭縣':
-      return distinctList = [
+      return distinctLists = [
         '宜蘭市',
         '羅東鎮',
         '蘇澳鎮',
@@ -231,7 +276,7 @@ List<String> judge(String city) {
       ];
       break;
     case '新竹縣':
-      return distinctList = [
+      return distinctLists = [
         '竹北市',
         '竹東鎮',
         '新埔鎮',
@@ -248,7 +293,7 @@ List<String> judge(String city) {
       ];
       break;
     case '苗栗縣':
-      return distinctList = [
+      return distinctLists = [
         '苗栗市',
         '苑裡鎮',
         '通霄鎮',
@@ -270,7 +315,7 @@ List<String> judge(String city) {
       ];
       break;
     case '彰化縣':
-      return distinctList = [
+      return distinctLists = [
         '彰化市',
         '鹿港鎮',
         '和美鎮',
@@ -300,7 +345,7 @@ List<String> judge(String city) {
       ];
       break;
     case '南投縣':
-      return distinctList = [
+      return distinctLists = [
         '南投市',
         '埔里鎮',
         '草屯鎮',
@@ -317,7 +362,7 @@ List<String> judge(String city) {
       ];
       break;
     case '雲林縣':
-      return distinctList = [
+      return distinctLists = [
         '斗六市',
         '斗南鎮',
         '虎尾鎮',
@@ -341,7 +386,7 @@ List<String> judge(String city) {
       ];
       break;
     case '嘉義縣':
-      return distinctList = [
+      return distinctLists = [
         '太保市',
         '朴子市',
         '布袋鎮',
@@ -363,7 +408,7 @@ List<String> judge(String city) {
       ];
       break;
     case '屏東縣':
-      return distinctList = [
+      return distinctLists = [
         '屏東市',
         '潮州鎮',
         '東港鎮',
@@ -400,7 +445,7 @@ List<String> judge(String city) {
       ];
       break;
     case '臺東縣':
-      return distinctList = [
+      return distinctLists = [
         '臺東市',
         '成功鎮',
         '關山鎮',
@@ -420,7 +465,7 @@ List<String> judge(String city) {
       ];
       break;
     case '花蓮縣':
-      return distinctList = [
+      return distinctLists = [
         '花蓮市',
         '鳳林鎮',
         '玉里鎮',
@@ -437,22 +482,22 @@ List<String> judge(String city) {
       ];
       break;
     case '澎湖縣':
-      return distinctList = ['馬公市', '湖西鄉', '白沙鄉', '西嶼鄉', '望安鄉', '七美鄉'];
+      return distinctLists = ['馬公市', '湖西鄉', '白沙鄉', '西嶼鄉', '望安鄉', '七美鄉'];
       break;
     case '基隆市':
-      return distinctList = ['中正區', '七堵區', '暖暖區', '仁愛區', '中山區', '安樂區', '信義區'];
+      return distinctLists = ['中正區', '七堵區', '暖暖區', '仁愛區', '中山區', '安樂區', '信義區'];
       break;
     case '新竹市':
-      return distinctList = ['東區', '北區', '香山區'];
+      return distinctLists = ['東區', '北區', '香山區'];
       break;
     case '嘉義市':
-      return distinctList = ['東區', '西區'];
+      return distinctLists = ['東區', '西區'];
       break;
     case '連江縣':
-      return distinctList = ['南竿鄉', '北竿鄉', '莒光鄉', '東引鄉'];
+      return distinctLists = ['南竿鄉', '北竿鄉', '莒光鄉', '東引鄉'];
       break;
     case '金門縣':
-      return distinctList = ['金城鎮', '金沙鎮', '金湖鎮', '金寧鄉', '烈嶼鄉', '烏坵鄉'];
+      return distinctLists = ['金城鎮', '金沙鎮', '金湖鎮', '金寧鄉', '烈嶼鄉', '烏坵鄉'];
       break;
   }
 }
@@ -589,7 +634,7 @@ List<String> getVillage(String distinct) {
         '建安里',
         '建倫里',
         '敦安里',
-        '正���里',
+        '正聲里',
         '敦煌里',
         '華聲里',
         '車層里',
@@ -645,7 +690,7 @@ List<String> getVillage(String distinct) {
       break;
     case '中正區':
       return villageList = [
-        '���源里',
+        '水源里',
         '富水里',
         '文盛里',
         '林興里',
@@ -693,7 +738,7 @@ List<String> getVillage(String distinct) {
         '雙連里',
         '南芳里',
         '民權里',
-        '景星���',
+        '景星里',
         '隆和里',
         '蓬萊里',
         '國順里',
@@ -711,7 +756,7 @@ List<String> getVillage(String distinct) {
       return villageList = [
         '福星里',
         '萬壽里',
-        '西門里',
+        '西��里',
         '新起里',
         '菜園里',
         '青山里',
@@ -719,7 +764,7 @@ List<String> getVillage(String distinct) {
         '福音里',
         '仁德里',
         '富福里',
-        '頂��里',
+        '頂碩里',
         '雙園里',
         '新忠里',
         '新和里',
@@ -743,7 +788,7 @@ List<String> getVillage(String distinct) {
         '華中里',
         '日祥里',
         '忠貞里',
-        '���霄里',
+        '凌霄里',
         '騰雲里'
       ];
       break;
@@ -929,7 +974,7 @@ List<String> getVillage(String distinct) {
         '永和里',
         '永欣里',
         '永明里',
-        '���華里',
+        '東華里',
         '吉利里',
         '吉慶里',
         '尊賢里',
@@ -1088,7 +1133,7 @@ List<String> getVillage(String distinct) {
         '稔田里',
         '瑞屏里',
         '翠屏里',
-        '宏南里',
+        '宏南��',
         '宏毅里',
         '宏榮里',
         '廣昌里',
@@ -1133,7 +1178,7 @@ List<String> getVillage(String distinct) {
         '寶獅里',
         '寶德里',
         '寶泰里',
-        '寶���里',
+        '寶興里',
         '寶中里',
         '寶華里',
         '寶國里',
@@ -1147,7 +1192,7 @@ List<String> getVillage(String distinct) {
         '寶玉里',
         '灣子里',
         '灣愛里',
-        '灣���里',
+        '灣中里',
         '灣華里',
         '灣勝里',
         '灣利里',
@@ -1297,7 +1342,7 @@ List<String> getVillage(String distinct) {
         '林中里',
         '林泉里',
         '林南里',
-        '���正里',
+        '中正里',
         '尚義里',
         '同慶里',
         '凱旋里',
@@ -1306,7 +1351,7 @@ List<String> getVillage(String distinct) {
         '福壽里',
         '福南里',
         '五權里',
-        '民��里',
+        '民主里',
         '林德里',
         '林貴里',
         '林榮里',
@@ -1404,7 +1449,7 @@ List<String> getVillage(String distinct) {
         '旗下里',
         '永安里',
         '振興里',
-        '���愛里',
+        '慈愛里',
         '復興里',
         '中華里',
         '實踐里',
@@ -1465,7 +1510,7 @@ List<String> getVillage(String distinct) {
         '光明里',
         '興中里',
         '南興里',
-        '和德里',
+        '��德里',
         '鳳崗里',
         '中和里',
         '鎮北里',
@@ -1514,7 +1559,7 @@ List<String> getVillage(String distinct) {
         '富甲里',
         '南成里',
         '文華里',
-        '���德里',
+        '大德里',
         '武松里',
         '文衡里',
         '文福里',
@@ -1584,7 +1629,7 @@ List<String> getVillage(String distinct) {
         '潮寮里',
         '會結里',
         '會社里',
-        '山頂���',
+        '山頂里',
         '忠義里',
         '永芳里',
         '義和里',
@@ -1673,7 +1718,7 @@ List<String> getVillage(String distinct) {
         '仁壽里',
         '碧紅里',
         '程香里',
-        '竹圍��',
+        '竹圍里',
         '台上里',
         '灣裡里',
         '白米里',
@@ -1684,7 +1729,7 @@ List<String> getVillage(String distinct) {
         '嘉峰里',
         '華崗里',
         '大莊里',
-        '��榮里',
+        '協榮里',
         '為隨里',
         '壽峰里',
         '仁義里'
@@ -1784,7 +1829,7 @@ List<String> getVillage(String distinct) {
       return villageList = [
         '海山里',
         '劉家里',
-        '太爺��',
+        '太爺里',
         '公舘里',
         '葉厝里',
         '大湖里',
@@ -1828,7 +1873,7 @@ List<String> getVillage(String distinct) {
         '彌壽里',
         '彌陀里',
         '舊港里',
-        '文���里',
+        '文安里',
         '鹽埕里',
         '過港里',
         '海尾里',
@@ -1839,7 +1884,7 @@ List<String> getVillage(String distinct) {
     case '梓官區':
       return villageList = [
         '梓信里',
-        '梓義里',
+        '���義里',
         '梓和里',
         '梓平里',
         '中崙里',
@@ -1889,7 +1934,7 @@ List<String> getVillage(String distinct) {
         '德興里',
         '龍山里',
         '獅山里',
-        '龍肚���',
+        '龍肚里',
         '廣德里',
         '興隆里',
         '中圳里',
@@ -1923,7 +1968,16 @@ List<String> getVillage(String distinct) {
       return villageList = ['東安里', '西安里', '和安里', '大田里', '寶隆里', '關山里', '小林里'];
       break;
     case '杉林區':
-      return villageList = ['杉林里', '木梓里', '集來里', '新庄里', '上平��', '月眉里', '月美里', '大愛里'];
+      return villageList = [
+        '杉林里',
+        '木梓里',
+        '集來里',
+        '新庄里',
+        '上平里',
+        '月眉里',
+        '月美里',
+        '大愛里'
+      ];
       break;
     case '內門區':
       return villageList = [
@@ -1951,7 +2005,16 @@ List<String> getVillage(String distinct) {
       return villageList = ['茂林里', '萬山里', '多納里'];
       break;
     case '桃源區':
-      return villageList = ['桃源里', '寶山里', '建山里', '高中里', '勤和里', '復興里', '���芙蘭里', '梅山里'];
+      return villageList = [
+        '桃源里',
+        '寶山里',
+        '建山里',
+        '高中里',
+        '勤和里',
+        '復興里',
+        '拉芙蘭里',
+        '梅山里'
+      ];
       break;
     case '那瑪夏區':
       return villageList = ['達卡努瓦里', '瑪雅里', '南沙魯里'];
@@ -1982,7 +2045,7 @@ List<String> getVillage(String distinct) {
         '新民里',
         '幸福里',
         '忠誠里',
-        '��壽里',
+        '百壽里',
         '介壽里',
         '新埔里',
         '華江里',
@@ -1994,7 +2057,7 @@ List<String> getVillage(String distinct) {
         '仁翠里',
         '新翠里',
         '吉翠里',
-        '德翠���',
+        '德翠里',
         '滿翠里',
         '明翠里',
         '松翠里',
@@ -2046,7 +2109,7 @@ List<String> getVillage(String distinct) {
         '華德里',
         '華東里',
         '信義里',
-        '���洲里',
+        '浮洲里',
         '華中里',
         '僑中里',
         '中山里',
@@ -2189,7 +2252,7 @@ List<String> getVillage(String distinct) {
         '慈生里',
         '慈惠里',
         '慈愛里',
-        '���化里',
+        '慈化里',
         '慈祐里',
         '五華里',
         '富貴里',
@@ -2248,13 +2311,13 @@ List<String> getVillage(String distinct) {
         '華新里',
         '東南里',
         '華南里',
-        '忠���里',
+        '忠孝里',
         '崇南里',
         '景南里',
         '橫路里',
         '內南里',
         '壽南里',
-        '外���里',
+        '外南里',
         '復興里',
         '和興里',
         '景平里',
@@ -2520,7 +2583,7 @@ List<String> getVillage(String distinct) {
         '安和里',
         '吉祥里',
         '寶福里',
-        '小城���',
+        '小城里',
         '香坡里',
         '建國里',
         '復興里',
@@ -2564,8 +2627,8 @@ List<String> getVillage(String distinct) {
         '樹北里',
         '圳福里',
         '樹興里',
-        '樹福里',
-        '光���里',
+        '樹福��',
+        '光興里',
         '金寮里',
         '彭興里',
         '文林里',
@@ -2901,7 +2964,7 @@ List<String> getVillage(String distinct) {
         '義學里',
         '明志里',
         '貴子里',
-        '貴和���',
+        '貴和里',
         '同興里',
         '義仁里',
         '泰友里',
@@ -2933,7 +2996,16 @@ List<String> getVillage(String distinct) {
       ];
       break;
     case '深坑區':
-      return villageList = ['深坑里', '萬順里', '土庫里', '昇高里', '阿柔里', '埔新里', '萬福里', '賴仲里'];
+      return villageList = [
+        '深坑里',
+        '萬順里',
+        '土庫里',
+        '昇高里',
+        '阿柔里',
+        '埔新里',
+        '萬福里',
+        '賴仲里'
+      ];
       break;
     case '石碇區':
       return villageList = [
@@ -2942,7 +3014,7 @@ List<String> getVillage(String distinct) {
         '隆盛里',
         '烏塗里',
         '彭山里',
-        '豐田���',
+        '豐田里',
         '永定里',
         '中民里',
         '光明里',
@@ -2966,7 +3038,7 @@ List<String> getVillage(String distinct) {
         '錫板里',
         '後厝里',
         '福德里',
-        '��山里',
+        '圓山里',
         '店子里',
         '興華里'
       ];
@@ -3016,7 +3088,7 @@ List<String> getVillage(String distinct) {
       break;
     case '雙溪區':
       return villageList = [
-        '��溪里',
+        '雙溪里',
         '共和里',
         '新基里',
         '魚行里',
@@ -3082,7 +3154,16 @@ List<String> getVillage(String distinct) {
       return villageList = ['烏來里', '忠治里', '福山里', '信賢里', '孝義里'];
       break;
     case '中區':
-      return villageList = ['繼光里', '大墩里', '綠川里', '公園里', '光復里', '柳川里', '大誠里', '中華里'];
+      return villageList = [
+        '繼光里',
+        '大墩里',
+        '綠川里',
+        '公園里',
+        '光復里',
+        '柳川里',
+        '大誠里',
+        '中華里'
+      ];
       break;
     case '東區':
       return villageList = [
@@ -3168,7 +3249,7 @@ List<String> getVillage(String distinct) {
         '新興里',
         '新北里',
         '樂英里',
-        '錦村���',
+        '錦村里',
         '建成里',
         '錦洲里',
         '金華里',
@@ -3216,7 +3297,7 @@ List<String> getVillage(String distinct) {
         '大石里',
         '大福里',
         '大鵬里',
-        '港���里',
+        '港尾里',
         '廣福里',
         '林厝里',
         '永安里',
@@ -3298,7 +3379,7 @@ List<String> getVillage(String distinct) {
         '仁愛里',
         '水湳里',
         '陳平里',
-        '新平里',
+        '新��里',
         '平安里',
         '平順里',
         '平德里',
@@ -3417,7 +3498,7 @@ List<String> getVillage(String distinct) {
         '西岐里',
         '銅安里',
         '福德里',
-        '建��里'
+        '建興里'
       ];
       break;
     case '清水區':
@@ -3488,7 +3569,7 @@ List<String> getVillage(String distinct) {
         '中正里',
         '中和里',
         '文化里',
-        '安���里',
+        '安仁里',
         '草湳里',
         '南簡里',
         '福德里',
@@ -3545,7 +3626,7 @@ List<String> getVillage(String distinct) {
       return villageList = [
         '潭陽里',
         '潭秀里',
-        '潭北���',
+        '潭北里',
         '福仁里',
         '頭家里',
         '甘蔗里',
@@ -3556,7 +3637,7 @@ List<String> getVillage(String distinct) {
         '嘉仁里',
         '新田里',
         '聚興里',
-        '頭家���里',
+        '頭家東里',
         '家興里',
         '家福里'
       ];
@@ -3589,7 +3670,7 @@ List<String> getVillage(String distinct) {
         '崑山里',
         '大南里',
         '永源里',
-        '中���里',
+        '中興里',
         '協成里',
         '東興里',
         '慶西里',
@@ -3600,7 +3681,7 @@ List<String> getVillage(String distinct) {
     case '石岡區':
       return villageList = [
         '石岡里',
-        '萬��里',
+        '萬安里',
         '九房里',
         '金星里',
         '龍興里',
@@ -3658,7 +3739,7 @@ List<String> getVillage(String distinct) {
         '溪埧里',
         '螺潭里',
         '北里里',
-        '南���里',
+        '南里里',
         '溪尾里'
       ];
       break;
@@ -3667,7 +3748,7 @@ List<String> getVillage(String distinct) {
         '王田里',
         '中和里',
         '福山里',
-        '��埔里',
+        '營埔里',
         '社腳里',
         '新興里',
         '大東里',
@@ -3679,7 +3760,7 @@ List<String> getVillage(String distinct) {
         '山陽里',
         '頂街里',
         '瑞井里',
-        '蔗廍里',
+        '蔗���里',
         '自強里'
       ];
       break;
@@ -3718,7 +3799,7 @@ List<String> getVillage(String distinct) {
         '南柳里',
         '四德里',
         '五福里',
-        '��豐里',
+        '萬豐里',
         '舊正里',
         '峰谷里',
         '六股里',
@@ -3802,7 +3883,16 @@ List<String> getVillage(String distinct) {
       ];
       break;
     case '和平區':
-      return villageList = ['南勢里', '天��里', '博愛里', '中坑里', '自由里', '達觀里', '梨山里', '平等里'];
+      return villageList = [
+        '南勢里',
+        '天輪里',
+        '博愛里',
+        '中坑里',
+        '自由里',
+        '達觀里',
+        '梨山里',
+        '平等里'
+      ];
       break;
     case '新營區':
       return villageList = [
@@ -3938,7 +4028,7 @@ List<String> getVillage(String distinct) {
       break;
     case '東山區':
       return villageList = [
-        '��山里',
+        '東山里',
         '東中里',
         '東正里',
         '三榮里',
@@ -4097,7 +4187,7 @@ List<String> getVillage(String distinct) {
         '中洲里'
       ];
       break;
-    case '西���區':
+    case '西港區':
       return villageList = [
         '西港里',
         '南海里',
@@ -4195,7 +4285,7 @@ List<String> getVillage(String distinct) {
         '豐榮里',
         '全興里',
         '崙頂里',
-        '知義���',
+        '知義里',
         '山脚里',
         '大坑里',
         '𦰡拔里',
@@ -4306,7 +4396,7 @@ List<String> getVillage(String distinct) {
         '內庄里',
         '澄山里',
         '岡林里',
-        '��山里',
+        '草山里',
         '二寮里'
       ];
       break;
@@ -4315,7 +4405,7 @@ List<String> getVillage(String distinct) {
         '太子里',
         '土庫里',
         '一甲里',
-        '仁���里',
+        '仁德里',
         '仁義里',
         '新田里',
         '後壁里',
@@ -4379,7 +4469,16 @@ List<String> getVillage(String distinct) {
       ];
       break;
     case '龍崎區':
-      return villageList = ['崎頂里', '土崎里', '中坑里', '楠坑里', '牛埔里', '大坪里', '龍船里', '石𥕢里'];
+      return villageList = [
+        '崎頂里',
+        '土崎里',
+        '中坑里',
+        '楠坑里',
+        '牛埔里',
+        '大坪里',
+        '龍船里',
+        '石𥕢里'
+      ];
       break;
     case '永康區':
       return villageList = [
@@ -4421,7 +4520,7 @@ List<String> getVillage(String distinct) {
         '尚頂里',
         '復華里',
         '正強里',
-        '中華��'
+        '中華里'
       ];
       break;
     case '東區':
@@ -4473,7 +4572,7 @@ List<String> getVillage(String distinct) {
         '文聖里'
       ];
       break;
-    case '南��':
+    case '南區':
       return villageList = [
         '竹溪里',
         '荔宅里',
@@ -4592,7 +4691,7 @@ List<String> getVillage(String distinct) {
         '南興里',
         '學東里',
         '城東里',
-        '��北里',
+        '城北里',
         '城中里',
         '城南里',
         '城西里',
@@ -4628,7 +4727,7 @@ List<String> getVillage(String distinct) {
         '怡平里',
         '華平里',
         '平通里',
-        '文���里',
+        '文平里',
         '國平里',
         '育平里',
         '億載里',
@@ -4683,7 +4782,7 @@ List<String> getVillage(String distinct) {
       return villageList = [
         '文化里',
         '文明里',
-        '武陵���',
+        '武陵里',
         '大林里',
         '忠義里',
         '會稽里',
@@ -4693,9 +4792,9 @@ List<String> getVillage(String distinct) {
         '汴洲里',
         '永安里',
         '東埔里',
-        '東��里',
+        '東門里',
         '東山里',
-        '萬���里',
+        '萬壽里',
         '長安里',
         '中埔里',
         '西埔里',
@@ -4737,7 +4836,7 @@ List<String> getVillage(String distinct) {
         '中路里',
         '中德里',
         '龍祥里',
-        '大有���',
+        '大有里',
         '寶山里',
         '龍鳳里',
         '龍安里',
@@ -4821,7 +4920,7 @@ List<String> getVillage(String distinct) {
         '福德里',
         '和平里',
         '普忠里',
-        '��強里',
+        '普強里',
         '明德里',
         '至善里',
         '五福里',
@@ -4862,7 +4961,7 @@ List<String> getVillage(String distinct) {
         '新峰里',
         '康安里',
         '義和里',
-        '瑞��里',
+        '瑞興里',
         '中新里',
         '仁義里',
         '僑愛里',
@@ -4892,7 +4991,7 @@ List<String> getVillage(String distinct) {
         '梅新里',
         '大同里',
         '埔心里',
-        '金��里',
+        '金龍里',
         '瑞塘里',
         '四維里',
         '梅溪里',
@@ -5007,7 +5106,7 @@ List<String> getVillage(String distinct) {
         '嶺頂里',
         '龍壽里',
         '舊路里',
-        '���崗里',
+        '大崗里',
         '文化里',
         '南美里',
         '幸福里',
@@ -5033,7 +5132,7 @@ List<String> getVillage(String distinct) {
         '廣隆里',
         '竹園里',
         '霄裡里',
-        '茄��里',
+        '茄苳里',
         '高明里',
         '白鷺里',
         '大湳里',
@@ -5061,14 +5160,14 @@ List<String> getVillage(String distinct) {
         '大千里',
         '大榮里',
         '茄明里',
-        '��城里',
+        '高城里',
         '瑞興里',
         '大愛里',
         '大宏里',
         '大漢里',
         '廣德里',
         '龍友里',
-        '陸���里',
+        '陸光里',
         '永豐里',
         '大順里'
       ];
@@ -5117,7 +5216,7 @@ List<String> getVillage(String distinct) {
         '宋屋里',
         '新勢里',
         '新富里',
-        '���勢里',
+        '北勢里',
         '北興里',
         '北貴里',
         '平鎮里',
@@ -5178,7 +5277,7 @@ List<String> getVillage(String distinct) {
         '笨港里',
         '深圳里',
         '蚵間里',
-        '槺���里',
+        '槺榔里',
         '後庄里',
         '大坡里',
         '望間里'
@@ -5389,7 +5488,7 @@ List<String> getVillage(String distinct) {
         '功勞村',
         '美城村',
         '新社村',
-        '大��村',
+        '大福村',
         '古結村'
       ];
       break;
@@ -5401,7 +5500,7 @@ List<String> getVillage(String distinct) {
         '七賢村',
         '深溝村',
         '蓁巷村',
-        '內城��',
+        '內城村',
         '中華村',
         '永和村',
         '頭分村',
@@ -5454,7 +5553,7 @@ List<String> getVillage(String distinct) {
         '大吉村',
         '協和村',
         '孝威村',
-        '���眾村',
+        '錦眾村',
         '利澤村',
         '成興村',
         '季新村'
@@ -5548,7 +5647,7 @@ List<String> getVillage(String distinct) {
         '榮樂里',
         '鷄林里',
         '仁愛里',
-        '五豐里',
+        '五��里',
         '三重里',
         '頭重里',
         '員山里',
@@ -5559,7 +5658,7 @@ List<String> getVillage(String distinct) {
         '南華里',
         '榮華里',
         '忠孝里',
-        '��豐里'
+        '陸豐里'
       ];
       break;
     case '新埔鎮':
@@ -5624,7 +5723,7 @@ List<String> getVillage(String distinct) {
         '湖口村',
         '湖鏡村',
         '湖南村',
-        '波羅���',
+        '波羅村',
         '鳳凰村',
         '鳳山村',
         '中興村',
@@ -5821,10 +5920,10 @@ List<String> getVillage(String distinct) {
         '營盤里',
         '聖福里',
         '竹興里',
-        '��鳳里',
+        '龍鳳里',
         '山佳里',
         '中港里',
-        '中華��',
+        '中華里',
         '中英里',
         '中美里',
         '開元里',
@@ -5936,7 +6035,7 @@ List<String> getVillage(String distinct) {
       break;
     case '公館鄉':
       return villageList = [
-        '館中��',
+        '館中村',
         '館東村',
         '館南村',
         '大坑村',
@@ -5944,7 +6043,7 @@ List<String> getVillage(String distinct) {
         '玉泉村',
         '石墻村',
         '福基村',
-        '福��村',
+        '福星村',
         '開礦村',
         '福德村',
         '五谷村',
@@ -5985,7 +6084,16 @@ List<String> getVillage(String distinct) {
       ];
       break;
     case '頭屋鄉':
-      return villageList = ['頭屋村', '象山村', '北坑村', '獅潭村', '曲洞村', '飛鳳村', '明德村', '鳴鳳村'];
+      return villageList = [
+        '頭屋村',
+        '象山村',
+        '北坑村',
+        '獅潭村',
+        '曲洞村',
+        '飛鳳村',
+        '明德村',
+        '鳴鳳村'
+      ];
       break;
     case '三義鄉':
       return villageList = ['廣盛村', '双湖村', '双潭村', '勝興村', '西湖村', '龍騰村', '鯉魚潭村'];
@@ -6017,13 +6125,31 @@ List<String> getVillage(String distinct) {
       ];
       break;
     case '三灣鄉':
-      return villageList = ['三灣村', '內灣村', '銅鏡村', '頂寮村', '北埔村', '大河村', '大坪村', '永和村'];
+      return villageList = [
+        '三灣村',
+        '內灣村',
+        '銅鏡村',
+        '頂寮村',
+        '北埔村',
+        '大河村',
+        '大坪村',
+        '永和村'
+      ];
       break;
     case '獅潭鄉':
-      return villageList = ['百壽村', '永興村', '新店村', '和興村', '豐林村', '新��村', '竹木村'];
+      return villageList = ['百壽村', '永興村', '新店村', '和興村', '豐林村', '新豐村', '竹木村'];
       break;
     case '泰安鄉':
-      return villageList = ['八卦村', '錦水村', '清安村', '大興村', '中興村', '梅園村', '象鼻村', '士林村'];
+      return villageList = [
+        '八卦村',
+        '錦水村',
+        '清安村',
+        '大興村',
+        '中興村',
+        '梅園村',
+        '象鼻村',
+        '士林村'
+      ];
       break;
     case '彰化市':
       return villageList = [
@@ -6088,7 +6214,7 @@ List<String> getVillage(String distinct) {
         '寶廍里',
         '茄苳里',
         '茄南里',
-        '��夷里',
+        '阿夷里',
         '古夷里',
         '復興里',
         '和調里',
@@ -6097,7 +6223,7 @@ List<String> getVillage(String distinct) {
         '竹巷里',
         '田中里',
         '快官里',
-        '台��里',
+        '台鳳里',
         '崙平里',
         '向陽里'
       ];
@@ -6172,9 +6298,18 @@ List<String> getVillage(String distinct) {
       ];
       break;
     case '線西鄉':
-      return villageList = ['線西村', '頂庄村', '寓埔村', '塭仔村', '溝內村', '下犁��', '頂犁村', '德興村'];
+      return villageList = [
+        '線西村',
+        '頂庄村',
+        '寓埔村',
+        '塭仔村',
+        '溝內村',
+        '下犁村',
+        '頂犁村',
+        '德興村'
+      ];
       break;
-    case '伸港��':
+    case '伸港鄉':
       return villageList = [
         '曾家村',
         '蚵寮村',
@@ -6184,7 +6319,7 @@ List<String> getVillage(String distinct) {
         '泉厝村',
         '海尾村',
         '全興村',
-        '��興村',
+        '定興村',
         '新港村',
         '什股村',
         '大同村',
@@ -6200,7 +6335,7 @@ List<String> getVillage(String distinct) {
         '外埔村',
         '外中村',
         '元中村',
-        '三汴���',
+        '三汴村',
         '萬豐村',
         '番婆村',
         '橋頭村',
@@ -6293,7 +6428,7 @@ List<String> getVillage(String distinct) {
         '新生里',
         '南平里',
         '南興里',
-        '源潭���',
+        '源潭里',
         '大埔里',
         '三條里',
         '三和里',
@@ -6346,7 +6481,7 @@ List<String> getVillage(String distinct) {
         '忠覺里',
         '湳底里',
         '大庭里',
-        '媽厝���',
+        '媽厝里',
         '西勢里',
         '番婆里'
       ];
@@ -6358,7 +6493,7 @@ List<String> getVillage(String distinct) {
         '東源里',
         '復興里',
         '平和里',
-        '��潭里',
+        '頂潭里',
         '中潭里',
         '龍潭里',
         '北路里',
@@ -6401,10 +6536,10 @@ List<String> getVillage(String distinct) {
       return villageList = [
         '埔鹽村',
         '埔南村',
-        '廍���村',
+        '廍子村',
         '出水村',
         '南港村',
-        '打���村',
+        '打廉村',
         '豐澤村',
         '崑崙村',
         '角樹村',
@@ -6412,7 +6547,7 @@ List<String> getVillage(String distinct) {
         '好修村',
         '西湖村',
         '大有村',
-        '新��村',
+        '新興村',
         '永平村',
         '永樂村',
         '石埤村',
@@ -6560,7 +6695,7 @@ List<String> getVillage(String distinct) {
         '頂厝里',
         '趙甲里',
         '振興里',
-        '��興里',
+        '萬興里',
         '永興里',
         '西庄里',
         '梅芳里',
@@ -6568,7 +6703,7 @@ List<String> getVillage(String distinct) {
         '東勢里',
         '萬合里',
         '大永里',
-        '原���里',
+        '原斗里',
         '西斗里',
         '東華里',
         '復豐里'
@@ -6852,7 +6987,7 @@ List<String> getVillage(String distinct) {
         '集集里',
         '和平里',
         '林尾里',
-        '���寮里',
+        '田寮里',
         '隘寮里',
         '玉映里',
         '吳厝里',
@@ -6931,7 +7066,7 @@ List<String> getVillage(String distinct) {
     case '魚池鄉':
       return villageList = [
         '東池村',
-        '魚池��',
+        '魚池村',
         '中明村',
         '新城村',
         '大林村',
@@ -7062,7 +7197,7 @@ List<String> getVillage(String distinct) {
         '社口里',
         '公誠里',
         '明德里',
-        '���功里'
+        '成功里'
       ];
       break;
     case '斗南鎮':
@@ -7096,7 +7231,7 @@ List<String> getVillage(String distinct) {
         '中山里',
         '新興里',
         '東仁里',
-        '公���里',
+        '公安里',
         '德興里',
         '西安里',
         '安慶里',
@@ -7152,7 +7287,7 @@ List<String> getVillage(String distinct) {
         '九隆里',
         '吳厝里',
         '七座里',
-        '��舘里'
+        '公舘里'
       ];
       break;
     case '土庫鎮':
@@ -7200,7 +7335,7 @@ List<String> getVillage(String distinct) {
         '溝皂里',
         '後溝里',
         '番溝里',
-        '大��里',
+        '大北里',
         '好收里',
         '樹腳里',
         '扶朝里',
@@ -7234,7 +7369,7 @@ List<String> getVillage(String distinct) {
       break;
     case '大埤鄉':
       return villageList = [
-        '北���村',
+        '北和村',
         '南和村',
         '大德村',
         '松竹村',
@@ -7397,7 +7532,7 @@ List<String> getVillage(String distinct) {
         '山內村',
         '合和村',
         '五塊村',
-        '潭���村',
+        '潭西村',
         '潭東村',
         '客厝村',
         '卓運村',
@@ -7463,7 +7598,7 @@ List<String> getVillage(String distinct) {
         '過港村'
       ];
       break;
-    case '水林���':
+    case '水林鄉':
       return villageList = [
         '水北村',
         '水南村',
@@ -7552,7 +7687,7 @@ List<String> getVillage(String distinct) {
         '興中里',
         '光復里',
         '見龍里',
-        '新���里',
+        '新厝里',
         '龍江里',
         '新岑里',
         '新民里',
@@ -7560,7 +7695,7 @@ List<String> getVillage(String distinct) {
         '好美里',
         '永安里',
         '東港里',
-        '江山��',
+        '江山里',
         '菜舖里',
         '考試里',
         '振寮里',
@@ -7642,7 +7777,7 @@ List<String> getVillage(String distinct) {
         '本厝村',
         '柳溝村',
         '疊溪村',
-        '妙崙���',
+        '妙崙村',
         '坪頂村'
       ];
       break;
@@ -7778,7 +7913,7 @@ List<String> getVillage(String distinct) {
       return villageList = [
         '水上村',
         '水頭村',
-        '大堀村',
+        '���堀村',
         '大崙村',
         '塗溝村',
         '粗溪村',
@@ -7968,7 +8103,7 @@ List<String> getVillage(String distinct) {
         '永光里',
         '大洲里',
         '大武里',
-        '前進��',
+        '前進里',
         '清溪里',
         '長安里',
         '永順里',
@@ -8150,7 +8285,7 @@ List<String> getVillage(String distinct) {
         '春林村',
         '過江村',
         '鐵店村',
-        '塔樓村',
+        '塔���村',
         '潮厝村',
         '茄苳村',
         '載興村',
@@ -8211,7 +8346,7 @@ List<String> getVillage(String distinct) {
         '成德村',
         '萬金村',
         '赤山村',
-        '��佐村',
+        '佳佐村',
         '佳和村',
         '新厝村',
         '新置村'
@@ -8252,7 +8387,7 @@ List<String> getVillage(String distinct) {
         '履豐村',
         '頭崙村',
         '二崙村',
-        '美��村',
+        '美崙村',
         '南勢村',
         '西勢村',
         '福田村',
@@ -8274,7 +8409,7 @@ List<String> getVillage(String distinct) {
         '中寮村',
         '安樂村',
         '隆山村',
-        '��時村',
+        '天時村',
         '地利村',
         '人和村',
         '內寮村',
@@ -8305,7 +8440,16 @@ List<String> getVillage(String distinct) {
       ];
       break;
     case '崁頂鄉':
-      return villageList = ['崁頂村', '園寮村', '圍內村', '力社村', '洲子村', '北勢村', '越溪村', '港東村'];
+      return villageList = [
+        '崁頂村',
+        '園寮村',
+        '圍內村',
+        '力社村',
+        '洲子村',
+        '北勢村',
+        '越溪村',
+        '港東村'
+      ];
       break;
     case '林邊鄉':
       return villageList = [
@@ -8315,7 +8459,7 @@ List<String> getVillage(String distinct) {
         '中林村',
         '永樂村',
         '水利村',
-        '崎峯���',
+        '崎峯村',
         '田厝村',
         '竹林村',
         '鎮安村'
@@ -8352,7 +8496,16 @@ List<String> getVillage(String distinct) {
       ];
       break;
     case '琉球鄉':
-      return villageList = ['本福村', '中福村', '漁福村', '大福村', '南福村', '天福村', '上福村', '杉福村'];
+      return villageList = [
+        '本福村',
+        '中福村',
+        '漁福村',
+        '大福村',
+        '南福村',
+        '天福村',
+        '上福村',
+        '杉福村'
+      ];
       break;
     case '車城鄉':
       return villageList = [
@@ -8370,7 +8523,16 @@ List<String> getVillage(String distinct) {
       ];
       break;
     case '滿州鄉':
-      return villageList = ['滿州村', '里德村', '永靖村', '港口村', '响林村', '長樂村', '九棚村', '港仔村'];
+      return villageList = [
+        '滿州村',
+        '里德村',
+        '永靖村',
+        '港口村',
+        '响林村',
+        '長樂村',
+        '九棚村',
+        '港仔村'
+      ];
       break;
     case '枋山鄉':
       return villageList = ['枋山村', '加祿村', '楓港村', '善餘村'];
@@ -8402,10 +8564,19 @@ List<String> getVillage(String distinct) {
       return villageList = ['來義村', '義林村', '丹林村', '古樓村', '文樂村', '望嘉村', '南和村'];
       break;
     case '春日鄉':
-      return villageList = ['春日村', '古華村', '士文村', '七佳���', '歸崇村', '力里村'];
+      return villageList = ['春日村', '古華村', '士文村', '七佳村', '歸崇村', '力里村'];
       break;
     case '獅子鄉':
-      return villageList = ['楓林村', '丹路村', '草埔村', '內文村', '竹坑村', '獅子村', '內獅村', '南世村'];
+      return villageList = [
+        '楓林村',
+        '丹路村',
+        '草埔村',
+        '內文村',
+        '竹坑村',
+        '獅子村',
+        '內獅村',
+        '南世村'
+      ];
       break;
     case '牡丹鄉':
       return villageList = ['石門村', '牡丹村', '東源村', '旭海村', '高士村', '四林村'];
@@ -8461,10 +8632,19 @@ List<String> getVillage(String distinct) {
       ];
       break;
     case '成功鎮':
-      return villageList = ['博愛里', '忠孝里', '三仙里', '三民里', '忠智里', '忠仁里', '和平里', '信義里'];
+      return villageList = [
+        '博愛里',
+        '忠孝里',
+        '三仙里',
+        '三民里',
+        '忠智里',
+        '忠仁里',
+        '和平里',
+        '信��里'
+      ];
       break;
     case '關山鎮':
-      return villageList = ['德��里', '豐泉里', '新福里', '中福里', '里壠里', '電光里', '月眉里'];
+      return villageList = ['德高里', '豐泉里', '新福里', '中福里', '里壠里', '電光里', '月眉里'];
       break;
     case '卑南鄉':
       return villageList = [
@@ -8545,7 +8725,7 @@ List<String> getVillage(String distinct) {
         '民立里',
         '民運里',
         '民族里',
-        '��信里',
+        '主信里',
         '主睦里',
         '主和里',
         '國威里',
@@ -8624,8 +8804,17 @@ List<String> getVillage(String distinct) {
         '大禹里'
       ];
       break;
-    case '新��鄉':
-      return villageList = ['新城村', '順安村', '康樂村', '北埔村', '佳林村', '嘉里村', '嘉新村', '大漢村'];
+    case '新城鄉':
+      return villageList = [
+        '新城村',
+        '順安村',
+        '康樂村',
+        '北埔村',
+        '佳林村',
+        '嘉里村',
+        '嘉新村',
+        '大漢村'
+      ];
       break;
     case '吉安鄉':
       return villageList = [
@@ -8633,7 +8822,7 @@ List<String> getVillage(String distinct) {
         '勝安村',
         '太昌村',
         '永安村',
-        '慶��村',
+        '慶豐村',
         '吉安村',
         '福興村',
         '南華村',
@@ -8674,7 +8863,7 @@ List<String> getVillage(String distinct) {
         '大華村',
         '大平村',
         '大馬村',
-        '��同村',
+        '大同村',
         '大進村',
         '大全村',
         '大興村',
@@ -8750,7 +8939,7 @@ List<String> getVillage(String distinct) {
         '中興里',
         '光復里',
         '光榮里',
-        '光明���',
+        '光明里',
         '朝陽里',
         '陽明里',
         '重光里',
@@ -8783,7 +8972,7 @@ List<String> getVillage(String distinct) {
         '湖東村',
         '青螺村',
         '白坑村',
-        '南寮村',
+        '���寮村',
         '北寮村',
         '紅羅村',
         '西溪村',
@@ -9035,7 +9224,7 @@ List<String> getVillage(String distinct) {
         '孝深里',
         '孝賢里',
         '孝德里',
-        '孝��里'
+        '孝忠里'
       ];
       break;
     case '東區':
@@ -9152,16 +9341,16 @@ List<String> getVillage(String distinct) {
         '浸水里',
         '樹下里',
         '埔前里',
-        '中��里',
+        '中埔里',
         '牛埔里',
         '頂埔里',
         '東香里',
         '香村里',
         '香山里',
         '大庄里',
-        '美山里',
+        '美���里',
         '朝山里',
-        '海山里',
+        '���山里',
         '茄苳里',
         '大湖里',
         '南隘里',
@@ -9193,7 +9382,7 @@ List<String> getVillage(String distinct) {
         '宣信里',
         '興南里',
         '豐年里',
-        '���草里',
+        '芳草里',
         '芳安里',
         '頂寮里',
         '安寮里',
@@ -9245,7 +9434,7 @@ List<String> getVillage(String distinct) {
         '育英里',
         '致遠里',
         '光路里',
-        '翠岱���',
+        '翠岱里',
         '自強里',
         '永和里',
         '新富里',
@@ -9261,7 +9450,7 @@ List<String> getVillage(String distinct) {
         '紅瓦里',
         '保福里',
         '保生里',
-        '北��里'
+        '北新里'
       ];
       break;
     case '南竿鄉':
@@ -9278,7 +9467,7 @@ List<String> getVillage(String distinct) {
       ];
       break;
     case '北竿鄉':
-      return villageList = ['塘岐村', '后沃村', '橋仔村', '芹壁村', '坂里村', '���沙村'];
+      return villageList = ['塘岐村', '后沃村', '橋仔村', '芹壁村', '坂里村', '白沙村'];
       break;
     case '莒光鄉':
       return villageList = ['青帆村', '田沃村', '西坵村', '福正村', '大坪村'];
@@ -9287,13 +9476,40 @@ List<String> getVillage(String distinct) {
       return villageList = ['中柳村', '樂華村'];
       break;
     case '金城鎮':
-      return villageList = ['東門里', '西門里', '南門里', '北門里', '古城里', '金水里', '珠沙里', '賢庵里'];
+      return villageList = [
+        '東門里',
+        '西門里',
+        '南門里',
+        '北門里',
+        '古城里',
+        '金水里',
+        '珠沙里',
+        '賢庵里'
+      ];
       break;
     case '金沙鎮':
-      return villageList = ['��沙里', '三山里', '大洋里', '光前里', '何斗里', '西園里', '官嶼里', '浦山里'];
+      return villageList = [
+        '汶沙里',
+        '三山里',
+        '大洋里',
+        '光前里',
+        '何斗里',
+        '西園里',
+        '官嶼里',
+        '浦山里'
+      ];
       break;
     case '金湖鎮':
-      return villageList = ['新市里', '山外里', '正義里', '料羅里', '瓊林里', '新湖里', '溪湖里', '蓮庵里'];
+      return villageList = [
+        '新市里',
+        '山外里',
+        '正義里',
+        '料羅里',
+        '瓊林里',
+        '新湖里',
+        '溪湖里',
+        '蓮庵里'
+      ];
       break;
     case '金寧鄉':
       return villageList = ['古寧村', '安美村', '后盤村', '湖埔村', '榜林村', '盤山村'];

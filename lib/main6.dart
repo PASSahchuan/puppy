@@ -223,6 +223,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
         break;
       case "vilage":
         _vilage = input;
+        setState(() {});
         break;
       case "dayCount":
         _dayCount = input;
