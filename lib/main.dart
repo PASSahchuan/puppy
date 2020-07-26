@@ -36,18 +36,23 @@ void main() async {
     var url = 'http://140.116.152.77:40129/authLocation';
     http.Response response;
     try {
-      response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(data),
-      );
+      response = await http
+          .post(
+            url,
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(data),
+          )
+          .timeout(Duration(seconds: 1));
       var data_log = await db.query("timingLocation");
       for (int i = 0; i < data_log.length; i++) {
-        response = await http.post(
-          url,
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(data_log[i]),
-        );
+        response = await http
+            .post(
+              url,
+              headers: {'Content-Type': 'application/json'},
+              body: jsonEncode(data_log[i]),
+            )
+            .timeout(Duration(seconds: 1));
+        ;
       }
       db.delete('timingLocation');
     } catch (_) {
@@ -200,7 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         viewportFraction: 0.9,
                       ),
                       onPageChanged: (int index) {},
-                      children: page,
+                      children: <Widget>[Page1(), Page2()],
                     ),
                   ),
                   SizedBox(
@@ -288,7 +293,7 @@ class _MyHomePageState extends State<MyHomePage> {
         orderBy: "datetime('date')");
 
     for (var i = 0; i < data.length; i++) {
-      page.add(Page2());
+      // page.add(Page2());
     }
   }
 
