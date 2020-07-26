@@ -282,7 +282,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
             body: jsonEncode(data),
           )
           .timeout(
-            Duration(seconds: 25),
+            Duration(seconds: 15),
             onTimeout: () => null,
           );
     } catch (_) {

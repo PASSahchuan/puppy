@@ -55,6 +55,7 @@ void main() async {
     }
   }
   Timer.periodic(Duration(minutes: 1), (timer) async {
+    final Database db = await db_get.create_db();
     latlng = await Geolocator().getCurrentPosition();
     if (temp_user.length != 0) {
       var data = {
@@ -127,8 +128,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Widget> page;
+  @override
   @override
   Widget build(BuildContext context) {
+    get_db_data();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -196,11 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         viewportFraction: 0.9,
                       ),
                       onPageChanged: (int index) {},
-                      children: <Widget>[
-                        Page1(),
-                        Page2(),
-                        Page3(),
-                      ],
+                      children: page,
                     ),
                   ),
                   SizedBox(
@@ -276,6 +276,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
     //print(response.body);
     print("object");
+  }
+
+  void get_db_data() async {
+    var db = await db_get.create_db();
+    var user = await db
+        .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
+    var data = await db.query("imagup",
+        where:
+            'update_data = 0 AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}',
+        orderBy: "datetime('date')");
+
+    for (var i = 0; i < data.length; i++) {
+      page.add(Page2());
+    }
   }
 
   void takePicture() {
