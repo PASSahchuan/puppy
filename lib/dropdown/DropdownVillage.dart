@@ -5,8 +5,7 @@ class DropdownVillage extends StatefulWidget {
   DropdownVillage(
       {Key key,
       @required this.callback,
-      @required this.field,
-      @required this.villageList})
+      @required this.field,})
       : super(key: key);
   Function(String, String) callback;
   String field;

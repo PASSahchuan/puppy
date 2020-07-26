@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:puppy/main.dart';
 import 'package:puppy/main6.dart';
+import 'package:puppy/test/stupid.dart';
+
+import '../test/stupid.dart';
 
 class DropdownTown extends StatefulWidget {
   DropdownTown(
@@ -38,30 +41,7 @@ class _DropdownTownState extends State<DropdownTown> {
         });
         widget.callback(widget.field, newValue);
       },
-      items: <String>[
-        '台北市',
-        '高雄市',
-        '新北市',
-        '台中市',
-        '台南市',
-        '桃園市',
-        '宜蘭縣',
-        '新竹縣',
-        '苗栗縣',
-        '彰化縣',
-        '南投縣',
-        '雲林縣',
-        '嘉義縣',
-        '屏東縣',
-        '臺東縣',
-        '花蓮縣',
-        '澎湖縣',
-        '基隆市',
-        '新竹市',
-        '嘉義市',
-        '連江縣',
-        '金門縣'
-      ].map<DropdownMenuItem<String>>((String value) {
+      items: cityList.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(

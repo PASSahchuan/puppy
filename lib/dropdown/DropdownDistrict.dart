@@ -5,8 +5,7 @@ class DropdownDistrict extends StatefulWidget {
   DropdownDistrict(
       {Key key,
       @required this.callback,
-      @required this.field,
-      @required this.districtList})
+      @required this.field,})
       : super(key: key);
   Function(String, String) callback;
   String field;
