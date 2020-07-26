@@ -200,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         viewportFraction: 0.9,
                       ),
                       onPageChanged: (int index) {},
-                      children: page,
+                      children: <Widget>[],
                     ),
                   ),
                   SizedBox(
@@ -288,7 +288,7 @@ class _MyHomePageState extends State<MyHomePage> {
         orderBy: "datetime('date')");
 
     for (var i = 0; i < data.length; i++) {
-      page.add(Page2());
+      // page.add(Page2());
     }
   }
 
