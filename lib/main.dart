@@ -15,7 +15,7 @@ import 'page/page3.dart';
 import 'package:http/http.dart' as http;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  await WidgetsFlutterBinding.ensureInitialized();
 
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]); //強制豎屏
@@ -23,8 +23,12 @@ void main() async {
   final Database db = await db_get.create_db();
   var temp_user =
       await db.rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
+
   var latlng = await Geolocator().getCurrentPosition();
+  print("-----------------顯示資料ㄑㄨˋ----------------------");
+
   print(temp_user);
+  print("-----------------開資料ㄑㄨˋ----------------------");
   if (temp_user[0]['user'] != null) {
     var data = {
       'plan': temp_user[0]['plan'],
@@ -292,18 +296,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<List<Widget>> get_db_data() async {
     var db = await db_get.create_db();
+
     var user = await db
         .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
     var data = await db.query("imagup",
         where:
-            'update_data = 0 AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}',
+            'update_data = 1 AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}',
         orderBy: "datetime('date')");
-    print("object");
+    print("-------------$data");
 
-    for (var i = 0; i < data.length; i++) {
-      print(base64Decode(data[i]['img']));
-      page.add(Page2(b: data[0]['img']));
+    for (var i = 1; i <= data.length; i++) {
+      print(data[data.length - i]['date']);
+      page.add(Page1(b: data[data.length - i]['img']));
     }
+
     return page;
   }
 

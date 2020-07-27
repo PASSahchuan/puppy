@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 
@@ -12,9 +13,15 @@ class Page2 extends StatefulWidget {
 class _Page2State extends State<Page2> {
   @override
   Widget build(BuildContext context) {
+    setState(() {});
     return Container(
       color: Colors.red,
-      child: Image.memory(base64Decode(widget.b)),
+      child: Column(
+        children: <Widget>[
+          //Image.file(File(widget.b)),
+          Text(widget.b),
+        ],
+      ),
     );
   }
 }

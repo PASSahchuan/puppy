@@ -1,27 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
-class Pag1 extends StatelessWidget {
-  Pag1(b);
+class Page1 extends StatelessWidget {
+  Page1({this.b});
   String b;
   @override
   Widget build(BuildContext context) {
-    print(b);
-    return Container(
-      color: Colors.blue,
-      child: Stack(
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.memory(base64Decode(b)),
-            ],
-          ),
-        ],
-      ),
-    );
+    return Image.file(File(b));
   }
 }
