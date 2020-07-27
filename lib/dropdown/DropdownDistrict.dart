@@ -15,7 +15,6 @@ class DropdownDistrict extends StatefulWidget {
 }
 
 String district_record = distinctLists[0];
-
 class _DropdownDistrictState extends State<DropdownDistrict> {
   String dropdownValue = district_record; /*'信義區'*/
 
