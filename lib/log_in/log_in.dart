@@ -82,8 +82,7 @@ class _LoginPageState extends State<LoginPage> {
     showAlert(context, 0);
     var data = {'plan': _plan.text, 'user': _user.text};
     var url =
-        // 'http://140.134.79.128:40129/authUser';
-        'http://140.116.152.77:40129/authUser';
+        'http://140.116.152.77:40129/authUser'; //http://140.116.152.77:40129/authUser
     http.Response response;
     try {
       response = await http

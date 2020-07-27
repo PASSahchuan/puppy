@@ -7,17 +7,21 @@ import 'package:puppy/main6.dart' as question;
 class picture {
   picture({this.context});
   BuildContext context;
+  Function callback;
   void getPicture() async {
     var getimage = ImagePicker();
     var image = await getimage.getImage(source: ImageSource.camera);
     File _image = File(image.path);
+    print("======路徑5這裡=======");
+    print(image.path);
+    print("+");
     await ImageSave.saveImage(_image.readAsBytesSync(), "jpg",
         albumName: "dog");
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
         return question.MyHomePage2(
-          image: _image.readAsBytesSync(),
+          image: image.path,
           title: '狗狗調查大作戰',
         );
       }),

@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:puppy/database/create_db.dart';
+import 'package:puppy/main.dart';
 import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownTown.dart';
@@ -19,13 +21,14 @@ class MyHomePage2 extends StatefulWidget {
   MyHomePage2({Key key, this.title, @required this.image}) : super(key: key);
 
   final String title;
-  final Uint8List image;
+  final String image;
 
   @override
   _MyHomePage2State createState() => _MyHomePage2State();
 }
 
 class _MyHomePage2State extends State<MyHomePage2> {
+  File image;
   String _city = '台北市',
       _district = '松山區',
       _vilage = '東榮里',
@@ -36,6 +39,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
   bool ch_sw = false;
   @override
   Widget build(BuildContext context) {
+    image = File(widget.image);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -52,7 +56,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Container(
-                child: Image.memory(widget.image),
+                child: Image.file(image),
               ),
               Container(
                 child: Table(
@@ -242,24 +246,28 @@ class _MyHomePage2State extends State<MyHomePage2> {
   void imageUpload() async {
     if (ch_sw) return;
     ch_sw = true;
+
+    showAlert(context, 0);
     var db = await db_get.create_db();
     var imageData = await db.rawQuery('SELECT MAX(id) FROM imagup');
+
     var user = await db
         .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
-    print(imageData[0]['MAX(id)']);
+    print(
+        '===================${imageData[0]['MAX(id)']}======================');
     if (imageData[0]['MAX(id)'] == null) {
       id = user[0]['id'] + 1;
     } else {
       id = imageData[0]['MAX(id)'] + 1;
     }
-    print("asd");
+
     var latlng = await Geolocator().getCurrentPosition();
     // db.rawQuery('SELECT MAX(datetime("date")) FROM USERE');
     var data = {
       "id": id,
       "plan": user[0]['plan'],
       "user": user[0]['user'],
-      "img": base64Encode(widget.image),
+      "img": base64Encode(image.readAsBytesSync()),
       "lat": latlng.latitude,
       "lon": latlng.longitude,
       "city": _city,
@@ -272,9 +280,10 @@ class _MyHomePage2State extends State<MyHomePage2> {
       'update_data': 0,
     };
     db.insert("imagup", data);
-    print("object");
-    print(await db.query("imagup"));
-    showAlert(context, 0);
+    db.update('imagup', {'img': widget.image},
+        where:
+            'id = $id AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}');
+
     var url = 'http://140.116.152.77:40129/img_upload';
     http.Response response;
     try {
@@ -307,9 +316,11 @@ class _MyHomePage2State extends State<MyHomePage2> {
     } else {
       await showAlert(context, 2);
     }
-
-    Navigator.pop(context);
     ch_sw = false;
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) {
+      return MyHomePage(title: '狗狗調查大作戰');
+    }), (route) => false);
   }
 
   void login() {
