@@ -38,6 +38,9 @@ class _MyHomePage2State extends State<MyHomePage2> {
   int id;
   @override
   Widget build(BuildContext context) {
+    DateTime today = new DateTime.now();
+    String dateSlug =
+        "${today.year.toString()}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
     image = File(widget.image);
     return Scaffold(
       appBar: AppBar(
@@ -54,9 +57,24 @@ class _MyHomePage2State extends State<MyHomePage2> {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Container(
-                child: Image.file(image),
-              ),
+              Stack(children: <Widget>[
+                Container(
+                  child: Image.file(image),
+                ),
+                Column(
+                  children: <Widget>[
+                    Text(dateSlug),
+                    Text(_city + _district + _vilage),
+                    FutureBuilder(
+                        future: Geolocator().getCurrentPosition(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          return Text(
+                              'lat: ${snapshot.data.latitude} lon: ${snapshot.data.longitude}');
+                        })
+                  ],
+                ),
+              ]),
               Container(
                 child: Table(
                   columnWidths: const <int, TableColumnWidth>{
