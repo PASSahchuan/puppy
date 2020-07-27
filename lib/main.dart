@@ -216,58 +216,61 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              Column(
-                children: <Widget>[
-                  Container(
-                    width: 250,
-                    height: 280,
-                    child: FutureBuilder(
-                      key: UniqueKey(),
-                      future: get_db_data(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<Widget>> text) {
-                        if (true) {
-                          return PageView(
-                              controller: PageController(
-                                viewportFraction: 0.9,
-                              ),
-                              onPageChanged: (int index) {},
-                              children: text.data);
-                        }
-                      },
+              Container(
+                color: Colors.blue[50],
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      width: 250,
+                      height: 280,
+                      child: FutureBuilder(
+                        key: UniqueKey(),
+                        future: get_db_data(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<Widget>> text) {
+                          if (true) {
+                            return PageView(
+                                controller: PageController(
+                                  viewportFraction: 0.9,
+                                ),
+                                onPageChanged: (int index) {},
+                                children: text.data);
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  // Stack(
-                  //   children: <Widget>[
-                  //     Container(
-                  //       padding: EdgeInsets.only(top: 30, bottom: 100),
-                  //       child: Row(
-                  //         mainAxisAlignment: MainAxisAlignment.center,
-                  //         children: <Widget>[
-                  //           CardModel(),
-                  //           SizedBox(
-                  //             width: 20,
-                  //           ),
-                  //           CardModel(),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //     Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: <Widget>[
-                  //         CardModel(),
-                  //       ],
-                  //     ),
-                  //   ],
-                  // ),
-                  Text(
-                    '1/46',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                ],
+                    SizedBox(
+                      height: 20,
+                    ),
+                    // Stack(
+                    //   children: <Widget>[
+                    //     Container(
+                    //       padding: EdgeInsets.only(top: 30, bottom: 100),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: <Widget>[
+                    //           CardModel(),
+                    //           SizedBox(
+                    //             width: 20,
+                    //           ),
+                    //           CardModel(),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     Row(
+                    //       mainAxisAlignment: MainAxisAlignment.center,
+                    //       children: <Widget>[
+                    //         CardModel(),
+                    //       ],
+                    //     ),
+                    //   ],
+                    // ),
+                    Text(
+                      '1/46',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
