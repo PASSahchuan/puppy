@@ -255,10 +255,31 @@ class _MyHomePage2State extends State<MyHomePage2> {
         .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
     print(
         '===================${imageData[0]['MAX(id)']}======================');
-    if (imageData[0]['MAX(id)'] == null) {
-      id = user[0]['id'] + 1;
-    } else {
-      id = imageData[0]['MAX(id)'] + 1;
+    try {
+      if (imageData[0]['MAX(id)'] == null) {
+        id = user[0]['id'] + 1;
+      } else {
+        id = imageData[0]['MAX(id)'] + 1;
+      }
+    } catch (e) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, //點旁邊不關閉
+        builder: (context) {
+          return AlertDialog(
+            title: Text('id 失敗'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('確定'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
     }
 
     var latlng = await Geolocator().getCurrentPosition();
@@ -279,11 +300,31 @@ class _MyHomePage2State extends State<MyHomePage2> {
       'repeatCount': _repeatCount,
       'update_data': 0,
     };
-    db.insert("imagup", data);
-    db.update('imagup', {'img': widget.image},
-        where:
-            'id = $id AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}');
-
+    try {
+      db.insert("imagup", data);
+      db.update('imagup', {'img': widget.image},
+          where:
+              'id = $id AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}');
+    } catch (text) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, //點旁邊不關閉
+        builder: (context) {
+          return AlertDialog(
+            title: Text(text),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('確定'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
     var url = 'http://140.116.152.77:40129/img_upload';
     http.Response response;
     try {
@@ -298,7 +339,25 @@ class _MyHomePage2State extends State<MyHomePage2> {
             Duration(seconds: 15),
             onTimeout: () => null,
           );
-    } catch (_) {
+    } catch (text) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, //點旁邊不關閉
+        builder: (context) {
+          return AlertDialog(
+            title: Text("上傳失敗"),
+            actions: <Widget>[
+              Text(text),
+              FlatButton(
+                child: Text('確定'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
       response = null;
     }
     Navigator.pop(context); //離開Alert
@@ -317,7 +376,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
       await showAlert(context, 2);
     }
     ch_sw = false;
-    Navigator.of(context).pushAndRemoveUntil(
+    await Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) {
       return MyHomePage(title: '狗狗調查大作戰');
     }), (route) => false);

@@ -37,31 +37,31 @@ void main() async {
       'lat': latlng.latitude,
       'lon': latlng.longitude
     };
-    var url = 'http://140.116.152.77:40129/authLocation';
-    http.Response response;
-    try {
-      response = await http
-          .post(
-            url,
-            headers: {'Content-Type': 'application/json'},
-            body: jsonEncode(data),
-          )
-          .timeout(Duration(seconds: 1));
-      var data_log = await db.query("timingLocation");
-      for (int i = 0; i < data_log.length; i++) {
-        response = await http
-            .post(
-              url,
-              headers: {'Content-Type': 'application/json'},
-              body: jsonEncode(data_log[i]),
-            )
-            .timeout(Duration(seconds: 1));
-        ;
-      }
-      db.delete('timingLocation');
-    } catch (_) {
-      db.insert("timingLocation", data);
-    }
+    // var url = 'http://140.116.152.77:40129/authLocation';
+    //   http.Response response;
+    //   try {
+    //     response = await http
+    //         .post(
+    //           url,
+    //           headers: {'Content-Type': 'application/json'},
+    //           body: jsonEncode(data),
+    //         )
+    //         .timeout(Duration(seconds: 1));
+    //     var data_log = await db.query("timingLocation");
+    //     for (int i = 0; i < data_log.length; i++) {
+    //       response = await http
+    //           .post(
+    //             url,
+    //             headers: {'Content-Type': 'application/json'},
+    //             body: jsonEncode(data_log[i]),
+    //           )
+    //           .timeout(Duration(seconds: 1));
+    //       ;
+    //     }
+    //     db.delete('timingLocation');
+    //   } catch (_) {
+    //     db.insert("timingLocation", data);
+    //   }
   }
   Timer.periodic(Duration(minutes: 1), (timer) async {
     final Database db = await db_get.create_db();

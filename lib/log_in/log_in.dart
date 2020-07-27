@@ -104,6 +104,10 @@ class _LoginPageState extends State<LoginPage> {
     {
       var temp_json_data = jsonDecode(response.body);
       if (temp_json_data['success']) {
+        if (temp_json_data['id'] == null) {
+          await showAlert(context, 4);
+          return null;
+        }
         set_user(_plan.text, _user.text, temp_json_data['id']);
         await showAlert(context, 1);
         db.close();
@@ -179,6 +183,19 @@ class _LoginPageState extends State<LoginPage> {
       case 3:
         return AlertDialog(
           title: Text('帳密失敗'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('確定'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+        break;
+      case 4:
+        return AlertDialog(
+          title: Text('id 失敗請洽伺服器'),
           actions: <Widget>[
             FlatButton(
               child: Text('確定'),
