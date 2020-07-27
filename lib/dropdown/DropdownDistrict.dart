@@ -14,8 +14,10 @@ class DropdownDistrict extends StatefulWidget {
   _DropdownDistrictState createState() => _DropdownDistrictState();
 }
 
+String district_record = distinctLists[0];
+
 class _DropdownDistrictState extends State<DropdownDistrict> {
-  String dropdownValue = distinctLists[0] /*'信義區'*/;
+  String dropdownValue = district_record; /*'信義區'*/
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class _DropdownDistrictState extends State<DropdownDistrict> {
       ),
       onChanged: (String newValue) {
         dropdownValue = newValue;
+        district_record = newValue;
         cityChange = false;
         distinctChange = true;
         setState(() {

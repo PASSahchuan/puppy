@@ -15,14 +15,14 @@ class DropdownVillage extends StatefulWidget {
   _DropdownVillageState createState() => _DropdownVillageState();
 }
 
+String village_record = villageList[0];
+
 class _DropdownVillageState extends State<DropdownVillage> {
-  String dropdownValue = villageList[0];
+  String dropdownValue = village_record;
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      
-    });
+    setState(() {});
     if ((distinctChange == true) || (cityChange == true)) {
       print('object');
       print(villageList[0]);
@@ -42,6 +42,7 @@ class _DropdownVillageState extends State<DropdownVillage> {
       ),
       onChanged: (String newValue) {
         dropdownValue = newValue;
+        village_record = newValue;
         setState(() {
           // decodevillage(dropdownValue);
           print(dropdownValue);

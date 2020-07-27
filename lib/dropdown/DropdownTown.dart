@@ -12,8 +12,10 @@ class DropdownTown extends StatefulWidget {
   _DropdownTownState createState() => _DropdownTownState();
 }
 
+String city_record = '台北市';
+
 class _DropdownTownState extends State<DropdownTown> {
-  String dropdownValue = '台北市';
+  String dropdownValue = city_record;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class _DropdownTownState extends State<DropdownTown> {
       ),
       onChanged: (String newValue) {
         dropdownValue = newValue;
-
+        city_record = newValue;
         // print(judge(dropdownValue));
         // villageList = getVillage(distinctLists[0]);
         // print('villageList');
@@ -37,6 +39,7 @@ class _DropdownTownState extends State<DropdownTown> {
         setState(() {
           cityChange = true;
           distinctLists = judge(dropdownValue);
+          
         });
         widget.callback(widget.field, newValue);
       },
