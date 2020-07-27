@@ -36,7 +36,6 @@ class _MyHomePage2State extends State<MyHomePage2> {
       _dogCount = '1',
       _repeatCount = '0';
   int id;
-  bool ch_sw = false;
   @override
   Widget build(BuildContext context) {
     image = File(widget.image);
@@ -244,9 +243,6 @@ class _MyHomePage2State extends State<MyHomePage2> {
   }
 
   void imageUpload() async {
-    if (ch_sw) return;
-    ch_sw = true;
-
     showAlert(context, 0);
     var db = await db_get.create_db();
     var imageData = await db.rawQuery('SELECT MAX(id) FROM imagup');
@@ -301,18 +297,19 @@ class _MyHomePage2State extends State<MyHomePage2> {
       'update_data': 0,
     };
     try {
-      db.insert("imagup", data);
-      db.update('imagup', {'img': widget.image},
+      await db.insert("imagup", data);
+      await db.update('imagup', {'img': widget.image},
           where:
               'id = $id AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}');
     } catch (text) {
       showDialog<void>(
         context: context,
-        barrierDismissible: false, //點旁邊不關閉
+        barrierDismissible: true, //點旁邊不關閉
         builder: (context) {
           return AlertDialog(
-            title: Text(text),
+            title: Text("內部資料庫問題"),
             actions: <Widget>[
+              Text(text),
               FlatButton(
                 child: Text('確定'),
                 onPressed: () {
@@ -365,21 +362,16 @@ class _MyHomePage2State extends State<MyHomePage2> {
     {
       var getJson = jsonDecode(response.body);
       if (getJson['success']) {
-        db.update('imagup', {'update_data': 1},
+        await db.update('imagup', {'update_data': 1},
             where:
                 'id = $id AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}');
-        await showAlert(context, 1);
+        showAlert(context, 1);
       } else {
         await showAlert(context, 3);
       }
     } else {
       await showAlert(context, 2);
     }
-    ch_sw = false;
-    await Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) {
-      return MyHomePage(title: '狗狗調查大作戰');
-    }), (route) => false);
   }
 
   void login() {
@@ -397,12 +389,12 @@ class _MyHomePage2State extends State<MyHomePage2> {
       context: context,
       barrierDismissible: false, //點旁邊不關閉
       builder: (context) {
-        return alertLoad(t);
+        return alertLoad(t, context);
       },
     );
   }
 
-  Widget alertLoad(var t) {
+  Widget alertLoad(var t, BuildContext context) {
     switch (t) {
       case 0:
         return AlertDialog(
@@ -425,7 +417,10 @@ class _MyHomePage2State extends State<MyHomePage2> {
             FlatButton(
               child: Text('確定'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) {
+                  return MyHomePage(title: '狗狗調查大作戰');
+                }), (route) => false);
               },
             ),
           ],
@@ -438,7 +433,10 @@ class _MyHomePage2State extends State<MyHomePage2> {
             FlatButton(
               child: Text('確定'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) {
+                  return MyHomePage(title: '狗狗調查大作戰');
+                }), (route) => false);
               },
             ),
           ],
@@ -451,7 +449,10 @@ class _MyHomePage2State extends State<MyHomePage2> {
             FlatButton(
               child: Text('確定'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) {
+                  return MyHomePage(title: '狗狗調查大作戰');
+                }), (route) => false);
               },
             ),
           ],

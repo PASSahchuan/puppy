@@ -137,11 +137,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int sw = 1;
   List<Widget> page = List<Widget>();
   @override
   @override
   Widget build(BuildContext context) {
-    get_db_data();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -169,22 +169,30 @@ class _MyHomePageState extends State<MyHomePage> {
                             width: 15,
                           ),
                           FlatButton(
-                            color: Color(0xffDB6400),
+                            color: sw == 1 ? Color(0xffDB6400) : Colors.white,
                             child: Text(
                               '已上傳',
                               style: TextStyle(fontSize: 18),
                             ),
-                            onPressed: takePicture,
-                            textColor: Colors.white,
+                            onPressed: () {
+                              sw = 1;
+                              setState(() {});
+                            },
+                            textColor:
+                                sw == 1 ? Colors.white : Color(0xffDB6400),
                           ),
                           FlatButton(
-                            color: Colors.white,
+                            color: sw == 0 ? Color(0xffDB6400) : Colors.white,
                             child: Text(
                               '未上傳',
                               style: TextStyle(fontSize: 18),
                             ),
-                            onPressed: takePicture,
-                            textColor: Color(0xffDB6400),
+                            onPressed: () {
+                              sw = 0;
+                              setState(() {});
+                            },
+                            textColor:
+                                sw == 0 ? Colors.white : Color(0xffDB6400),
                           ),
                           SizedBox(
                             width: 15,
@@ -205,6 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: 250,
                     height: 280,
                     child: FutureBuilder(
+                      key: UniqueKey(),
                       future: get_db_data(),
                       builder: (BuildContext context,
                           AsyncSnapshot<List<Widget>> text) {
@@ -295,15 +304,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<List<Widget>> get_db_data() async {
+    page = List<Widget>();
     var db = await db_get.create_db();
 
     var user = await db
         .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
     var data = await db.query("imagup",
         where:
-            'update_data = 1 AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}',
+            'update_data = $sw AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}',
         orderBy: "datetime('date')");
-    print("-------------$data");
+    print("-------------${data.length}");
 
     for (var i = 1; i <= data.length; i++) {
       print(data[data.length - i]['date']);
