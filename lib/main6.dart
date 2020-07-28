@@ -70,7 +70,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
                           return Text(
-                              'lat: ${snapshot.data.latitude} lon: ${snapshot.data.longitude}');
+                              'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ');
                         })
                   ],
                 ),

@@ -228,47 +228,45 @@ class _MyHomePageState extends State<MyHomePage> {
                         future: get_db_data(),
                         builder: (BuildContext context,
                             AsyncSnapshot<List<Widget>> text) {
-                          if (true) {
-                            return PageView(
-                                controller: PageController(
-                                  viewportFraction: 0.9,
-                                ),
-                                onPageChanged: (int index) {},
-                                children: text.data);
-                          }
+                          // showDialog<void>(
+                          //   context: context,
+                          //   barrierDismissible: true, //點旁邊不關閉
+                          //   builder: (context) {
+                          //     return AlertDialog(
+                          //       title: Text("Errror"),
+                          //       actions: <Widget>[
+                          //         Text(text.error),
+                          //         FlatButton(
+                          //           child: Text('確定'),
+                          //           onPressed: () {
+                          //             Navigator.of(context).pop();
+                          //           },
+                          //         ),
+                          //       ],
+                          //     );
+                          //   },
+                          // );
+
+                          print(
+                              'page內容${text.data.length}'); //莫名其妙的bug不print apk就跑不出來
+                          return PageView(
+                              controller: PageController(
+                                viewportFraction: 0.9,
+                                initialPage: 0,
+                              ),
+                              onPageChanged: (int index) {},
+                              children: text.data);
                         },
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    // Stack(
-                    //   children: <Widget>[
-                    //     Container(
-                    //       padding: EdgeInsets.only(top: 30, bottom: 100),
-                    //       child: Row(
-                    //         mainAxisAlignment: MainAxisAlignment.center,
-                    //         children: <Widget>[
-                    //           CardModel(),
-                    //           SizedBox(
-                    //             width: 20,
-                    //           ),
-                    //           CardModel(),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //     Row(
-                    //       mainAxisAlignment: MainAxisAlignment.center,
-                    //       children: <Widget>[
-                    //         CardModel(),
-                    //       ],
-                    //     ),
-                    //   ],
+                    // SizedBox(
+                    //   height: 20,
                     // ),
-                    Text(
-                      '1/46',
-                      style: TextStyle(fontSize: 25),
-                    ),
+
+                    // Text(
+                    //   '1/46',
+                    //   style: TextStyle(fontSize: 25),
+                    // ),
                   ],
                 ),
               ),
@@ -317,21 +315,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<List<Widget>> get_db_data() async {
     page = List<Widget>();
-    var db = await db_get.create_db();
+    try {
+      var db = await db_get.create_db();
 
-    var user = await db
-        .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
-    var data = await db.query("imagup",
-        where:
-            'update_data = $sw AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}',
-        orderBy: "datetime('date')");
-    print("-------------${data.length}");
-
-    for (var i = 1; i <= data.length; i++) {
-      print(data[data.length - i]['date']);
-      page.add(Page1(b: data[data.length - i]['img']));
+      var user = await db
+          .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
+      var data = await db.query("imagup",
+          where:
+              'update_data = $sw AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}',
+          orderBy: "datetime('date')");
+      print("長度-------------${data.length}");
+      print("內容-------------${data}");
+      for (var i = 1; i <= data.length; i++) {
+        print(data[data.length - i]['date']);
+        page.add(Page1(b: data[data.length - i]));
+      }
+    } catch (e) {
+      page.add(Page3());
     }
-
     return page;
   }
 

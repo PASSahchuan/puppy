@@ -108,6 +108,8 @@ class _LoginPageState extends State<LoginPage> {
           await showAlert(context, 4);
           return null;
         }
+        print(
+            '登入頁===================${temp_json_data['id']}======================');
         set_user(_plan.text, _user.text, temp_json_data['id']);
         await showAlert(context, 1);
         db.close();
