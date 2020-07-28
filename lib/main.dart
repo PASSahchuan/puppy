@@ -373,13 +373,13 @@ class _MyHomePageState extends State<MyHomePage> {
           .post(
             url,
             headers: {'Content-Type': 'application/json'},
-            body: jsonEncode(data),
+            body: jsonEncode(upData),
           )
           .timeout(
             Duration(seconds: 15),
             onTimeout: () => null,
           );
-
+      print(response.body);
       print(
           "4-1-end==================================================================");
       Navigator.of(context).pop();
@@ -410,57 +410,43 @@ class _MyHomePageState extends State<MyHomePage> {
           "4-2-end==================================================================");
       return;
     }
+    print(
+        "5==================================================================");
 
-    if (response != null) //網路確認
-    {
-      var getJson = jsonDecode(response.body);
-      if (getJson['success']) {
-        await db.update('imagup', {'update_data': 1},
-            where:
-                'id = ${user[0]["id"]} AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}');
-        showDialog<void>(
-          context: context,
-          barrierDismissible: false, //點旁邊不關閉
-          builder: (context) {
-            return AlertDialog(
-              title: Text('上傳成功'),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text('確定'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      } else {
-        showDialog<void>(
-          context: context,
-          barrierDismissible: false, //點旁邊不關閉
-          builder: (context) {
-            return AlertDialog(
-              title: Text('與伺服器連線失敗'),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text('確定'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      }
+    print(
+        "6==================================================================");
+    print(response.body);
+    var getJson = jsonDecode(response.body);
+    print(
+        "7==================================================================");
+    if (getJson['success']) {
+      await db.update('imagup', {'update_data': 1},
+          where:
+              'id = ${data[_index]["id"]} AND plan = ${data[_index]['plan']} AND user = ${data[_index]['user']}');
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, //點旁邊不關閉
+        builder: (context) {
+          return AlertDialog(
+            title: Text('上傳成功'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('確定'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     } else {
       showDialog<void>(
         context: context,
         barrierDismissible: false, //點旁邊不關閉
         builder: (context) {
           return AlertDialog(
-            title: Text('與伺服器連線失敗'),
+            title: Text('資料衝突'),
             actions: <Widget>[
               FlatButton(
                 child: Text('確定'),
@@ -473,6 +459,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       );
     }
+
     setState(() {});
   }
 
