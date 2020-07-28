@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -147,6 +148,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int sw = 1;
+  int _index = 0;
   List<Widget> page = List<Widget>();
   @override
   @override
@@ -254,7 +256,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 viewportFraction: 0.9,
                                 initialPage: 0,
                               ),
-                              onPageChanged: (int index) {},
+                              onPageChanged: (int index) {
+                                _index = index;
+                              },
                               children: text.data);
                         },
                       ),
@@ -281,7 +285,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       style: TextStyle(
                           fontSize: 22, fontWeight: FontWeight.normal),
                     ),
-                    onPressed: upload,
+                    onPressed: sw == 0 ? upload : () {},
                     textColor: Colors.white,
                   ),
                   SizedBox(
@@ -307,10 +311,169 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void upload() async {
-    print('upload success!');
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, //點旁邊不關閉
+      builder: (context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              CircularProgressIndicator(),
+              Padding(
+                padding: const EdgeInsets.only(top: 26.0),
+                child: Text("上傳中..."),
+              )
+            ],
+          ),
+        );
+      },
+    );
+    print(
+        "1==================================================================");
+    var db = await db_get.create_db();
+    var user = await db
+        .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
+    var data = await db.query("imagup",
+        where:
+            'update_data = $sw AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}',
+        orderBy: "datetime('date')");
+    data = data.reversed.toList();
+    print(_index);
+    print(data[_index]);
+    print(
+        "2==================================================================");
 
-    //print(response.body);
-    print("object");
+    var upData = {
+      "id": data[_index]['id'],
+      "plan": data[_index]['plan'],
+      "user": data[_index]['user'],
+      "img": base64Encode(File(data[_index]['img']).readAsBytesSync()),
+      "lat": data[_index]['lat'],
+      "lon": data[_index]['lon'],
+      "city": data[_index]['city'],
+      "district": data[_index]['district'],
+      "village": data[_index]['village'],
+      'date': data[_index]['date'],
+      "dayCount": data[_index]['dayCount'],
+      'dogCount': data[_index]['dogCount'],
+      'repeatCount': data[_index]['repeatCount'],
+      'update_data': 0,
+    };
+    var url = 'http://140.116.152.77:40129/img_upload';
+    http.Response response;
+    print(
+        "3==================================================================");
+
+    try {
+      print(
+          "4-1==================================================================");
+
+      response = await http
+          .post(
+            url,
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(data),
+          )
+          .timeout(
+            Duration(seconds: 15),
+            onTimeout: () => null,
+          );
+
+      print(
+          "4-1-end==================================================================");
+      Navigator.of(context).pop();
+    } catch (text) {
+      print(
+          "4-2==================================================================");
+      Navigator.of(context).pop();
+
+      showDialog<void>(
+        context: context,
+        barrierDismissible: true, //點旁邊不關閉
+        builder: (context) {
+          return AlertDialog(
+            title: Text("與伺服器連線失敗"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('確定'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      response = null;
+      print(
+          "4-2-end==================================================================");
+      return;
+    }
+
+    if (response != null) //網路確認
+    {
+      var getJson = jsonDecode(response.body);
+      if (getJson['success']) {
+        await db.update('imagup', {'update_data': 1},
+            where:
+                'id = ${user[0]["id"]} AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}');
+        showDialog<void>(
+          context: context,
+          barrierDismissible: false, //點旁邊不關閉
+          builder: (context) {
+            return AlertDialog(
+              title: Text('上傳成功'),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('確定'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        showDialog<void>(
+          context: context,
+          barrierDismissible: false, //點旁邊不關閉
+          builder: (context) {
+            return AlertDialog(
+              title: Text('與伺服器連線失敗'),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('確定'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } else {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, //點旁邊不關閉
+        builder: (context) {
+          return AlertDialog(
+            title: Text('與伺服器連線失敗'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('確定'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+    setState(() {});
   }
 
   Future<List<Widget>> get_db_data() async {

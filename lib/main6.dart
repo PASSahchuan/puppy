@@ -267,12 +267,12 @@ class _MyHomePage2State extends State<MyHomePage2> {
   void imageUpload() async {
     showAlert(context, 0);
     var db = await db_get.create_db();
-    var imageData = await db.rawQuery('SELECT MAX(id) FROM imagup');
 
     var user = await db
         .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
-    print(
-        '===================${imageData[0]['MAX(id)']}======================');
+    var imageData = await db.rawQuery(
+        'SELECT MAX(id) FROM imagup WHERE user = ${user[0]["user"]} AND plan = ${user[0]["plan"]}');
+    print('當前id===================${imageData[0]['MAX(id)']}=使用者 ${user}=====');
     try {
       if (imageData[0]['MAX(id)'] == null) {
         id = user[0]['id'] + 1;
