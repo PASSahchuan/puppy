@@ -231,7 +231,11 @@ class _MyHomePage2State extends State<MyHomePage2> {
 
   void callback(String count, String input) {
     //_city,_district,_vilage,_dayCount,_dogCount,_repeatCount;
-
+    print('-----------');
+    print('count');
+    print(count);
+    print('input');
+    print(input);
     switch (count) {
       case 'city':
         _city = input;

@@ -16,7 +16,7 @@ String city_record = '台北市';
 
 class _DropdownTownState extends State<DropdownTown> {
   String dropdownValue = city_record;
-
+  String tmpVillage;
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
@@ -39,9 +39,11 @@ class _DropdownTownState extends State<DropdownTown> {
         setState(() {
           cityChange = true;
           distinctLists = judge(dropdownValue);
-          
         });
         widget.callback(widget.field, newValue);
+        widget.callback('district', distinctLists[0]);
+        tmpVillage = getVillage(distinctLists[0])[0];
+        widget.callback('vilage', tmpVillage);
       },
       items: cityList.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(

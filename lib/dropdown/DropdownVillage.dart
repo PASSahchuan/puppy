@@ -24,14 +24,14 @@ class _DropdownVillageState extends State<DropdownVillage> {
   Widget build(BuildContext context) {
     setState(() {});
     if ((distinctChange == true) || (cityChange == true)) {
-      print('object');
-      print(villageList[0]);
+      // print('object');
+      // print(villageList[0]);
       dropdownValue = villageList[0];
       distinctChange = false;
       cityChange = false;
     }
-    print('object');
-    print(dropdownValue);
+    // print('object');
+    // print(dropdownValue);
     return DropdownButton<String>(
       value: dropdownValue,
       elevation: 16,
@@ -48,8 +48,8 @@ class _DropdownVillageState extends State<DropdownVillage> {
           print(dropdownValue);
           print('newValue');
           print(newValue);
-          widget.callback(widget.field, newValue);
         });
+        widget.callback('vilage', newValue);
       },
 
       items: villageList.map<DropdownMenuItem<String>>((String value) {

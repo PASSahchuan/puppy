@@ -26,6 +26,8 @@ class _DropdownDistrictState extends State<DropdownDistrict> {
       cityChange = false;
       distinctChange = true;
       villageList = getVillage(dropdownValue);
+      // widget.callback('district', dropdownValue);
+      // widget.callback('vilage', villageList[0]);
     }
 
     return DropdownButton<String>(
@@ -50,14 +52,15 @@ class _DropdownDistrictState extends State<DropdownDistrict> {
           // print('newValue');
           // print(newValue);
           // print('object');
-          print(villageList);
+          // print(villageList);
           // // decodeRegion(dropdownValue);
-          widget.callback(widget.field, newValue);
         });
+        widget.callback('district', newValue);
+        widget.callback('vilage', villageList[0]);
       },
       items: distinctLists.map<DropdownMenuItem<String>>((String value) {
-        print('value');
-        print(value);
+        // print('value');
+        // print(value);
         return DropdownMenuItem<String>(
           value: value,
           child: Center(

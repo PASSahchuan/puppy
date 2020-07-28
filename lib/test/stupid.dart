@@ -756,7 +756,7 @@ List<String> getVillage(String distinct) {
       return villageList = [
         '福星里',
         '萬壽里',
-        '西��里',
+        '西門里',
         '新起里',
         '菜園里',
         '青山里',
