@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -84,7 +83,7 @@ void main() async {
         'lat': latlng.latitude,
         'lon': latlng.longitude
       };
-      var url = 'http://140.116.152.77:40129/authLocation';
+      var url = 'http://140.116.152.77:40129/timingLocation';
       http.Response response;
       try {
         response = await http.post(
@@ -206,11 +205,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                 sw == 0 ? Colors.white : Color(0xffDB6400),
                           ),
                           SizedBox(
-                            width: 15,
+                            width: 0,
                           ),
-                          Text(
-                            '囗',
-                            style: TextStyle(fontSize: 30),
+                          FlatButton(
+                            textColor: Color(0xffDB6400),
+                            onPressed: get_album,
+                            child: Icon(
+                              Icons.add_photo_alternate,
+                              size: 40,
+                            ),
                           ),
                         ],
                       )
@@ -311,6 +314,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void upload() async {
+    if (page.length == 0) {
+      return;
+    }
     showDialog<void>(
       context: context,
       barrierDismissible: false, //點旁邊不關閉
@@ -410,15 +416,8 @@ class _MyHomePageState extends State<MyHomePage> {
           "4-2-end==================================================================");
       return;
     }
-    print(
-        "5==================================================================");
 
-    print(
-        "6==================================================================");
-    print(response.body);
     var getJson = jsonDecode(response.body);
-    print(
-        "7==================================================================");
     if (getJson['success']) {
       await db.update('imagup', {'update_data': 1},
           where:
@@ -447,12 +446,23 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context) {
           return AlertDialog(
             title: Text('資料衝突'),
+            content: Text(
+                '衝突資料id：${getJson["id"]}\n錯誤訊息：${getJson['msg']}\n是否歸類到已上傳？'),
             actions: <Widget>[
               FlatButton(
-                child: Text('確定'),
+                child: Text('是'),
+                onPressed: () async {
+                  await db.update('imagup', {'update_data': 1},
+                      where:
+                          'id = ${data[_index]["id"]} AND plan = ${data[_index]['plan']} AND user = ${data[_index]['user']}');
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
+                child: Text('否'),
               ),
             ],
           );
@@ -487,8 +497,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void takePicture() {
-    picture com = picture(context: context);
+    picture com = picture(context: context, is_camera: true);
     com.getPicture();
     print('take picture success!');
+  }
+
+  void get_album() {
+    picture com = picture(context: context, is_camera: false);
+    com.getPicture();
+    print('take pictur album success!');
   }
 }

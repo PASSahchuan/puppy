@@ -42,191 +42,225 @@ class _MyHomePage2State extends State<MyHomePage2> {
     String dateSlug =
         "${today.year.toString()}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
     image = File(widget.image);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         backgroundColor: Colors.deepOrange[300],
       ),
       body: SingleChildScrollView(
-        child: Container(
-          // height: MediaQuery.of(context).size.height,
-          // width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.all(25),
-          alignment: Alignment.center,
-          child: Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Stack(children: <Widget>[
-                Container(
-                  child: Image.file(image),
-                ),
-                Column(
+        child: FutureBuilder<Object>(
+            future: get_lon(),
+            builder: (context, snapshot) {
+              var data = jsonEncode(snapshot.data);
+              print("--------------");
+              print(snapshot.data);
+              // _city=data['cit'];
+              return Container(
+                // height: MediaQuery.of(context).size.height,
+                // width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.all(25),
+                alignment: Alignment.center,
+                child: Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Text(dateSlug),
-                    Text(_city + _district + _vilage),
-                    FutureBuilder(
-                        future: Geolocator().getCurrentPosition(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          return Text(
-                              'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ');
-                        })
-                  ],
-                ),
-              ]),
-              Container(
-                child: Table(
-                  columnWidths: const <int, TableColumnWidth>{
-                    //指定索引及固定列宽
-                    0: FixedColumnWidth(35.0),
-                    1: FixedColumnWidth(100.0),
-                    2: FixedColumnWidth(60.0),
-                    3: FixedColumnWidth(125.0),
-                    4: FixedColumnWidth(35.0),
-                  },
-                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                  children: [
-                    TableRow(
-                      children: [
-                        Container(),
-                        Text(
-                          '城市',
-                          style:
-                              TextStyle(fontSize: 23, color: Color(0xff52616a)),
-                          textAlign: TextAlign.start,
+                    Stack(children: <Widget>[
+                      Container(
+                        child: Image.file(image),
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Text(dateSlug),
+                          Text(_city + _district + _vilage),
+                          FutureBuilder(
+                              future: Geolocator().getCurrentPosition(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                return Text(
+                                    'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ');
+                              })
+                        ],
+                      ),
+                    ]),
+                    Container(
+                      child: Table(
+                        columnWidths: const <int, TableColumnWidth>{
+                          //指定索引及固定列宽
+                          0: FixedColumnWidth(35.0),
+                          1: FixedColumnWidth(100.0),
+                          2: FixedColumnWidth(60.0),
+                          3: FixedColumnWidth(125.0),
+                          4: FixedColumnWidth(35.0),
+                        },
+                        defaultVerticalAlignment:
+                            TableCellVerticalAlignment.middle,
+                        children: [
+                          TableRow(
+                            children: [
+                              Container(),
+                              Text(
+                                '城市',
+                                style: TextStyle(
+                                    fontSize: 23, color: Color(0xff52616a)),
+                                textAlign: TextAlign.start,
+                              ),
+                              Container(),
+                              DropdownTown(
+                                callback: callback,
+                                field: 'city',
+                              ),
+                              Container(),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Container(),
+                              Text(
+                                '鄉鎮市區',
+                                style: TextStyle(
+                                    fontSize: 23, color: Color(0xff52616a)),
+                                textAlign: TextAlign.start,
+                              ),
+                              Container(),
+                              DropdownDistrict(
+                                callback: callback,
+                                field: 'distinct',
+                              ),
+                              Container(),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Container(),
+                              Text(
+                                '村里',
+                                style: TextStyle(
+                                    fontSize: 23, color: Color(0xff52616a)),
+                                textAlign: TextAlign.start,
+                              ),
+                              Container(),
+                              DropdownVillage(
+                                callback: callback,
+                                field: 'village',
+                              ),
+                              Container(),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Container(),
+                              Text(
+                                '調查天數',
+                                style: TextStyle(
+                                    fontSize: 23, color: Color(0xff52616a)),
+                                textAlign: TextAlign.start,
+                              ),
+                              Container(),
+                              DropdownOfDay(
+                                callback: this.callback,
+                                field: 'dayCount',
+                              ),
+                              Container(),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(
+                      color: Colors.blueGrey,
+                      indent: 20,
+                      endIndent: 20,
+                    ),
+                    Container(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            '照片中有幾隻狗',
+                            style: TextStyle(
+                                fontSize: 23, color: Color(0xff52616a)),
+                            textAlign: TextAlign.center,
+                          ),
+                          DropdownOfNumDog(
+                            callback: this.callback,
+                            field: 'dogCount',
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            '照片中的狗有幾隻與之前重複',
+                            style: TextStyle(
+                                fontSize: 23, color: Color(0xff52616a)),
+                            textAlign: TextAlign.center,
+                          ),
+                          DropdownOfNumDog(
+                            callback: this.callback,
+                            field: 'repeatCount',
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          child: RaisedButton(
+                            child: Text('捨棄'),
+                            onPressed: questionnaireSendOut,
+                            color: Color(0xfff18904),
+                          ),
                         ),
-                        Container(),
-                        DropdownTown(
-                          callback: callback,
-                          field: 'city',
+                        SizedBox(
+                          width: 40,
                         ),
-                        Container(),
+                        Container(
+                          child: RaisedButton(
+                            child: Text('送出'),
+                            onPressed: imageUpload,
+                            color: Color(0xfff18904),
+                          ),
+                        ),
                       ],
                     ),
-                    TableRow(
-                      children: [
-                        Container(),
-                        Text(
-                          '鄉鎮市區',
-                          style:
-                              TextStyle(fontSize: 23, color: Color(0xff52616a)),
-                          textAlign: TextAlign.start,
-                        ),
-                        Container(),
-                        DropdownDistrict(
-                          callback: callback,
-                          field: 'distinct',
-                        ),
-                        Container(),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Container(),
-                        Text(
-                          '村里',
-                          style:
-                              TextStyle(fontSize: 23, color: Color(0xff52616a)),
-                          textAlign: TextAlign.start,
-                        ),
-                        Container(),
-                        DropdownVillage(
-                          callback: callback,
-                          field: 'village',
-                        ),
-                        Container(),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Container(),
-                        Text(
-                          '調查天數',
-                          style:
-                              TextStyle(fontSize: 23, color: Color(0xff52616a)),
-                          textAlign: TextAlign.start,
-                        ),
-                        Container(),
-                        DropdownOfDay(
-                          callback: this.callback,
-                          field: 'dayCount',
-                        ),
-                        Container(),
-                      ],
-                    ),
+                    // Container(
+                    //   child: RaisedButton(
+                    //     child: Text('登入'),
+                    //     onPressed: login,
+                    //     color: Color(0xfff18904),
+                    //   ),
+                    // ),
                   ],
-                ),
-              ),
-              Divider(
-                color: Colors.blueGrey,
-                indent: 20,
-                endIndent: 20,
-              ),
-              Container(
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      '照片中有幾隻狗',
-                      style: TextStyle(fontSize: 23, color: Color(0xff52616a)),
-                      textAlign: TextAlign.center,
-                    ),
-                    DropdownOfNumDog(
-                      callback: this.callback,
-                      field: 'dogCount',
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      '照片中的狗有幾隻與之前重複',
-                      style: TextStyle(fontSize: 23, color: Color(0xff52616a)),
-                      textAlign: TextAlign.center,
-                    ),
-                    DropdownOfNumDog(
-                      callback: this.callback,
-                      field: 'repeatCount',
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    child: RaisedButton(
-                      child: Text('捨棄'),
-                      onPressed: questionnaireSendOut,
-                      color: Color(0xfff18904),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Container(
-                    child: RaisedButton(
-                      child: Text('送出'),
-                      onPressed: imageUpload,
-                      color: Color(0xfff18904),
-                    ),
-                  ),
-                ],
-              ),
-              // Container(
-              //   child: RaisedButton(
-              //     child: Text('登入'),
-              //     onPressed: login,
-              //     color: Color(0xfff18904),
-              //   ),
-              // ),
-            ],
-          )),
-        ),
+                )),
+              );
+            }),
       ),
     );
+  }
+
+  Future<String> get_lon() async {
+    var latlng = await Geolocator().getCurrentPosition();
+    var data = {'lat': latlng.latitude, 'lon': latlng.longitude};
+    var url = 'http://140.116.152.77:40129/authLocation';
+    http.Response response;
+    response = await http
+        .post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(data),
+    )
+        .timeout(Duration(milliseconds: 10), onTimeout: () {
+      return null;
+    }).catchError((onError) {
+      return null;
+    });
+    print(response);
+    if (response != null) {
+      return response.body;
+    }
   }
 
   void callback(String count, String input) {
@@ -484,3 +518,5 @@ class _MyHomePage2State extends State<MyHomePage2> {
     }
   }
 }
+
+class Furter {}

@@ -5,16 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:puppy/main6.dart' as question;
 
 class picture {
-  picture({this.context});
+  picture({this.context, @required this.is_camera});
   BuildContext context;
-  Function callback;
+  bool is_camera;
   void getPicture() async {
     var getimage = ImagePicker();
-    var image = await getimage.getImage(source: ImageSource.camera);
+    var image;
+    if (is_camera) {
+      image = await getimage.getImage(source: ImageSource.camera);
+    } else {
+      image = await getimage.getImage(source: ImageSource.gallery);
+    }
+    if (image == null) {
+      return;
+    }
     File _image = File(image.path);
     print("======路徑5這裡=======");
     print(image.path);
-    print("+");
     await ImageSave.saveImage(_image.readAsBytesSync(), "jpg",
         albumName: "dog");
     Navigator.push(
