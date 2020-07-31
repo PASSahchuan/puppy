@@ -151,6 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> page = List<Widget>();
   @override
   Widget build(BuildContext context) {
+    var screen = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -175,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: <Widget>[
                           DropdownOfPerson(),
                           SizedBox(
-                            width: 15,
+                            width: screen.width / 100 * 3,
                           ),
                           FlatButton(
                             color: sw == 1 ? Color(0xffDB6400) : Colors.white,
@@ -225,8 +226,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      width: 250,
-                      height: 280,
+                      width: screen.width / 100 * 70,
+                      height: screen.height / 100 * 40,
                       child: FutureBuilder(
                         key: UniqueKey(),
                         future: get_db_data(),

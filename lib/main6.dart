@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -39,6 +40,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
   int id;
   @override
   Widget build(BuildContext context) {
+    var screen = MediaQuery.of(context).size;
     DateTime today = new DateTime.now();
     String dateSlug =
         "${today.year.toString()}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
@@ -79,6 +81,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                         child: Image.file(image),
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(dateSlug),
                           Text(_city + _district + _vilage),
@@ -94,13 +97,13 @@ class _MyHomePage2State extends State<MyHomePage2> {
                     ]),
                     Container(
                       child: Table(
-                        columnWidths: const <int, TableColumnWidth>{
+                        columnWidths: <int, TableColumnWidth>{
                           //指定索引及固定列宽
-                          0: FixedColumnWidth(35.0),
-                          1: FixedColumnWidth(100.0),
-                          2: FixedColumnWidth(60.0),
-                          3: FixedColumnWidth(125.0),
-                          4: FixedColumnWidth(35.0),
+                          0: FixedColumnWidth(screen.width / 320.0 * 25.0),
+                          1: FixedColumnWidth(screen.width / 320.0 * 80.0),
+                          2: FixedColumnWidth(screen.width / 320.0 * 55.0),
+                          3: FixedColumnWidth(screen.width / 320.0 * 103.0),
+                          4: FixedColumnWidth(screen.width / 320.0 * 50.0),
                         },
                         defaultVerticalAlignment:
                             TableCellVerticalAlignment.middle,
@@ -213,6 +216,9 @@ class _MyHomePage2State extends State<MyHomePage2> {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: screen.height / 100 * 2,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -224,7 +230,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                           ),
                         ),
                         SizedBox(
-                          width: 40,
+                          width: screen.width / 100 * 10,
                         ),
                         Container(
                           child: RaisedButton(

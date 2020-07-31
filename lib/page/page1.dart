@@ -12,6 +12,7 @@ class Page1 extends StatelessWidget {
     return Stack(children: <Widget>[
       Image.file(File(b['img'])),
       Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(b['date'].substring(0, 10)),
           Text(b['city'] + b['district'] + b['village']),
