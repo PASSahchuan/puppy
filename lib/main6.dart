@@ -58,6 +58,11 @@ class _MyHomePage2State extends State<MyHomePage2> {
                 _vilage = data['city_district'];
                 print(_city);
               }
+              if (_city == null) {
+                _city = '台北市';
+                _district = '松山區';
+                _vilage = '東榮里';
+              }
               // _city=data['cit'];
               return Container(
                 // height: MediaQuery.of(context).size.height,
