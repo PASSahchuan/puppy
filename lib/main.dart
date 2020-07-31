@@ -16,7 +16,7 @@ import 'package:http/http.dart' as http;
 
 /*  
 需要倒入來使用網路與FutureBuilder
-   <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -264,8 +264,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           //   },
                           // );
 
-                          // print(
-                          //     'page內容${text.data.length}'); //莫名其妙的bug不print apk就跑不出來
+                          print(
+                              'page內容${text.data.length}'); //莫名其妙的bug不print apk就跑不出來
                           return PageView(
                               controller: PageController(
                                 viewportFraction: 0.9,
