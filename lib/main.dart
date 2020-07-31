@@ -207,12 +207,18 @@ class _MyHomePageState extends State<MyHomePage> {
                           SizedBox(
                             width: 0,
                           ),
-                          FlatButton(
-                            textColor: Color(0xffDB6400),
-                            onPressed: get_album,
-                            child: Icon(
-                              Icons.add_photo_alternate,
-                              size: 40,
+                          SizedBox(
+                            width: screen.width / 100 * 18,
+                            height: screen.height / 100 * 4.5,
+                            // width: 40,
+                            // height: 40,
+                            child: FlatButton(
+                              textColor: Color(0xffDB6400),
+                              onPressed: get_album,
+                              child: Icon(
+                                Icons.add_photo_alternate,
+                                size: 35,
+                              ),
                             ),
                           ),
                         ],
@@ -252,8 +258,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           //   },
                           // );
 
-                          // print(
-                          //     'page內容${text.data.length}'); //莫名其妙的bug不print apk就跑不出來
+                          print(
+                              'page內容${text.data.length}'); //莫名其妙的bug不print apk就跑不出來
                           return PageView(
                               controller: PageController(
                                 viewportFraction: 0.9,
