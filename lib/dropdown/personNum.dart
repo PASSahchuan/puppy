@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 
-class DropdownOfPerson extends StatefulWidget {
-  DropdownOfPerson({Key key}) : super(key: key);
-
-  @override
-  _DropdownOfPersonState createState() => _DropdownOfPersonState();
-}
-
-class _DropdownOfPersonState extends State<DropdownOfPerson> {
-  String dropdownValue = '001';
+class DropdownOfPerson extends StatelessWidget {
+  // DropdownOfPerson({@required this.user_data,@required this.dropdownValue});
+  List<String> user_data = List<String>();
+  String dropdownValue = '';
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
@@ -20,13 +15,9 @@ class _DropdownOfPersonState extends State<DropdownOfPerson> {
         color: Color(0xffD09E88),
       ),
       onChanged: (String newValue) {
-        setState(() {
-          dropdownValue = newValue;
-        });
+        dropdownValue = newValue;
       },
-      items: <String>[
-        '001','+'
-      ].map<DropdownMenuItem<String>>((String value) {
+      items: user_data.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(

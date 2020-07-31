@@ -52,9 +52,17 @@ class _MyHomePage2State extends State<MyHomePage2> {
         child: FutureBuilder<Object>(
             future: get_lon(),
             builder: (context, snapshot) {
-              var data = jsonEncode(snapshot.data);
+              var data = jsonDecode(snapshot.data);
+
               print("--------------");
               print(snapshot.data);
+              if (data != null) {
+                print("--------------");
+                _city = data['city'];
+                _district = data['city_district'];
+                _vilage = data['suburb'];
+                print(_city);
+              }
               // _city=data['cit'];
               return Container(
                 // height: MediaQuery.of(context).size.height,
@@ -243,7 +251,12 @@ class _MyHomePage2State extends State<MyHomePage2> {
 
   Future<String> get_lon() async {
     var latlng = await Geolocator().getCurrentPosition();
-    var data = {'lat': latlng.latitude, 'lon': latlng.longitude};
+    // var data = {
+    //   'lat': latlng.latitude.toString(),
+    //   'lon': latlng.longitude.toString()
+    // };
+    var data = {"lat": 24.1755101, "lon": 120.6480756};
+    print(data);
     var url = 'http://140.116.152.77:40129/authLocation';
     http.Response response;
     response = await http
@@ -252,14 +265,18 @@ class _MyHomePage2State extends State<MyHomePage2> {
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(data),
     )
-        .timeout(Duration(milliseconds: 10), onTimeout: () {
+        .timeout(Duration(milliseconds: 1000), onTimeout: () {
       return null;
     }).catchError((onError) {
       return null;
     });
-    print(response);
     if (response != null) {
-      return response.body;
+      print(response.body);
+      if (jsonDecode(response.body)['success'] == true) {
+        print("in");
+        return response.body;
+      }
+      ;
     }
   }
 
@@ -412,6 +429,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
         },
       );
       response = null;
+      return;
     }
     Navigator.pop(context); //離開Alert
     if (response != null) //網路確認
@@ -518,5 +536,3 @@ class _MyHomePage2State extends State<MyHomePage2> {
     }
   }
 }
-
-class Furter {}

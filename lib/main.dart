@@ -150,7 +150,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _index = 0;
   List<Widget> page = List<Widget>();
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -252,8 +251,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           //   },
                           // );
 
-                          print(
-                              'page內容${text.data.length}'); //莫名其妙的bug不print apk就跑不出來
+                          // print(
+                          //     'page內容${text.data.length}'); //莫名其妙的bug不print apk就跑不出來
                           return PageView(
                               controller: PageController(
                                 viewportFraction: 0.9,
@@ -422,6 +421,7 @@ class _MyHomePageState extends State<MyHomePage> {
       await db.update('imagup', {'update_data': 1},
           where:
               'id = ${data[_index]["id"]} AND plan = ${data[_index]['plan']} AND user = ${data[_index]['user']}');
+      db.close();
       showDialog<void>(
         context: context,
         barrierDismissible: false, //點旁邊不關閉
@@ -506,5 +506,11 @@ class _MyHomePageState extends State<MyHomePage> {
     picture com = picture(context: context, is_camera: false);
     com.getPicture();
     print('take pictur album success!');
+  }
+
+  Future<List<String>> user_data_get_list() async {
+    var db = db_get.create_db();
+
+    return null;
   }
 }
