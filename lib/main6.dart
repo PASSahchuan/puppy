@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:puppy/database/create_db.dart';
 import 'package:puppy/main.dart';
+import 'package:puppy/test/stupid.dart';
 import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownTown.dart';
@@ -59,8 +60,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
               if (data != null) {
                 print("--------------");
                 _city = data['city'];
-                _district = data['city_district'];
-                _vilage = data['suburb'];
+                _district = data['suburb'];
+                _vilage = data['city_district'];
                 print(_city);
               }
               // _city=data['cit'];
