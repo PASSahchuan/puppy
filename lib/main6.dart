@@ -31,9 +31,9 @@ class MyHomePage2 extends StatefulWidget {
 
 class _MyHomePage2State extends State<MyHomePage2> {
   File image;
-  String _city = '台北市',
-      _district = '松山區',
-      _vilage = '東榮里',
+  String _city = null,
+      _district = null,
+      _vilage = null,
       _dayCount = '0',
       _dogCount = '1',
       _repeatCount = '0';
@@ -55,11 +55,10 @@ class _MyHomePage2State extends State<MyHomePage2> {
         child: FutureBuilder<Object>(
             future: get_lon(),
             builder: (context, snapshot) {
-              var data = jsonDecode(snapshot.data);
-
               print("--------------");
               print(snapshot.data);
-              if (data != null) {
+              if (snapshot.data != null && _city == null) {
+                var data = jsonDecode(snapshot.data);
                 print("--------------");
                 _city = data['city'];
                 _district = data['suburb'];
@@ -257,11 +256,11 @@ class _MyHomePage2State extends State<MyHomePage2> {
   }
 
   Future<String> get_lon() async {
-    var latlng = await Geolocator().getCurrentPosition();
-    // var data = {
-    //   'lat': latlng.latitude.toString(),
-    //   'lon': latlng.longitude.toString()
-    // };
+    var latlng = await Geolocator()
+        .getCurrentPosition()
+        .timeout(Duration(seconds: 1), onTimeout: () => null);
+    if (latlng == null) return null;
+    // var data = {'lat': latlng.latitude, 'lon': latlng.longitude};
     var data = {"lat": 24.1755101, "lon": 120.6480756};
     print(data);
     var url = 'http://140.116.152.77:40129/authLocation';
@@ -282,8 +281,9 @@ class _MyHomePage2State extends State<MyHomePage2> {
       if (jsonDecode(response.body)['success'] == true) {
         print("in");
         return response.body;
+      } else {
+        return null;
       }
-      ;
     }
   }
 
