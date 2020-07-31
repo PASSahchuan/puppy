@@ -56,8 +56,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
             future: get_lon(),
             builder: (context, snapshot) {
               print("--------------");
-              print(snapshot.data);
               if (snapshot.data != null && _city == null) {
+                print(snapshot.data);
                 var data = jsonDecode(snapshot.data);
                 print("--------------");
                 _city = data['city'];
