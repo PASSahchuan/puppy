@@ -28,6 +28,7 @@ class _DropdownOfNumDogState extends State<DropdownOfNumDog> {
         });
       },
       items: <String>[
+        '0',
         '1',
         '2',
         '3',

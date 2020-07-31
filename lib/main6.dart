@@ -80,7 +80,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(dateSlug),
+                          Text(dateSlug,),
                           Text(_city + _district + _vilage),
                           FutureBuilder(
                               future: Geolocator().getCurrentPosition(),
