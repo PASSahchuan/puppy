@@ -1,22 +1,15 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:puppy/database/create_db.dart';
 import 'package:puppy/main.dart';
-import 'package:puppy/test/stupid.dart';
-import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownTown.dart';
-import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownVillage.dart';
 import 'dropdown/DropdownOfDay.dart';
 import 'dropdown/DropdownOfNumDog.dart';
-import 'dropdown/DropdownVillage.dart';
-import 'test/Region_services.dart';
 import 'package:http/http.dart' as http;
 
 class MyHomePage2 extends StatefulWidget {
