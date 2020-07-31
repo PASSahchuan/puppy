@@ -14,9 +14,18 @@ class Page1 extends StatelessWidget {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(b['date'].substring(0, 10)),
-          Text(b['city'] + b['district'] + b['village']),
-          Text('lon: ${b["lon"]} lat: ${b["lat"]}'),
+          Text(
+            b['date'].substring(0, 10),
+            style: TextStyle(color: Colors.white),
+          ),
+          Text(
+            b['city'] + b['district'] + b['village'],
+            style: TextStyle(color: Colors.white),
+          ),
+          Text(
+            'lon: ${b["lon"]} lat: ${b["lat"]}',
+            style: TextStyle(color: Colors.white),
+          ),
         ],
       )
     ]);

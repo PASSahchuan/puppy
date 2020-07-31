@@ -80,14 +80,22 @@ class _MyHomePage2State extends State<MyHomePage2> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(dateSlug),
-                          Text(_city + _district + _vilage),
+                          Text(
+                            dateSlug,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Text(
+                            _city + _district + _vilage,
+                            style: TextStyle(color: Colors.white),
+                          ),
                           FutureBuilder(
                               future: Geolocator().getCurrentPosition(),
                               builder: (BuildContext context,
                                   AsyncSnapshot snapshot) {
                                 return Text(
-                                    'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ');
+                                  'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ',
+                                  style: TextStyle(color: Colors.white),
+                                );
                               })
                         ],
                       ),

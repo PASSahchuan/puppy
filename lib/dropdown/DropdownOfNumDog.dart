@@ -10,7 +10,7 @@ class DropdownOfNumDog extends StatefulWidget {
 }
 
 class _DropdownOfNumDogState extends State<DropdownOfNumDog> {
-  String dropdownValue = '1';
+  String dropdownValue = '0';
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
@@ -28,6 +28,7 @@ class _DropdownOfNumDogState extends State<DropdownOfNumDog> {
         });
       },
       items: <String>[
+        '0',
         '1',
         '2',
         '3',
