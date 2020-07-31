@@ -174,7 +174,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          DropdownOfPerson(),
+                          FutureBuilder<Object>(
+                              future: user_data_get_list(),
+                              builder: (context, snapshot) {
+                                List<String> data = snapshot.data;
+                                return DropdownOfPerson(
+                                  callback: set_state,
+                                  user_data: data,
+                                  dropdownValue: data[0],
+                                );
+                              }),
                           SizedBox(
                             width: screen.width / 100 * 3,
                           ),
@@ -182,7 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             color: sw == 1 ? Color(0xffDB6400) : Colors.white,
                             child: Text(
                               '已上傳',
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(fontSize: 15),
                             ),
                             onPressed: () {
                               sw = 1;
@@ -195,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             color: sw == 0 ? Color(0xffDB6400) : Colors.white,
                             child: Text(
                               '未上傳',
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(fontSize: 15),
                             ),
                             onPressed: () {
                               sw = 0;
@@ -205,14 +214,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                 sw == 0 ? Colors.white : Color(0xffDB6400),
                           ),
                           SizedBox(
-                            width: 0,
-                          ),
-                          FlatButton(
-                            textColor: Color(0xffDB6400),
-                            onPressed: get_album,
-                            child: Icon(
-                              Icons.add_photo_alternate,
-                              size: 40,
+                            width: screen.width / 100 * 18,
+                            height: screen.height / 100 * 4.5,
+                            // width: 40,
+                            // height: 40,
+                            child: FlatButton(
+                              textColor: Color(0xffDB6400),
+                              onPressed: get_album,
+                              child: Icon(
+                                Icons.add_photo_alternate,
+                                size: 35,
+                              ),
                             ),
                           ),
                         ],
@@ -474,6 +486,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  void set_state() {
+    setState(() {});
+  }
+
   Future<List<Widget>> get_db_data() async {
     page = List<Widget>();
     try {
@@ -510,8 +526,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<List<String>> user_data_get_list() async {
-    var db = db_get.create_db();
-
-    return null;
+    var db = await db_get.create_db();
+    var plan_user_db = await db.query("USERE", orderBy: 'datetime("date")');
+    plan_user_db = plan_user_db.reversed.toList();
+    List<String> plan_user_List = List<String>();
+    for (var i = 0; i < plan_user_db.length; i++) {
+      var plan_str = plan_user_db[i]['plan'].padLeft(2, '0');
+      var user_str = plan_user_db[i]['user'].padLeft(3, '0');
+      plan_user_List.add('$plan_str\\$user_str');
+    }
+    return plan_user_List;
   }
 }
