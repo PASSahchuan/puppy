@@ -16,15 +16,16 @@ class Page1 extends StatelessWidget {
         children: <Widget>[
           Text(
             b['date'].substring(0, 10),
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(
+                color: Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
           ),
-          Text(
-            b['city'] + b['district'] + b['village'],
-            style: TextStyle(color: Colors.white),
-          ),
+          Text(b['city'] + b['district'] + b['village'],
+              style: TextStyle(
+                  color: Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19))),
           Text(
             'lon: ${b["lon"]} lat: ${b["lat"]}',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(
+                color: Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
           ),
         ],
       )
