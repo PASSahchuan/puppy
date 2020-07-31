@@ -59,9 +59,9 @@ class _MyHomePage2State extends State<MyHomePage2> {
                 print(_city);
               }
               if (_city == null) {
-                _city = '台北市';
-                _district = '松山區';
-                _vilage = '東榮里';
+                _city = city_record;
+                _district = district_record;
+                _vilage = village_record;
               }
               // _city=data['cit'];
               return Container(
