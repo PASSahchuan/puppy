@@ -214,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 sw == 0 ? Colors.white : Color(0xffDB6400),
                           ),
                           SizedBox(
-                            width: screen.width / 100 * 18,
+                            width: screen.width / 100 * 15,
                             height: screen.height / 100 * 4.5,
                             // width: 40,
                             // height: 40,
@@ -223,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               onPressed: get_album,
                               child: Icon(
                                 Icons.add_photo_alternate,
-                                size: 35,
+                                size: screen.width / 100 * 9,
                               ),
                             ),
                           ),
