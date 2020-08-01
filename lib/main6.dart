@@ -82,11 +82,15 @@ class _MyHomePage2State extends State<MyHomePage2> {
                         children: <Widget>[
                           Text(
                             dateSlug,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                                color: Color.fromARGB(
+                                    (0.8 * 255).toInt(), 139, 69, 19)),
                           ),
                           Text(
                             _city + _district + _vilage,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                                color: Color.fromARGB(
+                                    (0.8 * 255).toInt(), 139, 69, 19)),
                           ),
                           FutureBuilder(
                               future: Geolocator().getCurrentPosition(),
@@ -94,7 +98,9 @@ class _MyHomePage2State extends State<MyHomePage2> {
                                   AsyncSnapshot snapshot) {
                                 return Text(
                                   'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ',
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                      color: Color.fromARGB(
+                                          (0.8 * 255).toInt(), 139, 69, 19)),
                                 );
                               })
                         ],

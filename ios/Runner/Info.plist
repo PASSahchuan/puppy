@@ -2,6 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>test</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>test</string>
+	<key>NSCameraUsageDescription</key>
+	<string>需要用來拍狗狗照片</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要用來選取相簿照片</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>開起定位服務提供判斷您所在位置</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
