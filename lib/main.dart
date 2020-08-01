@@ -33,19 +33,20 @@ void main() async {
   var temp_user =
       await db.rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
 
-  var latlng = await Geolocator().getCurrentPosition();
+  var latlng =
+      await Geolocator().getCurrentPosition().timeout(Duration(seconds: 1));
   print("-----------------顯示資料ㄑㄨˋ----------------------");
 
   print(temp_user);
   print("-----------------開資料ㄑㄨˋ----------------------");
   if (temp_user[0]['user'] != null) {
-    var data = {
-      'plan': temp_user[0]['plan'],
-      'user': temp_user[0]['user'],
-      'time': DateTime.now().toIso8601String(),
-      'lat': latlng.latitude,
-      'lon': latlng.longitude
-    };
+    // var data = {
+    //   'plan': temp_user[0]['plan'],
+    //   'user': temp_user[0]['user'],
+    //   'time': DateTime.now().toIso8601String(),
+    //   'lat': latlng.latitude,
+    //   'lon': latlng.longitude
+    // };
     // var url = 'http://140.116.152.77:40129/authLocation';
     //   http.Response response;
     //   try {
