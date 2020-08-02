@@ -454,7 +454,6 @@ class _MyHomePage2State extends State<MyHomePage2> {
           return AlertDialog(
             title: Text("上傳失敗"),
             actions: <Widget>[
-              Text(text),
               FlatButton(
                 child: Text('確定'),
                 onPressed: () {
@@ -466,7 +465,6 @@ class _MyHomePage2State extends State<MyHomePage2> {
         },
       );
       response = null;
-      return;
     }
     Navigator.pop(context); //離開Alert
     if (response != null) //網路確認
