@@ -36,19 +36,20 @@ void main() async {
   Geolocator().getCurrentPosition();
 
   Timer.periodic(Duration(minutes: 1), (timer) async {
-    final Database db = await db_get.create_db();
-    var latlng = await Geolocator().getCurrentPosition();
-    if (temp_user.length != 0) {
-      var data = {
-        'plan': temp_user[0]['plan'],
-        'user': temp_user[0]['user'],
-        'time': DateTime.now().toIso8601String(),
-        'lat': latlng.latitude,
-        'lon': latlng.longitude
-      };
-      var url = 'http://140.116.152.77:40129/timingLocation';
-      http.Response response;
-      try {
+    try {
+      final Database db = await db_get.create_db();
+      var latlng = await Geolocator().getCurrentPosition();
+      if (temp_user.length != 0) {
+        var data = {
+          'plan': temp_user[0]['plan'],
+          'user': temp_user[0]['user'],
+          'time': DateTime.now().toIso8601String(),
+          'lat': latlng.latitude,
+          'lon': latlng.longitude
+        };
+        var url = 'http://140.116.152.77:40129/timingLocation';
+        http.Response response;
+
         response = await http.post(
           url,
           headers: {'Content-Type': 'application/json'},
@@ -63,10 +64,10 @@ void main() async {
           );
         }
         db.delete('timingLocation');
-      } catch (_) {
+
         db.insert("timingLocation", data);
       }
-    }
+    } catch (_) {}
   });
   if (temp_user[0]['user'] == null) {
     runApp(MaterialApp(
