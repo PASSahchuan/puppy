@@ -1,10 +1,10 @@
 bool cityChange = false;
 var cityList = [
-  '台北市',
+  '臺北市',
   '高雄市',
   '新北市',
-  '台中市',
-  '台南市',
+  '臺中市',
+  '臺南市',
   '桃園市',
   '宜蘭縣',
   '新竹縣',
@@ -77,7 +77,7 @@ List<String> villageList = [
 
 List<String> judge(String city) {
   switch (city) {
-    case '台北市':
+    case '臺北市':
       return distinctLists = [
         '松山區',
         '信義區',
@@ -168,7 +168,7 @@ List<String> judge(String city) {
         '烏來區'
       ];
       break;
-    case '台中市':
+    case '臺中市':
       return distinctLists = [
         '中區',
         '東區',
@@ -201,7 +201,7 @@ List<String> judge(String city) {
         '和平區'
       ];
       break;
-    case '台南市':
+    case '臺南市':
       return distinctLists = [
         '新營區',
         '鹽水區',
@@ -8972,7 +8972,7 @@ List<String> getVillage(String distinct) {
         '湖東村',
         '青螺村',
         '白坑村',
-        '���寮村',
+        '南寮村',
         '北寮村',
         '紅羅村',
         '西溪村',
