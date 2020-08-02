@@ -367,18 +367,23 @@ class _MyHomePage2State extends State<MyHomePage2> {
           );
         },
       );
-      return;
+      return null;
     }
 
-    var latlng = await Geolocator().getCurrentPosition();
+    var latlng = await Geolocator().getCurrentPosition().timeout(
+      Duration(seconds: 1),
+      onTimeout: () {
+        return null;
+      },
+    );
     // db.rawQuery('SELECT MAX(datetime("date")) FROM USERE');
     var data = {
       "id": id,
       "plan": user[0]['plan'],
       "user": user[0]['user'],
       "img": base64Encode(image.readAsBytesSync()),
-      "lat": latlng.latitude,
-      "lon": latlng.longitude,
+      "lat": latlng == null ? 0 : latlng.latitude,
+      "lon": latlng == null ? 0 : latlng.longitude,
       "city": _city,
       "district": _district,
       "village": _vilage,
@@ -454,13 +459,14 @@ class _MyHomePage2State extends State<MyHomePage2> {
     if (response != null) //網路確認
     {
       var getJson = jsonDecode(response.body);
+      print(getJson);
       if (getJson['success']) {
         await db.update('imagup', {'update_data': 1},
             where:
                 'id = $id AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}');
         showAlert(context, 1);
       } else {
-        await showAlert(context, 3);
+        await showAlert(context, 3); //資料庫失敗
       }
     } else {
       await showAlert(context, 2);
