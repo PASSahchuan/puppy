@@ -38,7 +38,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
     String dateSlug =
         "${today.year.toString()}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
     image = File(widget.image);
-
+    print(_city);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -58,11 +58,15 @@ class _MyHomePage2State extends State<MyHomePage2> {
                 _vilage = data['city_district'];
                 print(_city);
               }
+              print("object61");
+              print(_city);
               if (_city == null) {
                 _city = city_record;
                 _district = district_record;
                 _vilage = village_record;
+                print("object66");
               }
+              print("object67");
               // _city=data['cit'];
               return Container(
                 // height: MediaQuery.of(context).size.height,
@@ -96,12 +100,21 @@ class _MyHomePage2State extends State<MyHomePage2> {
                               future: Geolocator().getCurrentPosition(),
                               builder: (BuildContext context,
                                   AsyncSnapshot snapshot) {
-                                return Text(
-                                  'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ',
-                                  style: TextStyle(
-                                      color: Color.fromARGB(
-                                          (0.8 * 255).toInt(), 139, 69, 19)),
-                                );
+                                if (snapshot.data != null) {
+                                  return Text(
+                                    'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ',
+                                    style: TextStyle(
+                                        color: Color.fromARGB(
+                                            (0.8 * 255).toInt(), 139, 69, 19)),
+                                  );
+                                } else {
+                                  return Text(
+                                    'lon: error lat: error ',
+                                    style: TextStyle(
+                                        color: Color.fromARGB(
+                                            (0.8 * 255).toInt(), 139, 69, 19)),
+                                  );
+                                }
                               })
                         ],
                       ),
