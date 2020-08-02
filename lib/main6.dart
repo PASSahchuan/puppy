@@ -459,6 +459,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
     if (response != null) //網路確認
     {
       var getJson = jsonDecode(response.body);
+      print("資料庫失敗的回傳");
       print(getJson);
       if (getJson['success']) {
         await db.update('imagup', {'update_data': 1},
