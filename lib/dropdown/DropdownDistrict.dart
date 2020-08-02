@@ -45,8 +45,8 @@ class _DropdownDistrictState extends State<DropdownDistrict> {
         district_record = newValue;
         cityChange = false;
         distinctChange = true;
+        villageList = getVillage(newValue);
         setState(() {
-          villageList = getVillage(newValue);
           // print('dropdownValue');
           // print(dropdownValue);
           // print('newValue');
