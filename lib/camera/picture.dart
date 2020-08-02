@@ -22,8 +22,11 @@ class picture {
     File _image = File(image.path);
     print("======路徑5這裡=======");
     print(image.path);
-    await ImageSave.saveImage(_image.readAsBytesSync(), "jpg",
-        albumName: "dog");
+    if (is_camera) {
+      await ImageSave.saveImage(_image.readAsBytesSync(), "jpg",
+          albumName: "dog");
+    }
+
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
