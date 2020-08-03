@@ -50,13 +50,18 @@ void main() async {
         var url = 'http://140.116.152.77:40129/timingLocation';
         http.Response response;
 
-        response = await http.post(
-          url,
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(data),
-        );
+        try {
+          response = await http.post(
+            url,
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(data),
+          );
+        } catch (_) {
+          db.insert("timingLocation", data);
+        }
         var data_log = await db.query("timingLocation");
         for (int i = 0; i < data_log.length; i++) {
+          sleep(Duration(seconds: 1));
           response = await http.post(
             url,
             headers: {'Content-Type': 'application/json'},
@@ -64,8 +69,6 @@ void main() async {
           );
         }
         db.delete('timingLocation');
-
-        db.insert("timingLocation", data);
       }
     } catch (_) {}
   });
