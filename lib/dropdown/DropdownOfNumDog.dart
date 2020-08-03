@@ -52,7 +52,6 @@ class _DropdownOfNumDogState extends State<DropdownOfNumDog> {
           child: Text(
             value,
             style: TextStyle(fontSize: 25),
-            textAlign: TextAlign.center,
           ),
         );
       }).toList(),

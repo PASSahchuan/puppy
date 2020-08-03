@@ -52,7 +52,6 @@ class _DropdownOfDayState extends State<DropdownOfDay> {
             child: Text(
               value,
               style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.center,
             ),
           ),
         );

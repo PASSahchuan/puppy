@@ -65,7 +65,6 @@ class _DropdownDistrictState extends State<DropdownDistrict> {
             child: Text(
               value,
               style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.center,
             ),
           ),
         );

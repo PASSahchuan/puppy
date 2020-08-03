@@ -58,7 +58,6 @@ class _DropdownVillageState extends State<DropdownVillage> {
             child: Text(
               value,
               style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.center,
             ),
           ),
         );

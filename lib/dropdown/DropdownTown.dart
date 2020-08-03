@@ -53,7 +53,6 @@ class _DropdownTownState extends State<DropdownTown> {
           child: Text(
             value,
             style: TextStyle(fontSize: 25),
-            textAlign: TextAlign.center,
           ),
         );
       }).toList(),
