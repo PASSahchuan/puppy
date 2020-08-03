@@ -29,6 +29,9 @@ class _DropdownVillageState extends State<DropdownVillage> {
       dropdownValue = villageList[0];
       distinctChange = false;
       cityChange = false;
+    } else {
+
+      dropdownValue = village_record;
     }
     // print('object');
     // print(dropdownValue);
@@ -41,14 +44,10 @@ class _DropdownVillageState extends State<DropdownVillage> {
         color: Color(0xffD09E88),
       ),
       onChanged: (String newValue) {
+        //change village
         dropdownValue = newValue;
         village_record = newValue;
-        setState(() {
-          // decodevillage(dropdownValue);
-          print(dropdownValue);
-          print('newValue');
-          print(newValue);
-        });
+        //callback
         widget.callback('vilage', newValue);
       },
 
