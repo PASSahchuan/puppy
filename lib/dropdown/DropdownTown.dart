@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:puppy/test/stupid.dart';
 import 'DropdownDistrict.dart';
+import 'DropdownVillage.dart';
 import '../test/stupid.dart';
 
 class DropdownTown extends StatefulWidget {
@@ -19,6 +20,7 @@ class _DropdownTownState extends State<DropdownTown> {
   String tmpVillage;
   @override
   Widget build(BuildContext context) {
+    dropdownValue = city_record;
     return DropdownButton<String>(
       value: dropdownValue,
       elevation: 16,
@@ -30,24 +32,20 @@ class _DropdownTownState extends State<DropdownTown> {
         color: Color(0xffD09E88),
       ),
       onChanged: (String newValue) {
+        //change town
         dropdownValue = newValue;
         city_record = newValue;
-        // print(judge(dropdownValue));
-        // villageList = getVillage(distinctLists[0]);
-        // print('villageList');
-        // print(villageList);
-        setState(() {
-          cityChange = true;
-          distinctLists = judge(dropdownValue);
-        });
-        widget.callback(widget.field, newValue);
-        print('field');
-        print(widget.field);
-        widget.callback('district', distinctLists[0]);
+        //change dist
+        distinctLists = judge(dropdownValue);
+        district_record = distinctLists[0];
+        //change village
         tmpVillage = getVillage(distinctLists[0])[0];
+        village_record = tmpVillage;
+        //callback
+        widget.callback(widget.field, newValue);
+        widget.callback('district', distinctLists[0]);
         widget.callback('vilage', tmpVillage);
-        print('cityList');
-        print(cityList);
+        cityChange = true;
       },
       items: cityList.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
@@ -55,6 +53,7 @@ class _DropdownTownState extends State<DropdownTown> {
           child: Text(
             value,
             style: TextStyle(fontSize: 25),
+            textAlign: TextAlign.center,
           ),
         );
       }).toList(),

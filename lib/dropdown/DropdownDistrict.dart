@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:puppy/dropdown/DropdownVillage.dart';
 import 'package:puppy/test/stupid.dart';
 
 class DropdownDistrict extends StatefulWidget {
@@ -28,6 +29,8 @@ class _DropdownDistrictState extends State<DropdownDistrict> {
       villageList = getVillage(dropdownValue);
       // widget.callback('district', dropdownValue);
       // widget.callback('vilage', villageList[0]);
+    } else {
+      dropdownValue = district_record;
     }
 
     return DropdownButton<String>(
@@ -41,22 +44,17 @@ class _DropdownDistrictState extends State<DropdownDistrict> {
         color: Color(0xffD09E88),
       ),
       onChanged: (String newValue) {
+        //change dist
         dropdownValue = newValue;
         district_record = newValue;
-        cityChange = false;
-        distinctChange = true;
-        villageList = getVillage(newValue);
-        setState(() {
-          // print('dropdownValue');
-          // print(dropdownValue);
-          // print('newValue');
-          // print(newValue);
-          // print('object');
-          // print(villageList);
-          // // decodeRegion(dropdownValue);
-        });
+        //change village
+        villageList = getVillage(dropdownValue);
+        village_record = villageList[0];
+        //callback
         widget.callback('district', newValue);
         widget.callback('vilage', villageList[0]);
+        cityChange = false;
+        distinctChange = true;
       },
       items: distinctLists.map<DropdownMenuItem<String>>((String value) {
         // print('value');

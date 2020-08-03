@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:puppy/database/create_db.dart';
 import 'package:puppy/main.dart';
+import 'package:puppy/test/stupid.dart';
 import 'dropdown/DropdownDistrict.dart';
 import 'dropdown/DropdownTown.dart';
 import 'dropdown/DropdownVillage.dart';
@@ -348,6 +349,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
   }
 
   void imageUpload() async {
+    cityChange = false;
+    distinctChange = false;
     showAlert(context, 0);
     var db = await db_get.create_db();
 
@@ -511,6 +514,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
   }
 
   void questionnaireSendOut() {
+    cityChange = false;
+    distinctChange = false;
     print('Questionnaire send out success!');
     Navigator.pop(context);
   }
