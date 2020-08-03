@@ -61,11 +61,9 @@ class _DropdownDistrictState extends State<DropdownDistrict> {
         // print(value);
         return DropdownMenuItem<String>(
           value: value,
-          child: Center(
-            child: Text(
-              value,
-              style: TextStyle(fontSize: 25),
-            ),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 25),
           ),
         );
       }).toList(),

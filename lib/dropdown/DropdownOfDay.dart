@@ -48,11 +48,9 @@ class _DropdownOfDayState extends State<DropdownOfDay> {
       ].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Center(
-            child: Text(
-              value,
-              style: TextStyle(fontSize: 25),
-            ),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 25),
           ),
         );
       }).toList(),

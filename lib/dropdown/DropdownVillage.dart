@@ -30,7 +30,6 @@ class _DropdownVillageState extends State<DropdownVillage> {
       distinctChange = false;
       cityChange = false;
     } else {
-
       dropdownValue = village_record;
     }
     // print('object');
@@ -54,12 +53,10 @@ class _DropdownVillageState extends State<DropdownVillage> {
       items: villageList.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Center(
             child: Text(
               value,
               style: TextStyle(fontSize: 25),
             ),
-          ),
         );
       }).toList(),
       // items: widget.villageList != null
