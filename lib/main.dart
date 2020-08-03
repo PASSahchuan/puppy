@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: '狗狗調查大作戰'),
+      home: MyHomePage(title: '遊蕩犬調查'),
       // routes: <String, WidgetBuilder>{'/TwoButtom': (_) => new TwobuttomPage()},
     );
   }
