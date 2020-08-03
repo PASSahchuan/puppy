@@ -182,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 sw == 0 ? Colors.white : Color(0xffDB6400),
                           ),
                           SizedBox(
-                            width: screen.width / 100 * 15,
+                            width: screen.width / 100 * 10,
                             height: screen.height / 100 * 4.5,
                             // width: 40,
                             // height: 40,
