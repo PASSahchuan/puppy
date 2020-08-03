@@ -124,8 +124,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void set_user(String plan, String user, int id) {
-    db.execute(
-        "INSERT INTO USERE VALUES ( $plan , $user , $id ,datetime('now'));");
+    try {
+      db.execute(
+          "INSERT INTO USERE VALUES ( $plan , $user , $id ,datetime('now'));");
+    } catch (_) {
+      db.update("USERE", {'date': 'datetime("now"))', 'id': '$id'},
+          where: "plan = $plan AND user = $user ");
+    }
   }
 
   Future<void> showAlert(BuildContext context, int t) {
