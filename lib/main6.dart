@@ -402,7 +402,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
         'SELECT MAX(id) FROM imagup WHERE user = ${user[0]["user"]} AND plan = ${user[0]["plan"]}');
     print('當前id===================${imageData[0]['MAX(id)']}=使用者 ${user}=====');
     try {
-      if (imageData[0]['MAX(id)'] == null) {
+      if (imageData[0]['MAX(id)'] == null ||
+          user[0]['id'] > imageData[0]['MAX(id)']) {
         id = user[0]['id'] + 1;
       } else {
         id = imageData[0]['MAX(id)'] + 1;
@@ -523,7 +524,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
           builder: (context) {
             return AlertDialog(
               title: Text('資料庫失敗'),
-              content: Text(getJson),
+              content: Text(response.body),
               actions: <Widget>[
                 FlatButton(
                   child: Text('確定'),
