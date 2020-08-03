@@ -32,7 +32,7 @@ class picture {
       MaterialPageRoute(builder: (context) {
         return question.MyHomePage2(
           image: image.path,
-          title: '狗狗調查大作戰',
+          title: '遊蕩犬調查',
         );
       }),
     );

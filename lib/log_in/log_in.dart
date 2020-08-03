@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, @required this.db}) : super(key: key);
   final Database db;
-  final String title = '狗狗調查大作戰';
+  final String title = '遊蕩犬調查';
 
   @override
   _LoginPageState createState() => _LoginPageState(db);
