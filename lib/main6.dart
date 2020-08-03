@@ -31,7 +31,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
       _dayCount = '0',
       _dogCount = '1',
       _repeatCount = '0';
-  int id, gps_lat = 0, gps_lon = 0;
+  int id;
+  double gps_lat = 0, gps_lon = 0;
   @override
   Widget build(BuildContext context) {
     var screen = MediaQuery.of(context).size;
