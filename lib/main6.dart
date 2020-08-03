@@ -478,7 +478,27 @@ class _MyHomePage2State extends State<MyHomePage2> {
                 'id = $id AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}');
         showAlert(context, 1);
       } else {
-        await showAlert(context, 3); //資料庫失敗
+        showDialog<void>(
+          context: context,
+          barrierDismissible: false, //點旁邊不關閉
+          builder: (context) {
+            return AlertDialog(
+              title: Text('資料庫失敗'),
+              content: Text(getJson),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('確定'),
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) {
+                      return MyHomePage(title: '狗狗調查大作戰');
+                    }), (route) => false);
+                  },
+                ),
+              ],
+            );
+          },
+        ); //資料庫失敗
       }
     } else {
       await showAlert(context, 2);
