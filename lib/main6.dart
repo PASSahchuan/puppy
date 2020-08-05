@@ -364,6 +364,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
               child: ListBody(
                 children: <Widget>[
                   Text('目前gps讀取中請問是否跳過'),
+                  Text("跳過將沒有gps資料"),
                 ],
               ),
             ),
