@@ -51,7 +51,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
             future: get_lon(),
             builder: (context, snapshot) {
               print("--------------");
-              if (snapshot.data != null && _city == null) {
+              if (snapshot.data != null &&
+                  snapshot.connectionState == ConnectionState.done) {
                 print(snapshot.data);
                 var data = jsonDecode(snapshot.data);
                 print("--------------");
@@ -59,15 +60,13 @@ class _MyHomePage2State extends State<MyHomePage2> {
                 _district = data['suburb'];
                 _vilage = data['city_district'];
                 print(_city);
-              }
-              print("object61");
-              print(_city);
-              if (_city == null) {
+              } else if (_city == null) {
                 _city = city_record;
                 _district = district_record;
                 _vilage = village_record;
                 print("object66");
               }
+
               print("object67");
               // _city=data['cit'];
               return Container(
@@ -403,8 +402,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
         'SELECT MAX(id) FROM imagup WHERE user = ${user[0]["user"]} AND plan = ${user[0]["plan"]}');
     print('當前id===================${imageData[0]['MAX(id)']}=使用者 ${user}=====');
     try {
-      if (imageData[0]['MAX(id)'] == null ||
-          user[0]['id'] > imageData[0]['MAX(id)']) {
+      if (imageData[0]['MAX(id)'] == null) {
         id = user[0]['id'] + 1;
       } else {
         id = imageData[0]['MAX(id)'] + 1;
