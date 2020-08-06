@@ -1,8 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:image_save/image_save.dart';
 import 'package:puppy/database/create_db.dart';
 import 'package:puppy/main.dart';
 import 'package:puppy/test/stupid.dart';
@@ -12,6 +16,7 @@ import 'dropdown/DropdownVillage.dart';
 import 'dropdown/DropdownOfDay.dart';
 import 'dropdown/DropdownOfNumDog.dart';
 import 'package:http/http.dart' as http;
+import 'dart:ui' as ui;
 
 class MyHomePage2 extends StatefulWidget {
   MyHomePage2({Key key, this.title, @required this.image}) : super(key: key);
@@ -36,6 +41,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
       _repeatCount = '0';
   int id;
   double gps_lat = 0, gps_lon = 0;
+  GlobalKey _repaintKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     var screen = MediaQuery.of(context).size;
@@ -59,49 +65,53 @@ class _MyHomePage2State extends State<MyHomePage2> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Stack(children: <Widget>[
-              Container(
-                child: Image.file(image),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    dateSlug,
-                    style: TextStyle(
-                        color:
-                            Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
-                  ),
-                  Text(
-                    _city + _district + _vilage,
-                    style: TextStyle(
-                        color:
-                            Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
-                  ),
-                  FutureBuilder(
-                      future: Geolocator().getCurrentPosition(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.data != null) {
-                          gps_lat = snapshot.data.latitude;
-                          gps_lon = snapshot.data.longitude;
-                          return Text(
-                            'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ',
-                            style: TextStyle(
-                                color: Color.fromARGB(
-                                    (0.8 * 255).toInt(), 139, 69, 19)),
-                          );
-                        } else {
-                          return Text(
-                            '讀取中',
-                            style: TextStyle(
-                                color: Color.fromARGB(
-                                    (0.8 * 255).toInt(), 139, 69, 19)),
-                          );
-                        }
-                      })
-                ],
-              ),
-            ]),
+            RepaintBoundary(
+              key: _repaintKey,
+              child: Stack(children: <Widget>[
+                Container(
+                  child: Image.file(image),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      dateSlug,
+                      style: TextStyle(
+                          color:
+                              Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
+                    ),
+                    Text(
+                      _city + _district + _vilage,
+                      style: TextStyle(
+                          color:
+                              Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
+                    ),
+                    FutureBuilder(
+                        future: Geolocator().getCurrentPosition(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.data != null) {
+                            gps_lat = snapshot.data.latitude;
+                            gps_lon = snapshot.data.longitude;
+                            return Text(
+                              'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ',
+                              style: TextStyle(
+                                  color: Color.fromARGB(
+                                      (0.8 * 255).toInt(), 139, 69, 19)),
+                            );
+                          } else {
+                            return Text(
+                              '讀取中',
+                              style: TextStyle(
+                                  color: Color.fromARGB(
+                                      (0.8 * 255).toInt(), 139, 69, 19)),
+                            );
+                          }
+                        })
+                  ],
+                ),
+              ]),
+            ),
             Container(
               child: Table(
                 columnWidths: <int, TableColumnWidth>{
@@ -442,6 +452,14 @@ class _MyHomePage2State extends State<MyHomePage2> {
       print("有沒有停下");
       return;
     }
+    RenderRepaintBoundary boundary =
+        _repaintKey.currentContext.findRenderObject();
+    ui.Image _image_save = await boundary.toImage(pixelRatio: 10.0);
+    ByteData byteData =
+        await _image_save.toByteData(format: ui.ImageByteFormat.png);
+    Uint8List pngBytes = byteData.buffer.asUint8List();
+    print(pngBytes);
+    await ImageSave.saveImage(pngBytes, "png", albumName: "dog");
     cityChange = false;
     distinctChange = false;
     showAlert(context, 0);
