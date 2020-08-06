@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:puppy/dropdown/DropdownTown.dart';
 import 'package:puppy/dropdown/DropdownVillage.dart';
 import 'package:puppy/test/stupid.dart';
 
@@ -26,7 +27,7 @@ class _DropdownDistrictState extends State<DropdownDistrict> {
       dropdownValue = distinctLists[0];
       cityChange = false;
       distinctChange = true;
-      villageList = getVillage(dropdownValue);
+      villageList = getVillage(city_record,dropdownValue);
       // widget.callback('district', dropdownValue);
       // widget.callback('vilage', villageList[0]);
     } else {
@@ -48,7 +49,7 @@ class _DropdownDistrictState extends State<DropdownDistrict> {
         dropdownValue = newValue;
         district_record = newValue;
         //change village
-        villageList = getVillage(dropdownValue);
+        villageList = getVillage(city_record,dropdownValue);
         village_record = villageList[0];
         //callback
         widget.callback('district', newValue);
