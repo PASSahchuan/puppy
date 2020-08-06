@@ -39,7 +39,7 @@ class _DropdownTownState extends State<DropdownTown> {
         distinctLists = judge(dropdownValue);
         district_record = distinctLists[0];
         //change village
-        tmpVillage = getVillage(distinctLists[0])[0];
+        tmpVillage = getVillage(dropdownValue,distinctLists[0])[0];
         village_record = tmpVillage;
         //callback
         widget.callback(widget.field, newValue);
