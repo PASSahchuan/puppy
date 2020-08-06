@@ -25,7 +25,10 @@ class MyHomePage2 extends StatefulWidget {
 
 class _MyHomePage2State extends State<MyHomePage2> {
   File image;
-  String _city = city_record,
+  String _gps_city = null,
+      _gps_dis = null,
+      _gps_vil = null,
+      _city = city_record,
       _district = district_record,
       _vilage = village_record,
       _dayCount = '0',
@@ -255,16 +258,13 @@ class _MyHomePage2State extends State<MyHomePage2> {
     );
   }
 
-  Future<String> get_lon() async {
-    var latlng = await Geolocator()
-        .getCurrentPosition()
-        .timeout(Duration(seconds: 10), onTimeout: () => null);
-    if (latlng == null) return null;
-    var data = {'lat': latlng.latitude, 'lon': latlng.longitude};
+  Future<String> get_lon(var latitude, longitude) async {
+    var data = {'lat': latitude, 'lon': longitude};
     // var data = {"lat": 24.1755101, "lon": 120.6480756};
+    print('這是關羽取得城市鄉政地址');
     print(data);
     var url = 'http://140.116.152.77:40129/authLocation';
-    http.Response response;
+    http.Response response = null;
     response = await http
         .post(
       url,
@@ -272,8 +272,10 @@ class _MyHomePage2State extends State<MyHomePage2> {
       body: jsonEncode(data),
     )
         .timeout(Duration(milliseconds: 1000), onTimeout: () {
+      response = null;
       return null;
     }).catchError((onError) {
+      response = null;
       return null;
     });
     if (response != null) {
@@ -341,22 +343,99 @@ class _MyHomePage2State extends State<MyHomePage2> {
             ),
             actions: <Widget>[
               FlatButton(
+                child: Text('跳過'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
                 onPressed: () {
                   gps_sw = true;
                   Navigator.of(context).pop();
                 },
                 child: Text('等待'),
               ),
-              FlatButton(
-                child: Text('跳過'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
             ],
           );
         },
       );
+    } else {
+      var geography = await get_lon(gps_lat, gps_lon);
+      if (geography != null) {
+        var geography_json = jsonDecode(geography);
+        if (geography_json['success']) {
+          _gps_city = geography_json['city'];
+          _gps_dis = geography_json['suburb'];
+          _gps_vil = geography_json['city_district'];
+          await showDialog<void>(
+            context: context,
+            barrierDismissible: false, // user must tap button!
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('GPS定位成功'),
+                content: SingleChildScrollView(
+                  child: ListBody(
+                    children: <Widget>[
+                      Text('目前gps讀取到的城市為$_gps_city $_gps_dis $_gps_vil'),
+                      Text("您填寫的資料為$_city $_district $_vilage"),
+                      Text("您選的資料是否正確")
+                    ],
+                  ),
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('正確'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      gps_sw = true;
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('更改問卷'),
+                  ),
+                ],
+              );
+            },
+          );
+        }
+      } else if (_gps_city != null) {
+        await showDialog<void>(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('網路失敗顯示儲存資料'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text('目前gps儲存為$_gps_city $_gps_dis $_gps_vil'),
+                    Text("您填寫的資料為$_city $_district $_vilage"),
+                    Text("您選的資料是否正確")
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('正確'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  onPressed: () {
+                    gps_sw = true;
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('取消'),
+                ),
+              ],
+            );
+          },
+        );
+      }
     }
 
     if (gps_sw == true) {
