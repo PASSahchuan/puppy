@@ -31,7 +31,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
       _dayCount = '0',
       _dogCount = '1',
       _repeatCount = '0';
-  int id,gps_lat,gps_lon;
+  int id;
+  double gps_lat = 0, gps_lon = 0;
   @override
   Widget build(BuildContext context) {
     var screen = MediaQuery.of(context).size;
@@ -50,7 +51,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
             future: get_lon(),
             builder: (context, snapshot) {
               print("--------------");
-              if (snapshot.data != null && _city == null) {
+              if (snapshot.data != null &&
+                  snapshot.connectionState == ConnectionState.done) {
                 print(snapshot.data);
                 var data = jsonDecode(snapshot.data);
                 print("--------------");
@@ -58,15 +60,13 @@ class _MyHomePage2State extends State<MyHomePage2> {
                 _district = data['suburb'];
                 _vilage = data['city_district'];
                 print(_city);
-              }
-              print("object61");
-              print(_city);
-              if (_city == null) {
+              } else if (_city == null) {
                 _city = city_record;
                 _district = district_record;
                 _vilage = village_record;
                 print("object66");
               }
+
               print("object67");
               // _city=data['cit'];
               return Container(
@@ -102,6 +102,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
                               builder: (BuildContext context,
                                   AsyncSnapshot snapshot) {
                                 if (snapshot.data != null) {
+                                  gps_lat = snapshot.data.latitude;
+                                  gps_lon = snapshot.data.longitude;
                                   return Text(
                                     'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ',
                                     style: TextStyle(
@@ -110,7 +112,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                                   );
                                 } else {
                                   return Text(
-                                    'lon: error lat: error ',
+                                    '讀取中',
                                     style: TextStyle(
                                         color: Color.fromARGB(
                                             (0.8 * 255).toInt(), 139, 69, 19)),
@@ -284,10 +286,10 @@ class _MyHomePage2State extends State<MyHomePage2> {
   Future<String> get_lon() async {
     var latlng = await Geolocator()
         .getCurrentPosition()
-        .timeout(Duration(seconds: 1), onTimeout: () => null);
+        .timeout(Duration(seconds: 10), onTimeout: () => null);
     if (latlng == null) return null;
-    // var data = {'lat': latlng.latitude, 'lon': latlng.longitude};
-    var data = {"lat": 24.1755101, "lon": 120.6480756};
+    var data = {'lat': latlng.latitude, 'lon': latlng.longitude};
+    // var data = {"lat": 24.1755101, "lon": 120.6480756};
     print(data);
     var url = 'http://140.116.152.77:40129/authLocation';
     http.Response response;
@@ -349,6 +351,46 @@ class _MyHomePage2State extends State<MyHomePage2> {
   }
 
   void imageUpload() async {
+    bool gps_sw = false;
+    if (gps_lat == 0 || gps_lon == 0) {
+      await showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('gps未取得'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('目前gps讀取中請問是否跳過'),
+                  Text("跳過將沒有gps資料"),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  gps_sw = true;
+                  Navigator.of(context).pop();
+                },
+                child: Text('等待'),
+              ),
+              FlatButton(
+                child: Text('跳過'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    if (gps_sw == true) {
+      print("有沒有停下");
+      return;
+    }
     cityChange = false;
     distinctChange = false;
     showAlert(context, 0);
@@ -360,7 +402,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
         'SELECT MAX(id) FROM imagup WHERE user = ${user[0]["user"]} AND plan = ${user[0]["plan"]}');
     print('當前id===================${imageData[0]['MAX(id)']}=使用者 ${user}=====');
     try {
-      if (imageData[0]['MAX(id)'] == null) {
+      if (imageData[0]['MAX(id)'] == null ||
+          user[0]['id'] > imageData[0]['MAX(id)']) {
         id = user[0]['id'] + 1;
       } else {
         id = imageData[0]['MAX(id)'] + 1;
@@ -386,20 +429,14 @@ class _MyHomePage2State extends State<MyHomePage2> {
       return null;
     }
 
-    var latlng = await Geolocator().getCurrentPosition().timeout(
-      Duration(seconds: 1),
-      onTimeout: () {
-        return null;
-      },
-    );
     // db.rawQuery('SELECT MAX(datetime("date")) FROM USERE');
     var data = {
       "id": id,
       "plan": user[0]['plan'],
       "user": user[0]['user'],
       "img": base64Encode(image.readAsBytesSync()),
-      "lat": latlng == null ? 0 : latlng.latitude,
-      "lon": latlng == null ? 0 : latlng.longitude,
+      "lat": gps_lat,
+      "lon": gps_lon,
       "city": _city,
       "district": _district,
       "village": _vilage,
@@ -487,7 +524,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
           builder: (context) {
             return AlertDialog(
               title: Text('資料庫失敗'),
-              content: Text(getJson),
+              content: Text(response.body),
               actions: <Widget>[
                 FlatButton(
                   child: Text('確定'),
