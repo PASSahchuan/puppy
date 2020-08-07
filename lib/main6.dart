@@ -459,10 +459,10 @@ class _MyHomePage2State extends State<MyHomePage2> {
         await _image_save.toByteData(format: ui.ImageByteFormat.png);
     Uint8List pngBytes = byteData.buffer.asUint8List();
     print(pngBytes);
-    await ImageSave.saveImage(pngBytes, "png", albumName: "dog");
+    ImageSave.saveImage(pngBytes, "png", albumName: "dog");
     cityChange = false;
     distinctChange = false;
-    showAlert(context, 0);
+    await showAlert(context, 0);
     var db = await db_get.create_db();
 
     var user = await db
