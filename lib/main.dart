@@ -38,6 +38,9 @@ void main() async {
   Timer.periodic(Duration(minutes: 1), (timer) async {
     try {
       final Database db = await db_get.create_db();
+      var temp_user = await db
+          .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
+
       var latlng = await Geolocator().getCurrentPosition();
       if (temp_user.length != 0) {
         var data = {
@@ -49,7 +52,6 @@ void main() async {
         };
         var url = 'http://140.116.152.77:40129/timingLocation';
         http.Response response;
-
         try {
           response = await http.post(
             url,
