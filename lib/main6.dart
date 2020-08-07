@@ -370,7 +370,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
         },
       );
     } else {
-      var geography = await get_lon(gps_lat, gps_lon);
+      var geography =
+          await get_lon(gps_lat, gps_lon).timeout(Duration(seconds: 1));
       if (geography != null) {
         var geography_json = jsonDecode(geography);
         if (geography_json['success']) {
@@ -452,17 +453,27 @@ class _MyHomePage2State extends State<MyHomePage2> {
       print("有沒有停下");
       return;
     }
+    showAlert(context, 0);
+
+    print('測試儲存相片');
     RenderRepaintBoundary boundary =
         _repaintKey.currentContext.findRenderObject();
+    print("測試相簿459行");
     ui.Image _image_save = await boundary.toImage(pixelRatio: 10.0);
+    print("測試相簿461行");
     ByteData byteData =
         await _image_save.toByteData(format: ui.ImageByteFormat.png);
+    print("測試相簿464行");
+
     Uint8List pngBytes = byteData.buffer.asUint8List();
+    print("測試相簿467行");
+
     print(pngBytes);
     ImageSave.saveImage(pngBytes, "png", albumName: "dog");
+    print("測試相簿471行");
+
     cityChange = false;
     distinctChange = false;
-    await showAlert(context, 0);
     var db = await db_get.create_db();
 
     var user = await db
