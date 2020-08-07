@@ -459,7 +459,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
     RenderRepaintBoundary boundary =
         _repaintKey.currentContext.findRenderObject();
     print("測試相簿459行");
-    ui.Image _image_save = await boundary.toImage(pixelRatio: 10.0);
+    ui.Image _image_save = await boundary.toImage(pixelRatio: 5.0);
     print("測試相簿461行");
     ByteData byteData =
         await _image_save.toByteData(format: ui.ImageByteFormat.png);
