@@ -115,7 +115,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int sw = 1;
+  int sw = 1; //1 已上傳 0 未上傳
   int _index = 0;
   List<Widget> page = List<Widget>();
 
@@ -263,18 +263,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  RaisedButton(
-                    color: Color(0xffDB6400),
-                    child: Text(
-                      '照片上傳',
-                      style: TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.normal),
-                    ),
-                    onPressed: sw == 0 ? upload : () {},
-                    textColor: Colors.white,
-                  ),
+                  sw == 1
+                      ? Container(
+                          width: 0,
+                          height: 0,
+                        )
+                      : RaisedButton(
+                          color: Color(0xffDB6400),
+                          child: Text(
+                            '照片上傳',
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.normal),
+                          ),
+                          onPressed: sw == 0 ? upload : () {},
+                          textColor: Colors.white,
+                        ),
                   SizedBox(
-                    width: 30,
+                    width: sw == 1 ? 0 : 30,
                   ),
                   RaisedButton(
                     color: Color(0xffDB6400),

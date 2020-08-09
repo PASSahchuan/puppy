@@ -23,7 +23,7 @@ class Page1 extends StatelessWidget {
               style: TextStyle(
                   color: Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19))),
           Text(
-            'lon: ${b["lon"]} lat: ${b["lat"]}',
+            'lon: ${b["lon"]}\nlat: ${b["lat"]}',
             style: TextStyle(
                 color: Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
           ),
