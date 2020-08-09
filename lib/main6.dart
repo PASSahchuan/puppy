@@ -67,50 +67,53 @@ class _MyHomePage2State extends State<MyHomePage2> {
           children: <Widget>[
             RepaintBoundary(
               key: _repaintKey,
-              child: Stack(children: <Widget>[
-                Container(
-                  child: Image.file(image),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      dateSlug,
-                      style: TextStyle(
-                          color:
-                              Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
-                    ),
-                    Text(
-                      _city + _district + _vilage,
-                      style: TextStyle(
-                          color:
-                              Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
-                    ),
-                    FutureBuilder(
-                        future: Geolocator().getCurrentPosition(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.data != null) {
-                            gps_lat = snapshot.data.latitude;
-                            gps_lon = snapshot.data.longitude;
-                            return Text(
-                              'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ',
-                              style: TextStyle(
-                                  color: Color.fromARGB(
-                                      (0.8 * 255).toInt(), 139, 69, 19)),
-                            );
-                          } else {
-                            return Text(
-                              '讀取中',
-                              style: TextStyle(
-                                  color: Color.fromARGB(
-                                      (0.8 * 255).toInt(), 139, 69, 19)),
-                            );
-                          }
-                        })
-                  ],
-                ),
-              ]),
+              child: Container(
+                alignment: Alignment.center,
+                child: Stack(children: <Widget>[
+                  Container(
+                    child: Image.file(image),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        dateSlug,
+                        style: TextStyle(
+                            color: Color.fromARGB(
+                                (0.8 * 255).toInt(), 139, 69, 19)),
+                      ),
+                      Text(
+                        _city + _district + _vilage,
+                        style: TextStyle(
+                            color: Color.fromARGB(
+                                (0.8 * 255).toInt(), 139, 69, 19)),
+                      ),
+                      FutureBuilder(
+                          future: Geolocator().getCurrentPosition(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.data != null) {
+                              gps_lat = snapshot.data.latitude;
+                              gps_lon = snapshot.data.longitude;
+                              return Text(
+                                'lon: ${snapshot.data.longitude} lat: ${snapshot.data.latitude} ',
+                                style: TextStyle(
+                                    color: Color.fromARGB(
+                                        (0.8 * 255).toInt(), 139, 69, 19)),
+                              );
+                            } else {
+                              return Text(
+                                '讀取中',
+                                style: TextStyle(
+                                    color: Color.fromARGB(
+                                        (0.8 * 255).toInt(), 139, 69, 19)),
+                              );
+                            }
+                          })
+                    ],
+                  ),
+                ]),
+              ),
             ),
             Container(
               child: Table(

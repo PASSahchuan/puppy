@@ -506,8 +506,8 @@ class _MyHomePageState extends State<MyHomePage> {
     plan_user_db = plan_user_db.reversed.toList();
     List<String> plan_user_List = List<String>();
     for (var i = 0; i < plan_user_db.length; i++) {
-      var plan_str = plan_user_db[i]['plan'].padLeft(2, '0');
-      var user_str = plan_user_db[i]['user'].padLeft(3, '0');
+      var plan_str = plan_user_db[i]['plan'].padLeft(1, '0');
+      var user_str = plan_user_db[i]['user'].padLeft(2, '0');
       plan_user_List.add('$plan_str\\$user_str');
     }
     return plan_user_List;
