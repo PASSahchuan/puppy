@@ -108,7 +108,9 @@ class _LoginPageState extends State<LoginPage> {
         }
         print(
             '登入頁===================${temp_json_data['id']}======================');
-        set_user(_plan.text, _user.text, temp_json_data['id']);
+        set_user(_plan.text, _user.text, temp_json_data['id'],
+            temp_json_data['name']);
+        user_name = temp_json_data['name'];
         await showAlert(context, 1);
         db.close();
         Navigator.of(context).pushAndRemoveUntil(
@@ -123,10 +125,10 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void set_user(String plan, String user, int id) {
+  void set_user(String plan, String user, int id, String name) {
     try {
       db.execute(
-          "INSERT INTO USERE VALUES ( $plan , $user , $id ,datetime('now'));");
+          "INSERT INTO USERE VALUES ( $plan , $user , '$name', $id ,datetime('now'));");
     } catch (_) {
       db.update("USERE", {'date': 'datetime("now"))', 'id': '$id'},
           where: "plan = $plan AND user = $user ");

@@ -8,11 +8,12 @@ import 'package:puppy/camera/picture.dart';
 import 'package:puppy/database/create_db.dart';
 import 'package:puppy/log_in/log_in.dart';
 import 'package:sqflite/sqflite.dart';
-import 'dropdown/personNum.dart';
 import 'page/page1.dart';
 import 'page/page2.dart';
 import 'page/page3.dart';
 import 'package:http/http.dart' as http;
+
+var user_name = '';
 
 /*  
 需要倒入來使用網路與FutureBuilder
@@ -30,8 +31,8 @@ void main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]); //強制豎屏
 
   final Database db = await db_get.create_db();
-  var temp_user =
-      await db.rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
+  var temp_user = await db
+      .rawQuery('SELECT plan,user,name,id,MAX(datetime("date")) FROM USERE');
 
   Geolocator().getCurrentPosition();
 
@@ -85,6 +86,7 @@ void main() async {
       ),
     ));
   } else {
+    user_name = temp_user[0]['name'];
     db.close();
     runApp(MyApp());
   }
@@ -99,17 +101,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: '遊蕩犬調查'),
+      home: MyHomePage(),
       // routes: <String, WidgetBuilder>{'/TwoButtom': (_) => new TwobuttomPage()},
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key}) : super(key: key);
 
-  final String title;
-
+  String title = 'Hi~ $user_name';
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -144,16 +145,21 @@ class _MyHomePageState extends State<MyHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          FutureBuilder<Object>(
-                              future: user_data_get_list(),
-                              builder: (context, snapshot) {
-                                List<String> data = snapshot.data;
-                                return DropdownOfPerson(
-                                  callback: set_state,
-                                  user_data: data,
-                                  dropdownValue: data[0],
-                                );
-                              }),
+                          FlatButton(
+                            color: Colors.white,
+                            child: Text(
+                              '重新登入',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            onPressed: () async {
+                              var db = await db_get.create_db();
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return LoginPage(db: db);
+                              }));
+                            },
+                            textColor: Color(0xffDB6400),
+                          ), //k
                           SizedBox(
                             width: screen.width / 100 * 3,
                           ),

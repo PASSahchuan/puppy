@@ -566,7 +566,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
             body: jsonEncode(data),
           )
           .timeout(
-            Duration(seconds: 15),
+            Duration(seconds: 35),
             onTimeout: () => null,
           );
     } catch (text) {
@@ -614,7 +614,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                   onPressed: () {
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context) {
-                      return MyHomePage(title: '遊蕩犬調查');
+                      return MyHomePage();
                     }), (route) => false);
                   },
                 ),
@@ -675,7 +675,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) {
-                  return MyHomePage(title: '遊蕩犬調查');
+                  return MyHomePage();
                 }), (route) => false);
               },
             ),
@@ -691,7 +691,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) {
-                  return MyHomePage(title: '遊蕩犬調查');
+                  return MyHomePage();
                 }), (route) => false);
               },
             ),
@@ -707,7 +707,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) {
-                  return MyHomePage(title: '遊蕩犬調查');
+                  return MyHomePage();
                 }), (route) => false);
               },
             ),

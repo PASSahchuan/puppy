@@ -38,6 +38,7 @@ class db_get {
 	    (
        plan TEXT, 
        user TEXT,
+       name TEXT,
        id INT,
        date TEXT,
        primary key ( plan,user)
