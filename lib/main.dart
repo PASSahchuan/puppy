@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
 
-  String title = 'Hi~ $user_name';
+  String title = '哈羅~ $user_name';
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
