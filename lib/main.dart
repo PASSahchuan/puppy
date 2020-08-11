@@ -125,6 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var screen = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(widget.title),
         backgroundColor: Colors.deepOrange[300],
       ),
