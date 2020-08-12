@@ -145,20 +145,23 @@ class _MyHomePageState extends State<MyHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          FlatButton(
-                            color: Colors.white,
-                            child: Text(
-                              '重新登入',
-                              style: TextStyle(fontSize: 15),
+                          Container(
+                            width: screen.width / 100 * 20.4,
+                            child: FlatButton(
+                              color: Colors.white,
+                              child: Text(
+                                '重新登入',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              onPressed: () async {
+                                var db = await db_get.create_db();
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(builder: (context) {
+                                  return LoginPage(db: db);
+                                }));
+                              },
+                              textColor: Color(0xffDB6400),
                             ),
-                            onPressed: () async {
-                              var db = await db_get.create_db();
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (context) {
-                                return LoginPage(db: db);
-                              }));
-                            },
-                            textColor: Color(0xffDB6400),
                           ), //k
                           SizedBox(
                             width: screen.width / 100 * 3,

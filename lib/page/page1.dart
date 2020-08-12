@@ -9,26 +9,29 @@ class Page1 extends StatelessWidget {
   Map<String, dynamic> b;
   @override
   Widget build(BuildContext context) {
-    return Stack(children: <Widget>[
-      Image.file(File(b['img'])),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            b['date'].substring(0, 10),
-            style: TextStyle(
-                color: Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
-          ),
-          Text(b['city'] + b['district'] + b['village'],
+    return Container(
+      alignment: Alignment.center,
+      child: Stack(children: <Widget>[
+        Image.file(File(b['img'])),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              b['date'].substring(0, 10),
               style: TextStyle(
-                  color: Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19))),
-          Text(
-            'lon: ${b["lon"]}\nlat: ${b["lat"]}',
-            style: TextStyle(
-                color: Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
-          ),
-        ],
-      )
-    ]);
+                  color: Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
+            ),
+            Text(b['city'] + b['district'] + b['village'],
+                style: TextStyle(
+                    color: Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19))),
+            Text(
+              'lon: ${b["lon"]}\nlat: ${b["lat"]}',
+              style: TextStyle(
+                  color: Color.fromARGB((0.8 * 255).toInt(), 139, 69, 19)),
+            ),
+          ],
+        )
+      ]),
+    );
   }
 }
