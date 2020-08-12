@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
 
-  String title = '哈羅~ $user_name';
+  String title = '哈囉~ $user_name';
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -147,7 +147,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            width: screen.width / 100 * 20.4,
                             child: FlatButton(
                               color: Colors.white,
                               child: Text(
