@@ -111,12 +111,8 @@ class _LoginPageState extends State<LoginPage> {
         set_user(_plan.text, _user.text, temp_json_data['id'],
             temp_json_data['name']);
         user_name = temp_json_data['name'];
-        await showAlert(context, 1);
         db.close();
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) {
-          return MyApp();
-        }), (route) => false);
+        await showAlert(context, 1);
       } else {
         await showAlert(context, 3);
       }
@@ -131,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
           "INSERT INTO USERE VALUES ( $plan , $user , '$name', $id ,datetime('now'));");
     } catch (_) {
       db.update("USERE", {'date': 'datetime("now"))', 'id': '$id'},
-          where: "plan = $plan AND user = $user ");
+          where: "plan = $plan AND user = $user");
     }
   }
 
@@ -168,7 +164,10 @@ class _LoginPageState extends State<LoginPage> {
             FlatButton(
               child: Text('確定'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) {
+                  return MyApp();
+                }), (route) => false);
               },
             ),
           ],

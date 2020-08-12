@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
 
-  String title = 'Hi~ $user_name';
+  String title = '哈羅~ $user_name';
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -125,6 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var screen = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(widget.title),
         backgroundColor: Colors.deepOrange[300],
       ),
