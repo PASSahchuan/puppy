@@ -188,20 +188,30 @@ class _MyHomePage2State extends State<MyHomePage2> {
                         textAlign: TextAlign.start,
                       ),
                       Container(),
-                      DropdownOfDay(
-                        callback: this.callback,
-                        field: 'dayCount',
+                      TextField(
+                        // controller: _dayCount,
+                        autofocus: false,
                       ),
+                      // DropdownOfDay(
+                      //   callback: this.callback,
+                      //   field: 'dayCount',
+                      // ),
                       Container(),
                     ],
                   ),
                 ],
               ),
             ),
+            SizedBox(
+              height: 15,
+            ),
             Divider(
               color: Colors.blueGrey,
               indent: 20,
               endIndent: 20,
+            ),
+            SizedBox(
+              height: 15,
             ),
             Container(
               child: Column(
@@ -211,12 +221,28 @@ class _MyHomePage2State extends State<MyHomePage2> {
                     style: TextStyle(fontSize: 23, color: Color(0xff52616a)),
                     textAlign: TextAlign.center,
                   ),
-                  DropdownOfNumDog(
-                    callback: this.callback,
-                    field: 'dogCount',
+                  Container(
+                    width: screen.width / 100 * 30,
+                    child: TextField(
+                      // controller: _dogCount,
+
+                      autofocus: false,
+                      decoration: new InputDecoration(
+                        labelStyle: new TextStyle(
+                          color: Colors.deepOrangeAccent,
+                        ),
+                      ),
+                    ),
+                    // DropdownOfNumDog(
+                    //   callback: this.callback,
+                    //   field: 'dogCount',
+                    // ),
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 15,
             ),
             Container(
               child: Column(
@@ -226,10 +252,17 @@ class _MyHomePage2State extends State<MyHomePage2> {
                     style: TextStyle(fontSize: 23, color: Color(0xff52616a)),
                     textAlign: TextAlign.center,
                   ),
-                  DropdownOfNumDog(
-                    callback: this.callback,
-                    field: 'repeatCount',
+                  Container(
+                    width: 40,
+                    child: TextField(
+                      // controller: ,
+                      autofocus: false,
+                    ),
                   ),
+                  // DropdownOfNumDog(
+                  //   callback: this.callback,
+                  //   field: 'repeatCount',
+                  // ),
                 ],
               ),
             ),
