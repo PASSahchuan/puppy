@@ -189,6 +189,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                       ),
                       Container(),
                       TextField(
+                        keyboardType: TextInputType.number,
                         onChanged: (String text) {
                           _dayCount = text;
                         },
@@ -227,6 +228,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
                   Container(
                     width: screen.width / 100 * 30,
                     child: TextField(
+                      keyboardType: TextInputType.number,
+
                       // controller: _dogCount,
                       onChanged: (String text) {
                         _dogCount = text;
@@ -260,6 +263,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
                   Container(
                     width: 40,
                     child: TextField(
+                      keyboardType: TextInputType.number,
+
                       onChanged: (String text) {
                         _repeatCount = text;
                       },
