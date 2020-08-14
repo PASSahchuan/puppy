@@ -189,6 +189,9 @@ class _MyHomePage2State extends State<MyHomePage2> {
                       ),
                       Container(),
                       TextField(
+                        onChanged: (String text) {
+                          _dayCount = text;
+                        },
                         // controller: _dayCount,
                         autofocus: false,
                       ),
@@ -225,7 +228,9 @@ class _MyHomePage2State extends State<MyHomePage2> {
                     width: screen.width / 100 * 30,
                     child: TextField(
                       // controller: _dogCount,
-
+                      onChanged: (String text) {
+                        _dogCount = text;
+                      },
                       autofocus: false,
                       decoration: new InputDecoration(
                         labelStyle: new TextStyle(
@@ -255,6 +260,9 @@ class _MyHomePage2State extends State<MyHomePage2> {
                   Container(
                     width: 40,
                     child: TextField(
+                      onChanged: (String text) {
+                        _repeatCount = text;
+                      },
                       // controller: ,
                       autofocus: false,
                     ),
