@@ -37,7 +37,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
       _district = district_record,
       _vilage = village_record,
       _dayCount = '0',
-      _dogCount = '1',
+      _dogCount = '0',
       _repeatCount = '0';
   int id;
   double gps_lat = 0, gps_lon = 0;
@@ -384,6 +384,37 @@ class _MyHomePage2State extends State<MyHomePage2> {
   }
 
   void imageUpload() async {
+    print(_repeatCount);
+    print(_dayCount);
+    print(_dogCount);
+    if (_dogCount == '0' || int.parse(_dogCount) < int.parse(_repeatCount)) {
+      await showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('數據錯誤'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('遊蕩犬數量不能為0'),
+                  Text('照片中遊蕩犬重複數量不得大於原有數量'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
     bool gps_sw = false;
     if (gps_lat == 0 || gps_lon == 0) {
       await showDialog<void>(
