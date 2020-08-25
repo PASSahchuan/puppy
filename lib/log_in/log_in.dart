@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
         set_user(_plan.text, _user.text, temp_json_data['id'],
             temp_json_data['name']);
         user_name = temp_json_data['name'];
-        db.close();
+
         await showAlert(context, 1);
       } else {
         await showAlert(context, 3);
@@ -121,13 +121,15 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void set_user(String plan, String user, int id, String name) {
-    try {
+  void set_user(String plan, String user, int id, String name) async {
+    var user_data_is_in =
+        await db.query('USERE', where: "plan = '$plan' AND user = '$user'");
+    if (user_data_is_in == null || user_data_is_in.isEmpty) {
       db.execute(
-          "INSERT INTO USERE VALUES ( $plan , $user , '$name', $id ,datetime('now'));");
-    } catch (_) {
+          "INSERT INTO USERE VALUES ( '$plan' , '$user' , '$name', '$id' ,datetime('now'));");
+    } else {
       db.update("USERE", {'date': 'datetime("now"))', 'id': '$id'},
-          where: "plan = $plan AND user = $user");
+          where: "plan = '$plan' AND user = '$user'");
     }
   }
 
