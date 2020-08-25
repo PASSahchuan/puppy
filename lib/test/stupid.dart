@@ -8571,7 +8571,7 @@ List<String> getVillage(String city, String distinct) {
         '春林村',
         '過江村',
         '鐵店村',
-        '塔���村',
+        '塔樓村',
         '潮厝村',
         '茄苳村',
         '載興村',
