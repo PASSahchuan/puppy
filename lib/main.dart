@@ -338,7 +338,7 @@ class _MyHomePageState extends State<MyHomePage> {
         .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
     var data = await db.query("imagup",
         where:
-            'update_data = $sw AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}',
+            "update_data = $sw AND plan = '${user[0]["plan"]}' AND user = '${user[0]["user"]}'",
         orderBy: "datetime('date')");
     data = data.reversed.toList();
     print(_index);
@@ -417,7 +417,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (getJson['success']) {
       await db.update('imagup', {'update_data': 1},
           where:
-              'id = ${data[_index]["id"]} AND plan = ${data[_index]['plan']} AND user = ${data[_index]['user']}');
+              "id = ${data[_index]["id"]} AND plan = '${data[_index]['plan']}' AND user = '${data[_index]['user']}'");
       db.close();
       showDialog<void>(
         context: context,
@@ -451,7 +451,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () async {
                   await db.update('imagup', {'update_data': 1},
                       where:
-                          'id = ${data[_index]["id"]} AND plan = ${data[_index]['plan']} AND user = ${data[_index]['user']}');
+                          "id = ${data[_index]["id"]} AND plan = '${data[_index]['plan']}' AND user = '${data[_index]['user']}'");
                   Navigator.of(context).pop();
                 },
               ),
@@ -483,7 +483,7 @@ class _MyHomePageState extends State<MyHomePage> {
           .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
       var data = await db.query("imagup",
           where:
-              'update_data = $sw AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}',
+              "update_data = $sw AND plan = '${user[0]["plan"]}' AND user = '${user[0]["user"]}'",
           orderBy: "datetime('date')");
       print("長度-------------${data.length}");
       print("內容-------------${data}");
