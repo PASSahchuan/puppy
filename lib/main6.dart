@@ -564,7 +564,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
     var user = await db
         .rawQuery('SELECT plan,user,id,MAX(datetime("date")) FROM USERE');
     var imageData = await db.rawQuery(
-        'SELECT MAX(id) FROM imagup WHERE user = ${user[0]["user"]} AND plan = ${user[0]["plan"]}');
+        "SELECT MAX(id) FROM imagup WHERE user = '${user[0]["user"]}' AND plan = '${user[0]["plan"]}'");
     print('當前id===================${imageData[0]['MAX(id)']}=使用者 ${user}=====');
     try {
       if (imageData[0]['MAX(id)'] == null ||
@@ -593,7 +593,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
       );
       return null;
     }
-
+    print("596");
     // db.rawQuery('SELECT MAX(datetime("date")) FROM USERE');
     var data = {
       "id": id,
@@ -615,7 +615,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
       await db.insert("imagup", data);
       await db.update('imagup', {'img': widget.image},
           where:
-              'id = $id AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}');
+              "id = $id AND plan = '${user[0]["plan"]}' AND user = '${user[0]["user"]}'");
     } catch (text) {
       showDialog<void>(
         context: context,
@@ -683,7 +683,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
       if (getJson['success']) {
         await db.update('imagup', {'update_data': 1},
             where:
-                'id = $id AND plan = ${user[0]["plan"]} AND user = ${user[0]["user"]}');
+                "id = $id AND plan = '${user[0]["plan"]}' AND user = '${user[0]["user"]}'");
         showAlert(context, 1);
       } else {
         showDialog<void>(
