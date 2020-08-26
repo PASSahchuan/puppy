@@ -226,7 +226,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                     textAlign: TextAlign.center,
                   ),
                   Container(
-                    width: screen.width / 100 * 30,
+                    width: screen.width / 100 * 10,
                     child: TextField(
                       keyboardType: TextInputType.number,
 
@@ -261,7 +261,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                     textAlign: TextAlign.center,
                   ),
                   Container(
-                    width: 40,
+                    width: screen.width / 100 * 10,
                     child: TextField(
                       keyboardType: TextInputType.number,
 
