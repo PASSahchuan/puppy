@@ -189,6 +189,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                       ),
                       Container(),
                       TextField(
+                        style: TextStyle(color: Color(0xffD09E88)),
                         keyboardType: TextInputType.number,
                         onChanged: (String text) {
                           _dayCount = text;
@@ -226,8 +227,10 @@ class _MyHomePage2State extends State<MyHomePage2> {
                     textAlign: TextAlign.center,
                   ),
                   Container(
-                    width: screen.width / 100 * 10,
+                    width: screen.width / 100 * 15,
                     child: TextField(
+                      style: TextStyle(color: Color(0xffD09E88)),
+                      textAlign: TextAlign.center,
                       keyboardType: TextInputType.number,
 
                       // controller: _dogCount,
@@ -263,6 +266,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
                   Container(
                     width: screen.width / 100 * 10,
                     child: TextField(
+                      style: TextStyle(color: Color(0xffD09E88)),
+                      textAlign: TextAlign.center,
                       keyboardType: TextInputType.number,
 
                       onChanged: (String text) {
