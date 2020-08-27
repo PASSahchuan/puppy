@@ -123,6 +123,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var screen = MediaQuery.of(context).size;
+    print('screen');
+    print(screen.width);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -136,81 +138,86 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            child: FlatButton(
-                              color: Colors.white,
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              child: FlatButton(
+                                color: Colors.white,
+                                child: Text(
+                                  '重新登入',
+                                  style: TextStyle(
+                                      fontSize: screen.width / 414 * 12),
+                                ),
+                                onPressed: () async {
+                                  var db = await db_get.create_db();
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return LoginPage(db: db);
+                                  }));
+                                },
+                                textColor: Color(0xffDB6400),
+                              ),
+                            ), //k
+                            SizedBox(
+                              width: screen.width / 100 * 3,
+                            ),
+                            FlatButton(
+                              color: sw == 1 ? Color(0xffDB6400) : Colors.white,
                               child: Text(
-                                '重新登入',
-                                style: TextStyle(fontSize: 12),
+                                '已上傳',
+                                style: TextStyle(
+                                    fontSize: screen.width / 414 * 15),
                               ),
-                              onPressed: () async {
-                                var db = await db_get.create_db();
-                                Navigator.of(context)
-                                    .push(MaterialPageRoute(builder: (context) {
-                                  return LoginPage(db: db);
-                                }));
+                              onPressed: () {
+                                sw = 1;
+                                setState(() {});
                               },
-                              textColor: Color(0xffDB6400),
+                              textColor:
+                                  sw == 1 ? Colors.white : Color(0xffDB6400),
+                            ), //k
+                            FlatButton(
+                              color: sw == 0 ? Color(0xffDB6400) : Colors.white,
+                              child: Text(
+                                '未上傳',
+                                style: TextStyle(
+                                    fontSize: screen.width / 414 * 15),
+                              ),
+                              onPressed: () {
+                                sw = 0;
+                                setState(() {});
+                              },
+                              textColor:
+                                  sw == 0 ? Colors.white : Color(0xffDB6400),
                             ),
-                          ), //k
-                          SizedBox(
-                            width: screen.width / 100 * 3,
-                          ),
-                          FlatButton(
-                            color: sw == 1 ? Color(0xffDB6400) : Colors.white,
-                            child: Text(
-                              '已上傳',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            onPressed: () {
-                              sw = 1;
-                              setState(() {});
-                            },
-                            textColor:
-                                sw == 1 ? Colors.white : Color(0xffDB6400),
-                          ), //k
-                          FlatButton(
-                            color: sw == 0 ? Color(0xffDB6400) : Colors.white,
-                            child: Text(
-                              '未上傳',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            onPressed: () {
-                              sw = 0;
-                              setState(() {});
-                            },
-                            textColor:
-                                sw == 0 ? Colors.white : Color(0xffDB6400),
-                          ),
-                          SizedBox(
-                            width: screen.width / 100 * 10,
-                            height: screen.height / 100 * 4.5,
-                            // width: 40,
-                            // height: 40,
-                            child: FlatButton(
-                              textColor: Color(0xffDB6400),
-                              onPressed: get_album,
-                              child: Icon(
-                                Icons.add_photo_alternate,
-                                size: screen.width / 100 * 9,
+                            SizedBox(
+                              width: screen.width / 100 * 20,
+                              // width: 40,
+                              // height: 40,
+                              child: FlatButton(
+                                textColor: Color(0xffDB6400),
+                                onPressed: get_album,
+                                child: Icon(
+                                  Icons.add_photo_alternate,
+                                  size: screen.width / 100 * 9,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
               Container(
                 color: Colors.blue[50],
@@ -268,39 +275,44 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  sw == 1
-                      ? Container(
-                          width: 0,
-                          height: 0,
-                        )
-                      : RaisedButton(
-                          color: Color(0xffDB6400),
-                          child: Text(
-                            '照片上傳',
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.normal),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    sw == 1
+                        ? Container(
+                            width: 0,
+                            height: 0,
+                          )
+                        : RaisedButton(
+                            color: Color(0xffDB6400),
+                            child: Text(
+                              '照片上傳',
+                              style: TextStyle(
+                                  fontSize: screen.width / 414 * 22,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                            onPressed: sw == 0 ? upload : () {},
+                            textColor: Colors.white,
                           ),
-                          onPressed: sw == 0 ? upload : () {},
-                          textColor: Colors.white,
-                        ),
-                  SizedBox(
-                    width: sw == 1 ? 0 : 30,
-                  ),
-                  RaisedButton(
-                    color: Color(0xffDB6400),
-                    child: Text(
-                      '拍攝照片',
-                      style: TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.normal),
+                    SizedBox(
+                      width: sw == 1 ? 0 : 30,
                     ),
-                    onPressed: takePicture,
-                    textColor: Colors.white,
-                  )
-                ],
+                    RaisedButton(
+                      color: Color(0xffDB6400),
+                      child: Text(
+                        '拍攝照片',
+                        style: TextStyle(
+                            fontSize: screen.width / 414 * 22,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      onPressed: takePicture,
+                      textColor: Colors.white,
+                    )
+                  ],
+                ),
               ),
             ],
           ),
